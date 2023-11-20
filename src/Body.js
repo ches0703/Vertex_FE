@@ -14,10 +14,10 @@ export default function Body() {
 
 
         {/* Body Main Comp */}
-        <Grid xs={10} bgcolor="#2c2c2c" padding="15px">
+        <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
           <MainComp></MainComp>
         </Grid>
-        
+
       </Grid>
     </Box>
   )

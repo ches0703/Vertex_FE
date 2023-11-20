@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Button, Stack } from '@mui/material';
 import VideoCardList from '../Comp/VideoCardList';
-import CommuComp from '../Comp/CommuComp';
+import CommunityCardList from '../Comp/CommunityCardList';
 
 export default function MainComp() {
 
@@ -34,10 +34,10 @@ export default function MainComp() {
           Community
         </Button>
       </Stack>
-      
+
       {(mainOptSelect === "Video")
         ? <VideoCardList></VideoCardList>
-        : <CommuComp></CommuComp>}
+        : <CommunityCardList></CommunityCardList>}
       
     </Fragment>
   )
