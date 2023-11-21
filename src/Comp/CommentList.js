@@ -16,7 +16,7 @@ export default function CommentList() {
       </Typography>
 
       {/* Comment Write */}
-      <Box component="form">
+      <Box component="form" sx={{paddingBottom: "15px"}}>
         <TextField
           fullWidth
           color='white'
@@ -34,7 +34,8 @@ export default function CommentList() {
 
       {/* Commnet */}
       <Comment></Comment>
-      <Comment child={"Child"}></Comment>
+      <Comment hasReply={true}></Comment>
+      <Comment></Comment>
 
     </Stack>
   )

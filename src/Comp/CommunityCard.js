@@ -29,12 +29,12 @@ export default function CommunityCard() {
     <Stack alignItems="center" padding="5px 5px">
       
       {/* Card Hearder */}
-      <Card sx={{ minWidth:"500px", maxWidth: "50vw", borderRadius: "10px", padding: "15px" }}>
+      <Card sx={{ minWidth:"500px", maxWidth: "35vw", borderRadius: "10px", padding: "15px" }}>
         <Stack direction="row" alignItems="center">
           <Avatar sx={{width: "70px", height: "70px"}}>R</Avatar>
           <Stack marginLeft="16px" >
             <Typography variant="h6">
-              h6. Heading
+              {"Title"}
             </Typography>
             <Typography variant="caption" display="block" sx={{fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Author : {"User Name"}
