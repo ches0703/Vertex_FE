@@ -6,15 +6,9 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  Collapse,
   Avatar,
 } from '@mui/material';
-
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import HistoryIcon from '@mui/icons-material/History';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
+ 
 import AddIcon from '@mui/icons-material/Add';
 
 const testApi = () => {
@@ -26,7 +20,7 @@ const testApi = () => {
 export default function SubscribeCat() {
 
   const [subscribeList, setSubscribeList] = useState(["User0001", "User0002"])
-  
+
   const handleMoreBtn = () => {
     setSubscribeList(subscribeList.concat(testApi()))
   }
