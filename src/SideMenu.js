@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
-import MainCat from './MainCat';
-import VideoListCat from './VideoListCat';
+import MainCat from './SideMenu/MainCat';
+import VideoListCat from './SideMenu/VideoListCat';
 
 
 export default function SideMenu() {

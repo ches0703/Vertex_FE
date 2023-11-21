@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
-import SideMenu from './SideMenu/SideMenu';
+import SideMenu from './SideMenu';
 import MainComp from './BodyComp/MainComp';
 export default function Body() {
   return(
