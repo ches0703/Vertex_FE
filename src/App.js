@@ -1,7 +1,10 @@
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Provider } from 'react-redux';
+import store from './store';
 import Header from './Header';
 import Body from './Body';
+
 
 const theme = createTheme({
   
@@ -22,12 +25,14 @@ const theme = createTheme({
 function App() {
 
   return (
-    <CssBaseline>
-      <ThemeProvider theme={theme}>
-        <Header></Header>
-        <Body></Body>
-      </ThemeProvider>
-    </CssBaseline>
+    <Provider store={store}>
+      <CssBaseline>
+        <ThemeProvider theme={theme}>
+          <Header></Header>
+          <Body></Body>
+        </ThemeProvider>
+      </CssBaseline>
+    </Provider>
   );
 }
 
