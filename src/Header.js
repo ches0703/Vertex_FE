@@ -7,12 +7,20 @@ import { useState } from "react";
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
 import Login from "./Modal/LoginModal";
+import SignUpModal from "./Modal/SignUpModal";
+import LoginModal from "./Modal/LoginModal";
 
 export default function Header() {
   const [searchOpt, setSearchOpt] = useState("Title");
+
   const [loginOpen, setLoginOpen] = useState(false);
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
+
+  const [signUpOpen, setSignUpOpen] = useState(false);
+  const handleSignUpOpen = () => setSignUpOpen(true);
+  const handleSignUpClose = () => setSignUpOpen(false);
+
   const handleSearchOptChange = (event) => {
     setSearchOpt(event.target.value);
   };
@@ -107,14 +115,20 @@ export default function Header() {
           >
             Login
           </Button>
-          <Button variant="outlined" color="white" sx={{ height: "40px" }}>
+          <Button variant="outlined" color="white" sx={{ height: "40px" }} onClick={handleSignUpOpen}>
             Sign Up
           </Button>
           <DefaultModal
             open={loginOpen}
             onClose={handleLoginClose}
             title="Login"
-            children={Login}
+            children={LoginModal}
+          ></DefaultModal>
+          <DefaultModal
+            open={signUpOpen}
+            onClose={handleSignUpClose}
+            title="Sign Up"
+            children={SignUpModal}
           ></DefaultModal>
         </Box>
       </Stack>
