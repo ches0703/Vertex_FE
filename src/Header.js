@@ -1,9 +1,18 @@
-import { TextField, Box, Button, Stack, AppBar } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { changeMain, changeSub } from "./redux/CategoryReducer"
+import { 
+  TextField, 
+  Box, 
+  Button, 
+  Stack, 
+  AppBar,
+  MenuItem,
+  FormControl,
+  Select
+} from "@mui/material";
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
 import SignUpModal from "./Modal/SignUpModal";
@@ -34,6 +43,14 @@ export default function Header() {
     setOpenUploadModal(!openUploadModal);
   };
 
+  // For Logo Click event 
+  const dispatch = useDispatch();
+  const handleLogoClick = () => {
+    dispatch(changeMain("Main"));
+    dispatch(changeSub("Home"));
+  } 
+
+
   return (
     <AppBar
       position="sticky"
@@ -51,7 +68,12 @@ export default function Header() {
         sx={{ flexWrap: "wrap" }}
       >
         {/* Logo */}
-        <Box component="img" src="./Logo.png" sx={{ height: "20px" }}></Box>
+        <Box 
+          onClick={handleLogoClick}
+          component="img" 
+          src="./Logo.png" 
+          sx={{ height: "20px", cursor: "pointer" }}>
+        </Box>
 
         {/* Search */}
         <Box
