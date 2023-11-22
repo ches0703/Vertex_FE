@@ -6,7 +6,6 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { useState } from "react";
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
-import Login from "./Modal/LoginModal";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 

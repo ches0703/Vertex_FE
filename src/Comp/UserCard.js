@@ -2,16 +2,10 @@ import {
   Typography,
   Card,
   CardMedia,
-  CardContent,
   Avatar,
   Stack,
   Button,
-  Collapse
 } from '@mui/material';
-import CardActions from '@mui/material/CardActions';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommentIcon from '@mui/icons-material/Comment';
-import CommentList from './CommentList';
 
 export default function UserCard({ user }) {
   return (
@@ -66,9 +60,6 @@ export default function UserCard({ user }) {
         </Stack>
 
       </Stack>
-
-
-
     </Card>
   )
 }

@@ -9,6 +9,9 @@ import {
   Collapse
 } from '@mui/material';
 
+import { useDispatch } from 'react-redux';
+import { changeMain, changeSub } from "../redux/CategoryReducer"
+
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import HistoryIcon from '@mui/icons-material/History';
@@ -17,12 +20,19 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 
 export default function VideoListCat() {
 
+  const dispatch = useDispatch();
+  const [myVideoList, setMyVideoList] = useState(["List01", "List02"])
   const [myListOpen, setMyListOpen] = useState(false);
 
   const handleMyListOpen = () => {
     setMyListOpen(!myListOpen);
   };
 
+
+  const handleCategoryChainge = (sub) => {
+    dispatch(changeMain("VideoList"));
+    dispatch(changeSub(sub));
+  } 
 
   return (
     <Fragment>
@@ -32,8 +42,9 @@ export default function VideoListCat() {
           List
         </Typography>
 
+        {/* User's history */}
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {handleCategoryChainge("History")}}>
             <ListItemIcon>
               <HistoryIcon />
             </ListItemIcon>
@@ -41,8 +52,9 @@ export default function VideoListCat() {
           </ListItemButton>
         </ListItem>
 
+        {/* User's liked */}
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {handleCategoryChainge("Liked")}}>
             <ListItemIcon>
               <FavoriteIcon />
             </ListItemIcon>
@@ -58,18 +70,17 @@ export default function VideoListCat() {
           <ListItemText primary="My List" />
           {myListOpen ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
+
+        {/* User's Video Lsit(When user click More btn) */}
         <Collapse in={myListOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemText primary="My list 1" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton sx={{ pl: 4, }}>
-                <ListItemText primary="My list 2" />
-              </ListItemButton>
-            </ListItem>
+            {myVideoList.map((videoList) => {
+              return <ListItem disablePadding key={videoList}>
+                <ListItemButton sx={{ pl: 4 }} onClick={() => {handleCategoryChainge(videoList)}}>
+                  <ListItemText primary={videoList} />
+                </ListItemButton>
+              </ListItem>
+            })}
           </List>
         </Collapse>
       </List>

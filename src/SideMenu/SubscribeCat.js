@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { 
+import {
   List,
   ListItem,
   ListItemButton,
@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
- 
+
 import AddIcon from '@mui/icons-material/Add';
 
 const testApi = () => {
@@ -24,7 +24,7 @@ export default function SubscribeCat() {
   const handleCategoryChainge = (sub) => {
     dispatch(changeMain("Subscribe"));
     dispatch(changeSub(sub));
-  } 
+  }
 
   const [subscribeList, setSubscribeList] = useState(["User0001", "User0002"])
 
@@ -42,21 +42,21 @@ export default function SubscribeCat() {
 
         {subscribeList.map(user => {
           return <ListItem disablePadding key={user}>
-            <ListItemButton onClick={() => {handleCategoryChainge(user)}}>
+            <ListItemButton onClick={() => { handleCategoryChainge(user) }}>
               <ListItemIcon>
                 <Avatar alt={user} src="/static/images/avatar/1.jpg"
-                  sx={{width: "35px", height: "35px" }}
+                  sx={{ width: "35px", height: "35px" }}
                 />
               </ListItemIcon>
               <ListItemText primary={user} />
             </ListItemButton>
-        </ListItem>
+          </ListItem>
         })}
 
         <ListItem disablePadding>
           <ListItemButton onClick={handleMoreBtn}>
             <ListItemIcon >
-              <AddIcon sx={{width: "35px"}}/>
+              <AddIcon sx={{ width: "35px" }} />
             </ListItemIcon>
             <ListItemText primary="More" />
           </ListItemButton>
