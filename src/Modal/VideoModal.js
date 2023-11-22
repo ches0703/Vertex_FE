@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import {
-  Container,
+  IconButton,
   Box,
   Modal,
   Avatar,
@@ -10,15 +10,14 @@ import {
   Collapse,
   Stack
 } from "@mui/material";
-import CardActions from '@mui/material/CardActions';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
-
+import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 
 
-export default function VideoModal({ handleCloseMaodal }) {
+export default function VideoModal({ handleCloseModal }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
 
@@ -30,13 +29,14 @@ export default function VideoModal({ handleCloseMaodal }) {
   return (
     <Modal
       open={true}
-      onClose={handleCloseMaodal}
+      onClose={handleCloseModal}
       sx={{
         alignItems: "center",
         justifyContent: "center",
         color: "#FFFFFF"
       }}
     >
+      
       {/* Modal Window */}
       <Box
         sx={{
@@ -53,7 +53,7 @@ export default function VideoModal({ handleCloseMaodal }) {
           borderRadius: "10px",
         }}
       >
-
+        
         <Stack direction="row">
 
           <Box sx={{ width: "100%" }}>
@@ -132,8 +132,7 @@ export default function VideoModal({ handleCloseMaodal }) {
             variant="outlined"
             sx={{
               marginRight: "10px"
-            }}
-            startIcon={<FavoriteIcon />}>
+            }}>
             Like : {1234}
           </Button>
 
@@ -151,6 +150,10 @@ export default function VideoModal({ handleCloseMaodal }) {
         <Collapse in={commnetExpand} timeout="auto" unmountOnExit sx={{ marginTop: "15px" }}>
           <CommentList></CommentList>
         </Collapse>
+
+        <IconButton onClick={handleCloseModal} sx={{position: "absolute", top: "0px", right: "0px"}}>
+          <CloseIcon />
+        </IconButton>
 
       </Box>
     </Modal>
