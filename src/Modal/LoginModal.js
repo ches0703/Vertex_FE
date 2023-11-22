@@ -37,8 +37,8 @@ const LoginModal = () => {
         <Button
           type="submit"
           fullWidth
-          variant="contained"
-          color="black"
+          variant="outlined"
+          color="white"
           sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
         >
           Sign In

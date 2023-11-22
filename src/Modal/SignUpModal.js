@@ -42,7 +42,7 @@ const SignUpModal = () => {
     };
     const changeEmail = (e) => {
         if (e.target.value.length > 0 && !emailRegex.test(e.target.value)) {
-            setEmailMsg("올바른 이메일 형식이 아닙니다");
+            setEmailMsg("This is not a valid email format.");
             setIsEmail(false);
             return;
         } else {
@@ -52,7 +52,7 @@ const SignUpModal = () => {
     };
     const changePwd = (e) => {
         if (e.target.value.length > 0 && !passwordRegex.test(e.target.value)) {
-            setPwdMsg("숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요.");
+            setPwdMsg("Least 8 characters, and Must Contain numbers, English letters, and special characters.");
             setIsPwd(false);
             return;
         } else {
@@ -158,7 +158,7 @@ const SignUpModal = () => {
                 <Button
                     type="submit"
                     fullWidth
-                    variant="contained"
+                    variant="outlined"
                     color="black"
                     sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
                     disabled={!(isEmail && isPwd && isName)}
