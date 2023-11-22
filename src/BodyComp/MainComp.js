@@ -18,7 +18,6 @@ export default function MainComp() {
 
   return (
     <Fragment>
-      <h1>{category.sub}</h1>
       {/* Main Option Select Btn */}
       <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'

@@ -14,12 +14,12 @@ import VideoModal from '../Modal/VideoModal';
 export default function VideoCard() {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const handleOpenModal = () => [
+  const handleOpenModal = () => {
     setIsModalOpen(true)
-  ]
-  const handleCloseModal = () => [
+  }
+  const handleCloseModal = () => {
     setIsModalOpen(false)
-  ]
+  }
 
   return (
     <Fragment>
