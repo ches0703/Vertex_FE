@@ -1,47 +1,23 @@
 import {
-  Grid
+  Stack
 } from '@mui/material';
 import VideoCard from './VideoCard';
 
 export default function VideoCardList() {
   return (
-    <Grid container justifyContent="center" flexWrap="wrap">
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-      <Grid >
-        <VideoCard></VideoCard>
-      </Grid>
-    </Grid>
+    <Stack direction="row" justifyContent="center" flexWrap="wrap" padding="15px">
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+       <VideoCard></VideoCard>
+    </Stack>
   )
 }

@@ -31,7 +31,7 @@ export default function CommunityCard() {
       {/* Card Hearder */}
       <Card sx={{ minWidth:"500px", maxWidth: "35vw", borderRadius: "10px", padding: "15px" }}>
         <Stack direction="row" alignItems="center">
-          <Avatar sx={{width: "70px", height: "70px"}}>R</Avatar>
+          <Avatar src='' sx={{width: "70px", height: "70px"}}>R</Avatar>
           <Stack marginLeft="16px" >
             <Typography variant="h6">
               {"Title"}

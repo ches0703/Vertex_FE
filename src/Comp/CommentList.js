@@ -10,7 +10,7 @@ import Comment from './Commnet';
 
 export default function CommentList() {
   return (
-    <Stack>
+    <Stack sx={{color: "#FFFFFF"}}>
       <Typography variant="h6" gutterBottom>
         Comment
       </Typography>

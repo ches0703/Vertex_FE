@@ -68,7 +68,7 @@ export default function Comment({ isReply, hasReply }) {
             </Button>
 
           </Stack>
-          <Typography variant="body2">
+          <Typography variant="body2" color="white">
             {"This is Test Comment!!!"}
           </Typography>
 
