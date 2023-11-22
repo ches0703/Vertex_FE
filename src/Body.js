@@ -4,6 +4,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import SideMenu from './SideMenu';
 import MainComp from './BodyComp/MainComp';
 import SubscribeComp from './BodyComp/SubscribeComp';
+import VideoListComp from './BodyComp/VideoListComp';
 export default function Body() {
 
   const category = useSelector((state) => state.category)
@@ -22,6 +23,7 @@ export default function Body() {
         <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
           {(category.main === "Main") && <MainComp></MainComp>}
           {(category.main === "Subscribe") && <SubscribeComp></SubscribeComp>}
+          {(category.main === "VideoList") && <VideoListComp></VideoListComp>}
         </Grid>
 
       </Grid>
