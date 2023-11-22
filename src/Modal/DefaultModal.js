@@ -19,7 +19,7 @@ const DefaultModal = ({ open, onClose, title, children }) => {
         <Container
           maxWidth="lg"
           sx={{
-            width: "70vw",
+            width: "30vw",
             height: "auto",
             outline: "none",
             display: "flex",
