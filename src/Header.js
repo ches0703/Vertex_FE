@@ -4,13 +4,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { useState } from "react";
-
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
+import Login from "./Modal/LoginModal";
 
 export default function Header() {
   const [searchOpt, setSearchOpt] = useState("Title");
-
+  const [loginOpen, setLoginOpen] = useState(false);
+  const handleLoginOpen = () => setLoginOpen(true);
+  const handleLoginClose = () => setLoginOpen(false);
   const handleSearchOptChange = (event) => {
     setSearchOpt(event.target.value);
   };
@@ -101,12 +103,19 @@ export default function Header() {
             variant="outlined"
             color="white"
             sx={{ height: "40px", marginRight: "10px" }}
+            onClick={handleLoginOpen}
           >
             Login
           </Button>
           <Button variant="outlined" color="white" sx={{ height: "40px" }}>
-            Sign in
+            Sign Up
           </Button>
+          <DefaultModal
+            open={loginOpen}
+            onClose={handleLoginClose}
+            title="Login"
+            children={Login}
+          ></DefaultModal>
         </Box>
       </Stack>
     </AppBar>
