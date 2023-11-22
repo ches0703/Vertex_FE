@@ -1,8 +1,13 @@
+import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import SideMenu from './SideMenu';
 import MainComp from './BodyComp/MainComp';
+import SubscribeComp from './BodyComp/SubscribeComp';
 export default function Body() {
+
+  const category = useSelector((state) => state.category)
+
   return(
     <Box sx={{ flexGrow: 1,}}>
       <Grid container spacing={0} flexWrap="nowrap">
@@ -15,7 +20,8 @@ export default function Body() {
 
         {/* Body Main Comp */}
         <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
-          <MainComp></MainComp>
+          {(category.main == "Main") && <MainComp></MainComp>}
+          {(category.main == "Subscribe") && <SubscribeComp></SubscribeComp>}
         </Grid>
 
       </Grid>

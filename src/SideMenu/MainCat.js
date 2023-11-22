@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { 
   List,
   ListItem,
@@ -7,12 +7,22 @@ import {
   ListItemText,
   Typography
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { changeMain, changeSub } from "../redux/CategoryReducer"
 
 import HomeIcon from '@mui/icons-material/Home';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
 export default function MainCat() {
+
+  const dispatch = useDispatch();
+
+  const handleCategoryChainge = (sub) => {
+    dispatch(changeMain("Main"));
+    dispatch(changeSub(sub));
+  } 
+
   return (
     <Fragment>
       {/* Main */}
@@ -22,7 +32,7 @@ export default function MainCat() {
         </Typography>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {handleCategoryChainge("Home")}}>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -31,7 +41,7 @@ export default function MainCat() {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {handleCategoryChainge("Newest")}}>
             <ListItemIcon>
               <NewspaperIcon />
             </ListItemIcon>
@@ -40,7 +50,7 @@ export default function MainCat() {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => {handleCategoryChainge("Subscribe")}}>
             <ListItemIcon>
               <SubscriptionsIcon />
             </ListItemIcon>

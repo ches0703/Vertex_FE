@@ -1,7 +1,7 @@
 // User State Control
 import { createSlice } from '@reduxjs/toolkit';
 
-export const userSlice = createSlice({
+export const UserSlice = createSlice({
     // state's name
     name: "user",
     // init state
@@ -17,6 +17,6 @@ export const userSlice = createSlice({
     },
 });
 // It is use when you want change state
-export const { login } = userSlice.actions;
+export const { login } = UserSlice.actions;
 // exprot user's reducer
-export default userSlice.reducer;
+export default UserSlice.reducer;

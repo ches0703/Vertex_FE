@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './redux/userReducer';
+import UserReducer from './redux/UserReducer';
+import CategoryReducer from './redux/CategoryReducer';
 // that store contain all redux's reducer
 export default configureStore({
 	reducer: {
-    user: userReducer
+    user: UserReducer,
+    category: CategoryReducer
   }
 })
 

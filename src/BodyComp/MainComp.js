@@ -1,10 +1,11 @@
 import { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Stack } from '@mui/material';
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
 
 export default function MainComp() {
-
+  const category = useSelector((state) => state.category)
   const [mainOptSelect, setMainOptSelect] = useState("Video")
 
   const handleVideoSelect = () => {
@@ -17,7 +18,7 @@ export default function MainComp() {
 
   return (
     <Fragment>
-
+      <h1>{category.sub}</h1>
       {/* Main Option Select Btn */}
       <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'
