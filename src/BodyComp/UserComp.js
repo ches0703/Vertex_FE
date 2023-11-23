@@ -13,8 +13,9 @@ import { useSelector } from 'react-redux';
 import UserCard from '../Comp/UserCard';
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
+import VideoListCardList from '../Comp/VideoLsitCardList';
 
-export default function SubscribeComp() {
+export default function UserComp() {
 
   const category = useSelector((state) => state.category)
   const [searchOpt, setSearchOpt] = useState("Title");
@@ -120,7 +121,7 @@ export default function SubscribeComp() {
       </Stack>
 
       {(select === "Video") && <VideoCardList></VideoCardList>}
-      {(select === "VideoList") && <h1>VideoList</h1>}
+      {(select === "VideoList") && <VideoListCardList></VideoListCardList>}
       {(select === "Community") && <CommunityCardList></CommunityCardList>}
       {(select === "UploadedPost") && <CommunityCardList></CommunityCardList>}
 

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Unstable_Grid2';
 import SideMenu from './SideMenu';
 import MainComp from './BodyComp/MainComp';
-import SubscribeComp from './BodyComp/SubscribeComp';
+import UserComp from './BodyComp/UserComp';
 import VideoListComp from './BodyComp/VideoListComp';
 export default function Body() {
 
@@ -22,7 +22,7 @@ export default function Body() {
         {/* Body Main Comp */}
         <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
           {(category.main === "Main") && <MainComp></MainComp>}
-          {(category.main === "Subscribe") && <SubscribeComp></SubscribeComp>}
+          {(category.main === "Subscribe") && <UserComp></UserComp>}
           {(category.main === "VideoList") && <VideoListComp></VideoListComp>}
         </Grid>
 
