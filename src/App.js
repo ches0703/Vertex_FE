@@ -27,6 +27,9 @@ const theme = createTheme({
     },
     red: {
       main: "#FF7777"
+    },
+    error: {
+      main: "#FF7777"
     }
 
   },
