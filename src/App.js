@@ -18,7 +18,17 @@ const theme = createTheme({
     },
     white: {
       main: "#FFFFFF"
+    },
+    blue: {
+      main: "#BBD2FF"
+    },
+    yellow: {
+      main: "#F6FFBE"
+    },
+    red: {
+      main: "#FF7777"
     }
+
   },
 });
 
