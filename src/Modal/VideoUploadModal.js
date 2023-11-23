@@ -6,6 +6,7 @@ import {
   Box,
   Select,
   MenuItem,
+  Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 
@@ -32,7 +33,7 @@ const reducer = (state, action) => {
   }
 };
 
-const VideoUpload = () => {
+const VideoUploadModal = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { thumbnail, video } = state;
 
@@ -44,102 +45,74 @@ const VideoUpload = () => {
   };
 
   return (
-    <>
+    <Stack spacing={2}>
       {/* Video Upload Data */}
       <Box className="Video Name">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Video Name
         </Typography>
+
         <TextField
           label="Video Name"
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-            width: "100%",
-          }}
+          fullWidth
+          sx={{marginTop: "5px",}}
         />
       </Box>
       <Box className="Video Summary">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Video Summary
         </Typography>
         <TextField
           label="Video Summary"
           multiline
           rows={5}
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-            width: "100%",
-          }}
+          fullWidth
+          sx={{marginTop: "5px", }}
         />
       </Box>
 
+      {/* Thumbnail uplaod Btn */}
       <Box className="Thumbnail Image">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Thumbnail Image
         </Typography>
         <MuiFileInput
           id="Thumbnail Image"
+          size="small"
           value={thumbnail}
           inputProps={{ accept: "image/*" }}
           onChange={(e) => handleChange(e, THUMBNAIL)}
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-          }}
+          sx={{ marginTop: "5px", }}
         />
       </Box>
+
+      {/* Video Upload Btn */}
       <Box className="Video">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Video
         </Typography>
         <MuiFileInput
           id="Video"
+          size="small"
           value={video}
           inputProps={{ accept: "video/*" }}
           onChange={(e) => handleChange(e, VIDEO)}
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-          }}
+          sx={{ marginTop: "5px", }}
         />
       </Box>
+
+
       <Box className="Specifiy Video List">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Specifiy Video List
         </Typography>
         <Select
           id="Specifiy Video List"
+          size="small"
+          color="white"
           sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-            width: "364px",
+            width: "30%",
+            marginTop: "5px",
           }}
         >
           <MenuItem value="">
@@ -148,6 +121,7 @@ const VideoUpload = () => {
         </Select>
       </Box>
 
+      {/* Bottom Btn */}
       <Box
         className="Video Button"
         sx={{
@@ -159,25 +133,21 @@ const VideoUpload = () => {
       >
         <Button
           variant="outlined"
-          sx={{
-            width: "90%",
-          }}
+          fullWidth
         >
           Upload / Update Video
         </Button>
         <div style={{ width: "1%" }}></div>
         <Button
           variant="outlined"
-          sx={{
-            width: "9%",
-          }}
           color="error"
+          fullWidth
         >
           Cancel
         </Button>
       </Box>
-    </>
+    </Stack>
   );
 };
 
-export default VideoUpload;
+export default VideoUploadModal;

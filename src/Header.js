@@ -12,10 +12,9 @@ import {
   Select,
 } from "@mui/material";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 
 import DefaultModal from "./Modal/DefaultModal";
-import VideoUpload from "./Modal/VideoUpload";
+import VideoUploadModal from "./Modal/VideoUploadModal";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
@@ -126,7 +125,7 @@ export default function Header() {
             open={openUploaVideoModal}
             onClose={handleVideoUploadModal}
             title={"Upload Vedio"}
-            children={VideoUpload}
+            children={VideoUploadModal}
           />
 
           <Button

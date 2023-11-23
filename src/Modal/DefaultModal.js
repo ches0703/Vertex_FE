@@ -18,19 +18,18 @@ const DefaultModal = ({ open, onClose, title, children }) => {
       >
         <Container
           sx={{
-            width: "40vw",
+            width: "50vw",
             height: "auto",
             outline: "none",
             display: "flex",
             backgroundColor: "#2c2c2c",
           }}
         >
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: "100%", padding: "20px 0px"}}>
             <Typography
               variant="h4"
               sx={{
                 color: "#FFFFFF",
-                marginTop: 2,
                 marginBottom: 2,
               }}
             >
