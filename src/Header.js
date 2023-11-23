@@ -16,7 +16,6 @@ import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
-import PostUpload from "./Modal/PostUpload";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
@@ -33,16 +32,6 @@ export default function Header() {
 
   const handleSearchOptChange = (event) => {
     setSearchOpt(event.target.value);
-  };
-
-  /**
-   * handling Upload Btn_Pst
-   */
-  const [openUploaPostModal, setOpenUploadPostModal] = useState(false);
-  const handlePostUploadModal = () => {
-    // 1. 인증 유효 검사
-    // 2. 모달창 Open
-    setOpenUploadPostModal(!openUploaPostModal);
   };
 
   /**
@@ -122,23 +111,7 @@ export default function Header() {
 
         {/* Account Btn */}
         <Box>
-          {/* Upload Pst */}
-          <Button
-            variant="outlined"
-            color="white"
-            sx={{ height: "40px", marginRight: "10px" }}
-            onClick={handlePostUploadModal}
-          >
-            <PostAddOutlinedIcon />
-          </Button>
-          {/* Upload Mdl_Pst */}
-          <DefaultModal
-            open={openUploaPostModal}
-            onClose={handlePostUploadModal}
-            title={"Upload Post"}
-            children={PostUpload}
-          />
-
+          
           {/* Upload Vd */}
           <Button
             variant="outlined"

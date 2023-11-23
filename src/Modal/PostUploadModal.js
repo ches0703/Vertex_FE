@@ -33,7 +33,7 @@ import { useState } from "react";
 //   }
 // };
 
-const PostUpload = () => {
+const PostUploadModal = () => {
   //   const [state, dispatch] = useReducer(reducer, initialState);
   //   const { thumbnail, video } = state;
 
