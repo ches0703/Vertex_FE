@@ -46,7 +46,7 @@ const VideoUploadModal = (onClose, title) => {
 
   return (
     <Stack spacing={2}>
-      {/* Video Upload Data */}
+      {/* Video Title */}
       <Box className="Video Name">
         <Typography sx={{ color: "#FFFFFF", }}>
           Video Name
@@ -59,6 +59,8 @@ const VideoUploadModal = (onClose, title) => {
           sx={{marginTop: "5px",}}
         />
       </Box>
+
+      {/* Video Description */}
       <Box className="Video Summary">
         <Typography sx={{ color: "#FFFFFF", }}>
           Video Summary
@@ -106,7 +108,7 @@ const VideoUploadModal = (onClose, title) => {
         />
       </Box>
 
-
+      {/* Append Video List */}
       <Box className="Specifiy Video List">
         <Typography sx={{ color: "#FFFFFF", }}>
           Specifiy Video List
@@ -126,6 +128,7 @@ const VideoUploadModal = (onClose, title) => {
 
       {/* Bottom Btn */}
       <Stack direction="row" spacing={2}>
+        {/* Apply */}
         <Button
           variant="outlined"
           color="blue"
@@ -133,6 +136,7 @@ const VideoUploadModal = (onClose, title) => {
         >
           {title}
         </Button>
+        {/* Cancel */}
         <Button
           variant="outlined"
           color="red"

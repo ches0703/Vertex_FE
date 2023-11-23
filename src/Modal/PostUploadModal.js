@@ -4,8 +4,7 @@ import {
   TextField,
   Typography,
   Box,
-  Select,
-  MenuItem,
+  Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 import { useState } from "react";
@@ -33,7 +32,7 @@ import { useState } from "react";
 //   }
 // };
 
-const PostUploadModal = () => {
+const PostUploadModal = (onClose, title) => {
   //   const [state, dispatch] = useReducer(reducer, initialState);
   //   const { thumbnail, video } = state;
 
@@ -50,62 +49,40 @@ const PostUploadModal = () => {
   };
 
   return (
-    <>
-      {/* Video Upload Data */}
+    <Stack spacing={2}>
+      {/* Post Title */}
       <Box className="Post title">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Post title
         </Typography>
         <TextField
-          label="Post title"
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-            width: "100%",
-          }}
+          fullWidth
+          color="white"
+          size="small"
+          sx={{marginTop: "5px",}}
         />
       </Box>
 
+      {/* Post Body */}
       <Box className="Post Detail">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Post Detail
         </Typography>
         <TextField
-          label="Post Detail"
           multiline
           rows={5}
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-            width: "100%",
-          }}
+          fullWidth
+          color="white"
+          sx={{marginTop: "5px", }}
         />
       </Box>
 
       <Box className="Hash Tag">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Hash Tag
         </Typography>
         <TextField
-          label="Hash Tag"
           sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
             width: "100%",
           }}
           InputProps={{
@@ -113,6 +90,7 @@ const PostUploadModal = () => {
               <Button
                 variant="outlined"
                 size="small"
+                color="white"
                 sx={{ marginLeft: "10px", width: "150px" }}
               >
                 Append Tag
@@ -122,13 +100,9 @@ const PostUploadModal = () => {
         />
       </Box>
 
+      {/* Thumbnail uplaod Btn */}
       <Box className="Thumbnail Image">
-        <Typography
-          sx={{
-            color: "#FFFFFF",
-            marginTop: 2,
-          }}
-        >
+        <Typography sx={{ color: "#FFFFFF", }}>
           Thumbnail Image
         </Typography>
         <MuiFileInput
@@ -136,42 +110,34 @@ const PostUploadModal = () => {
           value={thumbnail}
           inputProps={{ accept: "image/*" }}
           onChange={(e) => handleChange(e)}
-          sx={{
-            marginTop: 0.5,
-            marginBottom: 2,
-          }}
+          size="small"
+          fullWidth
+          color="white"
+          sx={{ marginTop: "5px", }}
         />
       </Box>
 
-      <Box
-        className="Post Button"
-        sx={{
-          marginTop: 2,
-          marginBottom: 2,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      {/* Bottom Btn */}
+      <Stack direction="row" spacing={2}>
+        {/* Apply */}
         <Button
           variant="outlined"
-          sx={{
-            width: "90%",
-          }}
+          color="blue"
+          sx={{flexGrow: "7"}}
         >
-          Upload / Update Post
+          {title}
         </Button>
-        <div style={{ width: "1%" }}></div>
+        {/* Cancel */}
         <Button
           variant="outlined"
-          sx={{
-            width: "9%",
-          }}
-          color="error"
+          color="red"
+          sx={{flexGrow: "3"}}
+          onClick={onClose}
         >
           Cancel
         </Button>
-      </Box>
-    </>
+      </Stack>
+    </Stack>
   );
 };
 
