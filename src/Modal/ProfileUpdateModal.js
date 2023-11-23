@@ -1,12 +1,5 @@
 import { useReducer } from "react";
-import {
-  Button,
-  TextField,
-  Typography,
-  Box,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 
 const PROFILE = "PROFILE";
@@ -32,7 +25,7 @@ const reducer = (state, action) => {
   }
 };
 
-const ProfileUpdate = (onClose, title) => {
+const ProfileUpdateModal = (onClose, title) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { profile, channelCard } = state;
 
@@ -189,4 +182,4 @@ const ProfileUpdate = (onClose, title) => {
   );
 };
 
-export default ProfileUpdate;
+export default ProfileUpdateModal;
