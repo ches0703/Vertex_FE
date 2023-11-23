@@ -33,7 +33,7 @@ const reducer = (state, action) => {
   }
 };
 
-const VideoUploadModal = () => {
+const VideoUploadModal = (onClose) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { thumbnail, video } = state;
 
@@ -53,8 +53,9 @@ const VideoUploadModal = () => {
         </Typography>
 
         <TextField
-          label="Video Name"
           fullWidth
+          color="white"
+          size="small"
           sx={{marginTop: "5px",}}
         />
       </Box>
@@ -63,10 +64,10 @@ const VideoUploadModal = () => {
           Video Summary
         </Typography>
         <TextField
-          label="Video Summary"
           multiline
           rows={5}
           fullWidth
+          color="white"
           sx={{marginTop: "5px", }}
         />
       </Box>
@@ -78,10 +79,12 @@ const VideoUploadModal = () => {
         </Typography>
         <MuiFileInput
           id="Thumbnail Image"
-          size="small"
           value={thumbnail}
           inputProps={{ accept: "image/*" }}
           onChange={(e) => handleChange(e, THUMBNAIL)}
+          size="small"
+          fullWidth
+          color="white"
           sx={{ marginTop: "5px", }}
         />
       </Box>
@@ -93,10 +96,12 @@ const VideoUploadModal = () => {
         </Typography>
         <MuiFileInput
           id="Video"
-          size="small"
           value={video}
           inputProps={{ accept: "video/*" }}
           onChange={(e) => handleChange(e, VIDEO)}
+          size="small"
+          fullWidth
+          color="white"
           sx={{ marginTop: "5px", }}
         />
       </Box>
@@ -110,10 +115,8 @@ const VideoUploadModal = () => {
           id="Specifiy Video List"
           size="small"
           color="white"
-          sx={{
-            width: "30%",
-            marginTop: "5px",
-          }}
+          fullWidth
+          sx={{ marginTop: "5px", }}
         >
           <MenuItem value="">
             <em>None</em>
@@ -122,30 +125,23 @@ const VideoUploadModal = () => {
       </Box>
 
       {/* Bottom Btn */}
-      <Box
-        className="Video Button"
-        sx={{
-          marginTop: 2,
-          marginBottom: 2,
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
+      <Stack direction="row" spacing={2}>
         <Button
           variant="outlined"
-          fullWidth
+          color="blue"
+          sx={{flexGrow: "7"}}
         >
           Upload / Update Video
         </Button>
-        <div style={{ width: "1%" }}></div>
         <Button
           variant="outlined"
-          color="error"
-          fullWidth
+          color="red"
+          sx={{flexGrow: "3"}}
+          onClick={onClose}
         >
           Cancel
         </Button>
-      </Box>
+      </Stack>
     </Stack>
   );
 };
