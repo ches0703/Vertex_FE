@@ -33,7 +33,7 @@ const reducer = (state, action) => {
   }
 };
 
-const VideoUploadModal = (onClose) => {
+const VideoUploadModal = (onClose, title) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { thumbnail, video } = state;
 
@@ -131,7 +131,7 @@ const VideoUploadModal = (onClose) => {
           color="blue"
           sx={{flexGrow: "7"}}
         >
-          Upload / Update Video
+          {title}
         </Button>
         <Button
           variant="outlined"

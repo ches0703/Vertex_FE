@@ -35,7 +35,7 @@ const DefaultModal = ({ open, onClose, title, children }) => {
             >
               {title}
             </Typography>
-            {children(onClose)}
+            {children(onClose, title)}
           </Box>
         </Container>
       </Modal>
