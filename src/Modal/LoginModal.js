@@ -1,17 +1,9 @@
-import {
-  Box,
-  Button,
-  TextField,
-} from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 const LoginModal = () => {
   return (
     <div>
-      <Box
-        component="form"
-        noValidate
-        sx={{ mt: 1, pd: 0 }}
-      >
+      <Box component="form" noValidate sx={{ mt: 1, pd: 0 }}>
         <TextField
           margin="normal"
           required

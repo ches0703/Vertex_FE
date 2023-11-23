@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { changeMain, changeSub } from "./redux/CategoryReducer"
-import { 
-  TextField, 
-  Box, 
-  Button, 
-  Stack, 
+import { useDispatch } from "react-redux";
+import { changeMain, changeSub } from "./redux/CategoryReducer";
+import {
+  TextField,
+  Box,
+  Button,
+  Stack,
   AppBar,
   MenuItem,
   FormControl,
-  Select
+  Select,
 } from "@mui/material";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUpload from "./Modal/VideoUpload";
+import PostUpload from "./Modal/PostUpload";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
@@ -34,22 +36,31 @@ export default function Header() {
   };
 
   /**
-   * handling Upload Btn
+   * handling Upload Btn_Pst
    */
-  const [openUploadModal, setOpenUploadModal] = useState(false);
+  const [openUploaPostModal, setOpenUploadPostModal] = useState(false);
+  const handlePostUploadModal = () => {
+    // 1. 인증 유효 검사
+    // 2. 모달창 Open
+    setOpenUploadPostModal(!openUploaPostModal);
+  };
+
+  /**
+   * handling Upload Btn_Vd
+   */
+  const [openUploaVideoModal, setOpenUploadVideoModal] = useState(false);
   const handleVideoUploadModal = () => {
     // 1. 인증 유효 검사
     // 2. 모달창 Open
-    setOpenUploadModal(!openUploadModal);
+    setOpenUploadVideoModal(!openUploaVideoModal);
   };
 
-  // For Logo Click event 
+  // For Logo Click event
   const dispatch = useDispatch();
   const handleLogoClick = () => {
     dispatch(changeMain("Main"));
     dispatch(changeSub("Home"));
-  } 
-
+  };
 
   return (
     <AppBar
@@ -68,12 +79,12 @@ export default function Header() {
         sx={{ flexWrap: "wrap" }}
       >
         {/* Logo */}
-        <Box 
+        <Box
           onClick={handleLogoClick}
-          component="img" 
-          src="./Logo.png" 
-          sx={{ height: "20px", cursor: "pointer" }}>
-        </Box>
+          component="img"
+          src="./Logo.png"
+          sx={{ height: "20px", cursor: "pointer" }}
+        ></Box>
 
         {/* Search */}
         <Box
@@ -111,7 +122,24 @@ export default function Header() {
 
         {/* Account Btn */}
         <Box>
-          {/* Upload Btn */}
+          {/* Upload Pst */}
+          <Button
+            variant="outlined"
+            color="white"
+            sx={{ height: "40px", marginRight: "10px" }}
+            onClick={handlePostUploadModal}
+          >
+            <PostAddOutlinedIcon />
+          </Button>
+          {/* Upload Mdl_Pst */}
+          <DefaultModal
+            open={openUploaPostModal}
+            onClose={handlePostUploadModal}
+            title={"Upload Post"}
+            children={PostUpload}
+          />
+
+          {/* Upload Vd */}
           <Button
             variant="outlined"
             color="white"
@@ -120,9 +148,9 @@ export default function Header() {
           >
             <FileUploadOutlinedIcon />
           </Button>
-          {/* Upload Mdl */}
+          {/* Upload Mdl_Vd */}
           <DefaultModal
-            open={openUploadModal}
+            open={openUploaVideoModal}
             onClose={handleVideoUploadModal}
             title={"Upload Vedio"}
             children={VideoUpload}
@@ -136,7 +164,12 @@ export default function Header() {
           >
             Login
           </Button>
-          <Button variant="outlined" color="white" sx={{ height: "40px" }} onClick={handleSignUpOpen}>
+          <Button
+            variant="outlined"
+            color="white"
+            sx={{ height: "40px" }}
+            onClick={handleSignUpOpen}
+          >
             Sign Up
           </Button>
           <DefaultModal
