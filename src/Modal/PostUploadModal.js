@@ -175,4 +175,4 @@ const PostUploadModal = () => {
   );
 };
 
-export default PostUpload;
+export default PostUploadModal;
