@@ -9,7 +9,8 @@ import {
   Select
 } from "@mui/material";
 import { useSelector } from 'react-redux';
-
+import DefaultModal from '../Modal/DefaultModal';
+import PostUpload from '../Modal/PostUploadModal';
 import UserCard from '../Comp/UserCard';
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
@@ -20,6 +21,7 @@ export default function UserComp() {
   const category = useSelector((state) => state.category)
   const [searchOpt, setSearchOpt] = useState("Title");
   const [select, setSelect] = useState("Video")
+  const [isPostUplaodModalOpen, setIsPostUplaodModalOpen] = useState(false)
 
   const handleSelect = (select) => {
     setSelect(select)
@@ -28,6 +30,14 @@ export default function UserComp() {
   const handleSearchOptChange = (event) => {
     setSearchOpt(event.target.value);
   };
+
+  const handlePostUploadOpne = () => {
+    setIsPostUplaodModalOpen(true)
+  }
+
+  const handlePostUploadClose = () => {
+    setIsPostUplaodModalOpen(false)
+  }
 
   return (
     <Stack spacing={2}>
@@ -113,10 +123,17 @@ export default function UserComp() {
           sx={{ width:"150px" }}
           color='white'
           variant="outlined"
-          onClick={() => { }}>
+          onClick={handlePostUploadOpne}>
           Upload Post
         </Button>}
 
+        {/* Upload Mdl_Pst */}
+        <DefaultModal
+          open={isPostUplaodModalOpen}
+          onClose={handlePostUploadClose}
+          title={"Upload Post"}
+          children={PostUpload}
+        />
 
       </Stack>
 
@@ -124,7 +141,6 @@ export default function UserComp() {
       {(select === "VideoList") && <VideoListCardList></VideoListCardList>}
       {(select === "Community") && <CommunityCardList></CommunityCardList>}
       {(select === "UploadedPost") && <CommunityCardList></CommunityCardList>}
-
 
 
     </Stack>
