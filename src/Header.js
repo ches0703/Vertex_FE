@@ -18,6 +18,9 @@ import VideoUploadModal from "./Modal/VideoUploadModal";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
+// for test button
+import AccountSettingModal from "./Modal/AccountSettingModal";
+
 export default function Header() {
   const [searchOpt, setSearchOpt] = useState("Title");
 
@@ -32,6 +35,12 @@ export default function Header() {
   const handleSearchOptChange = (event) => {
     setSearchOpt(event.target.value);
   };
+
+  /**
+   * handling Upload Btn_Vd
+   */
+  const [openTestModal, setOpenTestModal] = useState(false);
+  const handleTestModal = () => setOpenTestModal(!openTestModal);
 
   /**
    * handling Upload Btn_Vd
@@ -110,7 +119,22 @@ export default function Header() {
 
         {/* Account Btn */}
         <Box>
-          
+          {/* Test */}
+          <Button
+            variant="outlined"
+            color="white"
+            sx={{ height: "40px", marginRight: "10px" }}
+            onClick={handleTestModal}
+          >
+            Test
+          </Button>
+          <DefaultModal
+            open={openTestModal}
+            onClose={handleTestModal}
+            title={"Account Setting"}
+            children={AccountSettingModal}
+          />
+
           {/* Upload Vd */}
           <Button
             variant="outlined"
