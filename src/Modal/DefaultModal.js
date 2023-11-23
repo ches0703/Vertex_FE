@@ -23,6 +23,7 @@ const DefaultModal = ({ open, onClose, title, children }) => {
             outline: "none",
             display: "flex",
             backgroundColor: "#2c2c2c",
+            borderRadius: "10px"
           }}
         >
           <Box sx={{ width: "100%", padding: "20px 0px"}}>
