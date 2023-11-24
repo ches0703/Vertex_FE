@@ -10,18 +10,27 @@ import {
 } from "@mui/material";
 import { useSelector } from 'react-redux';
 import DefaultModal from '../Modal/DefaultModal';
-import PostUpload from '../Modal/PostUploadModal';
+import PostUploadModal from '../Modal/PostUploadModal';
 import UserCard from '../Comp/UserCard';
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
 import VideoListCardList from '../Comp/VideoLsitCardList';
+import AccountSettingModal from '../Modal/AccountSettingModal';
+
+// Category Values
+const VIDEO = "V"
+const VIDEO_LIST = "L"
+const COMMUNITY = "C"
+const UPLOADED_POST = "U"
+
 
 export default function UserComp() {
 
   const category = useSelector((state) => state.category)
   const [searchOpt, setSearchOpt] = useState("Title");
-  const [select, setSelect] = useState("Video")
-  const [isPostUplaodModalOpen, setIsPostUplaodModalOpen] = useState(false)
+  const [select, setSelect] = useState(VIDEO)
+
+
 
   const handleSelect = (select) => {
     setSelect(select)
@@ -31,13 +40,19 @@ export default function UserComp() {
     setSearchOpt(event.target.value);
   };
 
-  const handlePostUploadOpne = () => {
-    setIsPostUplaodModalOpen(true)
-  }
+  const handleTestModal = () => {
 
-  const handlePostUploadClose = () => {
-    setIsPostUplaodModalOpen(false)
-  }
+  };
+
+  // PostUpload Modal Handler
+  const [isPostUplaodModalOpen, setIsPostUplaodModalOpen] = useState(false)
+  const handlePostUploadOpne = () => { setIsPostUplaodModalOpen(true) }
+  const handlePostUploadClose = () => { setIsPostUplaodModalOpen(false) }
+
+  // Account Setting Modal Handler
+  const [isAccountSettingOpen, setIsAccountSettingOpen] = useState(false);
+  const handleAccounSettingOpen = () => { setIsAccountSettingOpen(true) }
+  const handleAccounSettingClose = () => { setIsAccountSettingOpen(false) }
 
   return (
     <Stack spacing={2}>
@@ -46,45 +61,45 @@ export default function UserComp() {
       {/* Btns : Video, Video List, Community */}
       <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("Video") }}
+          onClick={() => { handleSelect(VIDEO) }}
           sx={{ height: "40px", }}>
           Video
         </Button>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("VideoList") }}
+          onClick={() => { handleSelect(VIDEO_LIST) }}
           sx={{ height: "40px" }}>
           Video List
         </Button>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("Community") }}
+          onClick={() => { handleSelect(COMMUNITY) }}
           sx={{ height: "40px" }}>
           Community
         </Button>
       </Stack>
 
-      {/* Account Setting Btns : Uploaded Post, Update Profile, Account Setting */}
       <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("UploadedPost") }}
+          onClick={() => { handleSelect(UPLOADED_POST) }}
           sx={{ height: "40px", }}>
           Uploaded Post
         </Button>
+        {/* Account Setting Btns : Update Profile, Account Setting */}
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("UpdateProfile") }}
+          onClick={() => {}}
           sx={{ height: "40px" }}>
           Update Profile
         </Button>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect("AccountSetting") }}
+          onClick={handleAccounSettingOpen}
           sx={{ height: "40px" }}>
           Account Setting
         </Button>
       </Stack>
 
       {/* Search */}
-      <Stack direction="row-reverse" sx={{justifyContent: "space-between"}}>
+      <Stack direction="row-reverse" sx={{ justifyContent: "space-between" }}>
 
-        
+
         <Box
           component="form"
           sx={{ display: "flex", width: "40vw", minWidth: "400px" }}
@@ -118,29 +133,49 @@ export default function UserComp() {
           ></TextField>
         </Box>
 
-        {(select === "Community") && <Button
+        {/* Btn */}
+        {(select === COMMUNITY) && <Button
           fullWidth
-          sx={{ width:"150px" }}
+          sx={{ width: "150px" }}
           color='white'
           variant="outlined"
           onClick={handlePostUploadOpne}>
           Upload Post
         </Button>}
 
-        {/* Upload Mdl_Pst */}
+        {(select === VIDEO_LIST) && <Button
+          fullWidth
+          sx={{ width: "150px" }}
+          color='white'
+          variant="outlined"
+          onClick={handlePostUploadOpne}>
+          Add Lsit
+        </Button>}
+
+
+        {/* Upload Post Mdl_Pst */}
         <DefaultModal
           open={isPostUplaodModalOpen}
           onClose={handlePostUploadClose}
           title={"Upload Post"}
-          children={PostUpload}
+          children={PostUploadModal}
         />
+
+        {/* Account Setting Modal */}
+        <DefaultModal
+          open={isAccountSettingOpen}
+          onClose={handleAccounSettingClose}
+          title={"Account Setting"}
+          children={AccountSettingModal}
+        />
+
 
       </Stack>
 
-      {(select === "Video") && <VideoCardList></VideoCardList>}
-      {(select === "VideoList") && <VideoListCardList></VideoListCardList>}
-      {(select === "Community") && <CommunityCardList></CommunityCardList>}
-      {(select === "UploadedPost") && <CommunityCardList></CommunityCardList>}
+      {(select === VIDEO) && <VideoCardList></VideoCardList>}
+      {(select === VIDEO_LIST) && <VideoListCardList></VideoListCardList>}
+      {(select === COMMUNITY) && <CommunityCardList></CommunityCardList>}
+      {(select === UPLOADED_POST) && <CommunityCardList></CommunityCardList>}
 
 
     </Stack>
