@@ -14,10 +14,10 @@ const PostUploadModal = (onClose, title) => {
   const handleChange = (e) => { setThumbnail(e); };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ color: "#FFFFFF", }}>
       {/* Post Title */}
       <Box className="Post title">
-        <Typography sx={{ color: "#FFFFFF", }}>
+        <Typography >
           Post title
         </Typography>
         <TextField
@@ -30,7 +30,7 @@ const PostUploadModal = (onClose, title) => {
 
       {/* Post Body */}
       <Box className="Post Detail">
-        <Typography sx={{ color: "#FFFFFF", }}>
+        <Typography>
           Post Detail
         </Typography>
         <TextField
@@ -43,7 +43,7 @@ const PostUploadModal = (onClose, title) => {
       </Box>
 
       <Box className="Hash Tag">
-        <Typography sx={{ color: "#FFFFFF", }}>
+        <Typography>
           Hash Tag
         </Typography>
         <TextField
@@ -67,7 +67,7 @@ const PostUploadModal = (onClose, title) => {
 
       {/* Thumbnail uplaod Btn */}
       <Box className="Thumbnail Image">
-        <Typography sx={{ color: "#FFFFFF", }}>
+        <Typography>
           Thumbnail Image
         </Typography>
         <MuiFileInput

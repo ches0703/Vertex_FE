@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -13,25 +14,36 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from "react";
 
-const SignUpModal = () => {
-  const today = dayjs();
-  const [gender, setGender] = useState('female');
+// Regexp
+const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+const nameRegex = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g;
 
-  const [emailMsg, setEmailMsg] = useState("Please Enter Email");
-  const [pwdMsg, setPwdMsg] = useState("Please Enter Password");
-  const [nameMsg, setNameMsg] = useState("Please Enter Nickname");
+// Gender Value
+const FEMALE = "female"
+const MALE = "male"
 
+const SignUpModal = (onClose, title) => {
+  // UserData
+  const [gender, setGender] = useState(FEMALE);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [birthday, setBirthday] = useState("");
+  
+  // Vaild Check
   const [isEmail, setIsEmail] = useState(false);
   const [isPwd, setIsPwd] = useState(false);
   const [isName, setIsName] = useState(false);
-  const emailRegex =
-    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-  const nameRegex = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g;
 
-  const changeName = (e) => {
+  // Vaild Msg
+  const [emailMsg, setEmailMsg] = useState("Please Enter Email");
+  const [pwdMsg, setPwdMsg] = useState("Please Enter Pwd");
+  const [nameMsg, setNameMsg] = useState("Please Enter Nickname");
+
+  // Name Vaild Check func
+  const handleChangeName = (e) => {
     if (e.target.value !== "" && nameRegex.test(e.target.value)) {
       setNameMsg("Nickname only contain numbers and English letters");
       setIsName(false);
@@ -42,9 +54,12 @@ const SignUpModal = () => {
       return
     } else {
       setIsName(true);
+      setName(e.target.value)
     }
   };
-  const changeEmail = (e) => {
+
+  // Email Vaild Check func
+  const handleChangeEmail = (e) => {
     if (e.target.value !== "" && !emailRegex.test(e.target.value)) {
       setEmailMsg("This is not a valid email format.");
       setIsEmail(false);
@@ -55,10 +70,13 @@ const SignUpModal = () => {
       return
     } else {
       setIsEmail(true);
+      setEmail(e.target.value)
     }
   };
-  const changePwd = (e) => {
-    if (e.target.value !== "" && !passwordRegex.test(e.target.value)) {
+
+  // Pwd Vaild Check func
+  const handleChangePwd = (e) => {
+    if (e.target.value !== "" && !pwdRegex.test(e.target.value)) {
       setPwdMsg("Least 8 characters, and Must Contain numbers, English letters, and special characters.");
       setIsPwd(false);
       return;
@@ -68,16 +86,18 @@ const SignUpModal = () => {
       return
     } else {
       setIsPwd(true);
+      setPwd(e.target.value)
     }
   };
 
+  // Sign in Apply
   const handleSignUpSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = data.get("name");
-    const email = data.get("email");
-    const password = data.get("password");
-
+    //event.preventDefault();
+    console.log(name)
+    console.log(email)
+    console.log(pwd)
+    console.log(gender)
+    console.log(birthday)
     alert("SignUp Completed");
   };
 
@@ -91,7 +111,7 @@ const SignUpModal = () => {
           Nickname
         </Typography>
         <TextField
-          onChange={changeName}
+          onChange={handleChangeName}
           fullWidth
           error={!isName}
           helperText={!isName ? nameMsg : ""}
@@ -112,7 +132,7 @@ const SignUpModal = () => {
           Email
         </Typography>
         <TextField
-          onChange={changeEmail}
+          onChange={handleChangeEmail}
           fullWidth
           error={!isEmail}
           helperText={!isEmail ? emailMsg : ""}
@@ -128,6 +148,7 @@ const SignUpModal = () => {
         />
       </Box>
 
+      {/* Birthday */}
       <Box>
         <Typography>
           Birthday
@@ -136,15 +157,20 @@ const SignUpModal = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs} >
             <DemoItem >
               <DatePicker
-                defaultValue={today}
-                disablePast
+                defaultValue={dayjs()}
+                format="YYYY-MM-DD"
+                disableFuture
                 views={['year', 'month', 'day']}
+                onChange={(date) => {
+                  setBirthday(dayjs(date).format("YYYY-MM-DD"))
+                }}
               />
             </DemoItem>
           </LocalizationProvider>
         </Box>
       </Box>
 
+      {/* Gender */}
       <Box>
         <Typography>
           Gender
@@ -156,35 +182,48 @@ const SignUpModal = () => {
           value={gender}
           onChange={(event) => setGender(event.target.value)}
         >
-          <FormControlLabel value="female" control={<Radio color="white" />} label="male" />
-          <FormControlLabel value="male" control={<Radio color="white" />} label="female" />
+          <FormControlLabel value={FEMALE} control={<Radio color="white" />} label="Female" />
+          <FormControlLabel value={MALE} control={<Radio color="white" />} label="Male" />
         </RadioGroup>
       </Box>
 
+      {/* Pwd */}
       <Box>
         <Typography>
           Password
         </Typography>
         <TextField
-          onChange={changePwd}
+          onChange={handleChangePwd}
           fullWidth
           error={!isPwd}
           helperText={!isPwd ? pwdMsg : ""}
           color="white"
-          type="password"
+          type="pwd"
           sx={{ marginTop: "5px", }}
         />
       </Box>
 
-      <Button
-        type="submit"
-        fullWidth
-        variant="outlined"
-        color="black"
-        disabled={!(isEmail && isPwd && isName)}
-      >
-        Sign Up
-      </Button>
+      {/* Bottom Btn */}
+      <Stack direction="row" spacing={2}>
+        {/* Apply */}
+        <Button
+          onClick={handleSignUpSubmit}
+          variant="outlined"
+          color="blue"
+          sx={{ flexGrow: "7" }}
+        >
+          {title}
+        </Button>
+        {/* Cancel */}
+        <Button
+          variant="outlined"
+          color="red"
+          sx={{ flexGrow: "3" }}
+          onClick={onClose}
+        >
+          Cancel
+        </Button>
+      </Stack>
     </Stack>
   );
 };
