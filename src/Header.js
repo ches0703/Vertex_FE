@@ -18,8 +18,6 @@ import VideoUploadModal from "./Modal/VideoUploadModal";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
-// for test button
-import AccountSettingModal from "./Modal/AccountSettingModal";
 
 export default function Header() {
   const [searchOpt, setSearchOpt] = useState("Title");
@@ -36,11 +34,6 @@ export default function Header() {
     setSearchOpt(event.target.value);
   };
 
-  /**
-   * handling Upload Btn_Vd
-   */
-  const [openTestModal, setOpenTestModal] = useState(false);
-  const handleTestModal = () => setOpenTestModal(!openTestModal);
 
   /**
    * handling Upload Btn_Vd
@@ -117,25 +110,10 @@ export default function Header() {
           ></TextField>
         </Box>
 
-        {/* Account Btn */}
+        {/* Account & Video Upload Btn */}
         <Box>
-          {/* Test */}
-          <Button
-            variant="outlined"
-            color="white"
-            sx={{ height: "40px", marginRight: "10px" }}
-            onClick={handleTestModal}
-          >
-            Test
-          </Button>
-          <DefaultModal
-            open={openTestModal}
-            onClose={handleTestModal}
-            title={"Account Setting"}
-            children={AccountSettingModal}
-          />
 
-          {/* Upload Vd */}
+          {/* Video Upload Btn */}
           <Button
             variant="outlined"
             color="white"
@@ -144,14 +122,8 @@ export default function Header() {
           >
             <FileUploadOutlinedIcon />
           </Button>
-          {/* Upload Mdl_Vd */}
-          <DefaultModal
-            open={openUploaVideoModal}
-            onClose={handleVideoUploadModal}
-            title={"Upload Vedio"}
-            children={VideoUploadModal}
-          />
 
+          {/* Logint sign in Btn */}
           <Button
             variant="outlined"
             color="white"
@@ -168,18 +140,30 @@ export default function Header() {
           >
             Sign Up
           </Button>
+
+          {/* Video Upload Modal */}
+          <DefaultModal
+            open={openUploaVideoModal}
+            onClose={handleVideoUploadModal}
+            title={"Upload Video"}
+            children={VideoUploadModal}
+          />
+
+          {/* Logint Sign in Modals */}
           <DefaultModal
             open={loginOpen}
             onClose={handleLoginClose}
             title="Login"
             children={LoginModal}
           ></DefaultModal>
+
           <DefaultModal
             open={signUpOpen}
             onClose={handleSignUpClose}
             title="Sign Up"
             children={SignUpModal}
           ></DefaultModal>
+
         </Box>
       </Stack>
     </AppBar>

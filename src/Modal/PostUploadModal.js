@@ -1,4 +1,4 @@
-// import { useReducer } from "react";
+import { useState } from "react";
 import {
   Button,
   TextField,
@@ -7,46 +7,11 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
-import { useState } from "react";
-
-// const THUMBNAIL = "THUMBNAIL";
-// const VIDEO = "VIDEO";
-// const initialState = {
-//   thumbnail: null,
-//   video: null,
-// };
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case THUMBNAIL:
-//       return {
-//         ...state,
-//         thumbnail: action.payload,
-//       };
-//     case VIDEO:
-//       return {
-//         ...state,
-//         video: action.payload,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const PostUploadModal = (onClose, title) => {
-  //   const [state, dispatch] = useReducer(reducer, initialState);
-  //   const { thumbnail, video } = state;
-
-  //   const handleChange = (e, action) => {
-  //     dispatch({
-  //       type: action,
-  //       payload: e,
-  //     });
-  //   };
 
   const [thumbnail, setThumbnail] = useState(null);
-  const handleChange = (e) => {
-    setThumbnail(e);
-  };
+  const handleChange = (e) => { setThumbnail(e); };
 
   return (
     <Stack spacing={2}>
