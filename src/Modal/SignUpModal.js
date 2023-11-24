@@ -82,121 +82,110 @@ const SignUpModal = () => {
   };
 
   return (
-    <div>
-      <Box
-        component="form"
-        noValidate
-        onSubmit={handleSignUpSubmit}
-        sx={{ mt: 3 }}
-      >
-        <Stack spacing={2}>
 
-          {/* Nickname */}
-          <Box>
-            <Typography sx={{ color: "#FFFFFF", }}>
-              Nickname
-            </Typography>
-            <TextField
-              onChange={changeName}
-              fullWidth
-              error={!isName}
-              helperText={!isName ? nameMsg : ""}
-              color="white"
-              sx={{ marginTop: "5px", }}
-              InputProps={{
-                endAdornment: (
-                  (isName && <Button variant="outlined" color='white' size='small' sx={{ marginLeft: "10px", width: "150px" }}>
-                    DupCheck
-                  </Button>)
-                ),
-              }} />
-          </Box>
+    <Stack sx={{ color: "#FFFFFF" }} spacing={2}>
 
-          {/* Email */}
-          <Box>
-            <Typography sx={{ color: "#FFFFFF", }}>
-              Email
-            </Typography>
-            <TextField
-              onChange={changeEmail}
-              fullWidth
-              error={!isEmail}
-              helperText={!isEmail ? emailMsg : ""}
-              color="white"
-              sx={{ marginTop: "5px", }}
-              InputProps={{
-                endAdornment: (
-                  (isEmail && <Button variant="outlined" color='white' size='small' sx={{ marginLeft: "10px", width: "150px" }}>
-                    DupCheck
-                  </Button>)
-                ),
-              }}
-            />
-          </Box>
-
-          <Box>
-            <Typography sx={{ color: "#FFFFFF", }}>
-              Birthday
-            </Typography>
-            <Box sx={{ marginTop: "5px", }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
-                <DemoItem>
-                  <DatePicker
-                    defaultValue={today}
-                    disablePast
-                    views={['year', 'month', 'day']}
-                  />
-                </DemoItem>
-              </LocalizationProvider>
-            </Box>
-          </Box>
-
-          <Box>
-            <Typography sx={{ color: "#FFFFFF", }}>
-              Gender
-            </Typography>
-            <RadioGroup
-              row
-              aria-label="gender"
-              name="row-radio-buttons-group"
-              value={gender}
-              onChange={(event) => setGender(event.target.value)}
-              sx={{ color: '#FFFFFF', ml: '15px', marginTop: "5px", }}
-            >
-              <FormControlLabel value="female" control={<Radio color="white" />} label="male" />
-              <FormControlLabel value="male" control={<Radio color="white" />} label="female" />
-            </RadioGroup>
-          </Box>
-
-          <Box>
-            <Typography sx={{ color: "#FFFFFF", }}>
-              Password
-            </Typography>
-            <TextField
-              onChange={changePwd}
-              fullWidth
-              error={!isPwd}
-              helperText={!isPwd ? pwdMsg : ""}
-              color="white"
-              type="password"
-              sx={{ marginTop: "5px", }}
-            />
-          </Box>
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            color="black"
-            sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
-            disabled={!(isEmail && isPwd && isName)}
-          >
-            Sign Up
-          </Button>
-        </Stack>
+      {/* Nickname */}
+      <Box>
+        <Typography>
+          Nickname
+        </Typography>
+        <TextField
+          onChange={changeName}
+          fullWidth
+          error={!isName}
+          helperText={!isName ? nameMsg : ""}
+          color="white"
+          sx={{ marginTop: "5px", }}
+          InputProps={{
+            endAdornment: (
+              (isName && <Button variant="outlined" color='white' size='small' sx={{ marginLeft: "10px", width: "150px" }}>
+                DupCheck
+              </Button>)
+            ),
+          }} />
       </Box>
 
-    </div>
+      {/* Email */}
+      <Box>
+        <Typography>
+          Email
+        </Typography>
+        <TextField
+          onChange={changeEmail}
+          fullWidth
+          error={!isEmail}
+          helperText={!isEmail ? emailMsg : ""}
+          color="white"
+          sx={{ marginTop: "5px", }}
+          InputProps={{
+            endAdornment: (
+              (isEmail && <Button variant="outlined" color='white' size='small' sx={{ marginLeft: "10px", width: "150px" }}>
+                DupCheck
+              </Button>)
+            ),
+          }}
+        />
+      </Box>
+
+      <Box>
+        <Typography>
+          Birthday
+        </Typography>
+        <Box sx={{ marginTop: "5px", }}>
+          <LocalizationProvider dateAdapter={AdapterDayjs} >
+            <DemoItem >
+              <DatePicker
+                defaultValue={today}
+                disablePast
+                views={['year', 'month', 'day']}
+              />
+            </DemoItem>
+          </LocalizationProvider>
+        </Box>
+      </Box>
+
+      <Box>
+        <Typography>
+          Gender
+        </Typography>
+        <RadioGroup
+          row
+          aria-label="gender"
+          name="row-radio-buttons-group"
+          value={gender}
+          onChange={(event) => setGender(event.target.value)}
+        >
+          <FormControlLabel value="female" control={<Radio color="white" />} label="male" />
+          <FormControlLabel value="male" control={<Radio color="white" />} label="female" />
+        </RadioGroup>
+      </Box>
+
+      <Box>
+        <Typography>
+          Password
+        </Typography>
+        <TextField
+          onChange={changePwd}
+          fullWidth
+          error={!isPwd}
+          helperText={!isPwd ? pwdMsg : ""}
+          color="white"
+          type="password"
+          sx={{ marginTop: "5px", }}
+        />
+      </Box>
+
+      <Button
+        type="submit"
+        fullWidth
+        variant="outlined"
+        color="black"
+        disabled={!(isEmail && isPwd && isName)}
+      >
+        Sign Up
+      </Button>
+    </Stack>
   );
 };
 
