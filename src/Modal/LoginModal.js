@@ -1,41 +1,66 @@
-import { Box, Button, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Stack,
+  Typography
+} from "@mui/material";
 
-const LoginModal = () => {
+const LoginModal = (onClose, title) => {
   return (
     <div>
-      <Box component="form" noValidate sx={{ mt: 1, pd: 0 }}>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          color="white"
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          color="white"
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          color="white"
-          sx={{ mt: 3, mb: 2, color: "#FFFFFF" }}
-        >
-          Sign In
-        </Button>
-      </Box>
+      <Stack spacing={2} sx={{ color: "#FFFFFF" }}>
+
+        {/* Email */}
+        <Box>
+          <Typography>
+            Email
+          </Typography>
+          <TextField
+            fullWidth
+            name="email"
+            autoComplete="email"
+            autoFocus
+            color="white"
+            sx={{ marginTop: "5px" }}
+          />
+        </Box>
+        
+        {/* Password */}
+        <Box>
+          <Typography>
+            Password
+          </Typography>
+          <TextField
+            fullWidth
+            type="password"
+            autoComplete="current-password"
+            color="white"
+            sx={{ marginTop: "5px" }}
+          />
+        </Box>
+
+        {/* Bottom Btn */}
+        <Stack direction="row" spacing={2}>
+          {/* Apply */}
+          <Button
+            variant="outlined"
+            color="blue"
+            sx={{ flexGrow: "7" }}
+          >
+            {title}
+          </Button>
+          {/* Cancel */}
+          <Button
+            variant="outlined"
+            color="red"
+            sx={{ flexGrow: "3" }}
+            onClick={onClose}
+          >
+            Cancel
+          </Button>
+        </Stack>
+      </Stack>
     </div>
   );
 };
