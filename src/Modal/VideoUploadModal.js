@@ -10,12 +10,17 @@ import {
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 
+// Category Values
 const THUMBNAIL = "THUMBNAIL";
 const VIDEO = "VIDEO";
+
+// File State
 const initialState = {
   thumbnail: null,
   video: null,
 };
+
+// File State Reducer
 const reducer = (state, action) => {
   switch (action.type) {
     case THUMBNAIL:
