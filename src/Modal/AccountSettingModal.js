@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   TextField,
@@ -15,18 +16,57 @@ import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
-import { useState } from "react";
 
 // Category Values
 const PASSWORD = "PASSWORD";
 const OTHER = "OTHER";
 
-const AccountSettingModal = (onClose, title) => {
-  const [type, setType] = useState(PASSWORD);
-  const handleTypeChange = (TYPE) => setType(TYPE);
+// Gender Value
+const FEMALE = "female"
+const MALE = "male"
 
-  const today = dayjs();
+// Pwd Regexp
+const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+
+const AccountSettingModal = (onClose, title) => {
+
+  // Account Setting Type
+  const [type, setType] = useState(PASSWORD);
+  const handleTypeChange = (type) => setType(type);
+
+  // Gender & Birthday Data
   const [gender, setGender] = useState("female");
+  const [birthday, setBirthday] = useState("");
+
+  // Pwd Data
+  const [currentPwd, setCurrentPwd] = useState("")
+  const [newPwd, setNewPwd] = useState("")
+  const [checkPwd, setCheckPwd] = useState("")
+
+
+  // Passwoed Valid & Msg
+  const [isPwd, setIsPwd] = useState(false);
+  const [pwdMsg, setPwdMsg] = useState("Please Enter Pwd");
+
+  // new Pwd Vaild Check func
+  const handleChangeNewPwd = (e) => {
+    setNewPwd(e.target.value)
+    if (e.target.value !== "" && !pwdRegex.test(e.target.value)) {
+      setPwdMsg("Least 8 characters, and Must Contain numbers, English letters, and special characters.");
+      setIsPwd(false);
+      return;
+    } else if (e.target.value === "") {
+      setPwdMsg("Please Enter Pwd");
+      setIsPwd(false);
+      return
+    } else {
+      setIsPwd(true);
+    }
+  };
+
+
+
+
 
   return (
     <Stack sx={{ color: "#FFFFFF" }} spacing={2}>
@@ -36,7 +76,7 @@ const AccountSettingModal = (onClose, title) => {
         <Typography variant="h5">test@mail.com</Typography>
       </Box>
 
-      {/* Select Password / Other */}
+      {/* Select Pwd / Other */}
       <Stack direction="row" spacing={2}>
         <Button
           fullWidth
@@ -44,7 +84,7 @@ const AccountSettingModal = (onClose, title) => {
           color="white"
           onClick={() => handleTypeChange(PASSWORD)}
         >
-          Password
+          Pwd
         </Button>
         <Button
           fullWidth
@@ -60,21 +100,38 @@ const AccountSettingModal = (onClose, title) => {
         <Stack spacing={2}>
           <Box>
             <Typography>Current Password</Typography>
-            <TextField fullWidth size="small"
+            <TextField 
+              onChange={(e) => {setCurrentPwd(e.target.value)}}
+              fullWidth 
+              size="small"
+              color="white"
+              type="password"
               sx={{ marginTop: "5px", }}
             />
           </Box>
           <Box>
             <Typography>New Password</Typography>
-            <TextField fullWidth size="small"
+            <TextField 
+              onChange={handleChangeNewPwd}
+              fullWidth 
+              size="small"
+              error={!isPwd}
+              helperText={!isPwd ? pwdMsg : ""}
               color="white"
+              type="password"
               sx={{ marginTop: "5px", }}
             />
           </Box>
           <Box>
             <Typography>Password Check</Typography>
-            <TextField fullWidth size="small"
+            <TextField 
+              onChange={(e) => {setCheckPwd(e.target.value)}}
+              fullWidth 
+              size="small"
+              error={!(newPwd === checkPwd)}
+              helperText={(!(newPwd === checkPwd)) ? "Does not match" : ""}
               color="white"
+              type="password"
               sx={{ marginTop: "5px", }}
             />
           </Box>
@@ -86,14 +143,21 @@ const AccountSettingModal = (onClose, title) => {
             <Typography>
               Birthday
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoItem>
-                <DatePicker
-                  defaultValue={today}
-                  views={["year", "month", "day"]}
-                />
-              </DemoItem>
-            </LocalizationProvider>
+            <Box sx={{ marginTop: "5px", }}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+                <DemoItem >
+                  <DatePicker
+                    defaultValue={dayjs()}
+                    format="YYYY-MM-DD"
+                    disableFuture
+                    views={['year', 'month', 'day']}
+                    onChange={(date) => {
+                      setBirthday(dayjs(date).format("YYYY-MM-DD"))
+                    }}
+                  />
+                </DemoItem>
+              </LocalizationProvider>
+            </Box>
           </Box>
 
           {/* Gender */}
@@ -103,13 +167,13 @@ const AccountSettingModal = (onClose, title) => {
             </Typography>
             <RadioGroup
               row
-              aria-label="Gender"
+              aria-label="gender"
               name="row-radio-buttons-group"
               value={gender}
               onChange={(event) => setGender(event.target.value)}
             >
-              <FormControlLabel value="female" control={<Radio color="white" />} label="male" />
-              <FormControlLabel value="male" control={<Radio color="white" />} label="female" />
+              <FormControlLabel value={FEMALE} control={<Radio color="white" />} label="Female" />
+              <FormControlLabel value={MALE} control={<Radio color="white" />} label="Male" />
             </RadioGroup>
           </Box>
         </Stack>
