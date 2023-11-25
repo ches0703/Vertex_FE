@@ -17,7 +17,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 // API
 import SignUpAPI from "../API/Accoount/SignUpAPI";
-import CheckDupName from "../API/Accoount/CheckDupName";
 import CheckDupEmail from "../API/Accoount/CheckDupEmail";
 
 // Regexp
@@ -41,10 +40,6 @@ const SignUpModal = (onClose, title) => {
   const [isEmail, setIsEmail] = useState(false);
   const [isName, setIsName] = useState(false);
   const [isPwd, setIsPwd] = useState(false);
-  
-  // Dup Check
-  const [isEmailDup, setIsEmailDup] = useState(false)
-  const [isNameDup, setIsNameDup] = useState(false)
 
   // Vaild Msg
   const [emailMsg, setEmailMsg] = useState("Please Enter Email");
@@ -99,16 +94,11 @@ const SignUpModal = (onClose, title) => {
     }
   };
 
-  // Name DupCheck
-  const hadleNameDupCheck = async () => {
-    console.log(">>", name)
-    const result =  await CheckDupName(name)
-    console.log("Result", result)
-  }
-
+  // Dup Check
+  const [isEmailDup, setIsEmailDup] = useState(false)
   const hadleEmailDupCheck = async () => {
     console.log(">>", email)
-    const result =  await CheckDupName(name)
+    const result =  await CheckDupEmail(name)
     console.log("Result", result)
   }
 
@@ -123,8 +113,10 @@ const SignUpModal = (onClose, title) => {
       gender: gender
     }
     const res =  await SignUpAPI(data)
-    if (!res) {
-      alert()
+    if (res) {
+      alert("Sign up Success")
+    } else {
+      alert("Sign up Fail")
     }
     onClose()
   };
@@ -145,20 +137,7 @@ const SignUpModal = (onClose, title) => {
           helperText={!isName ? nameMsg : ""}
           color="white"
           sx={{ marginTop: "5px", }}
-          InputProps={{
-            endAdornment: (
-              (isName && 
-              <Button 
-                onClick={hadleNameDupCheck} 
-                variant="outlined" 
-                color='white' 
-                size='small' 
-                sx={{ marginLeft: "10px", width: "150px" }}
-              >
-                DupCheck
-              </Button>)
-            ),
-          }} />
+          />
       </Box>
 
       {/* Email */}

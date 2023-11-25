@@ -6,13 +6,17 @@ export const UserSlice = createSlice({
     name: "user",
     // init state
     initialState: {
-      name : "Guest",
+      email : null,
+      name : null,
+      profileImg : null 
     },
     // reducer
     reducers: {
         // reducre's function
         login: (state, action) => {
-            state.name = action.payload
+            state.email = action.payload.email
+            state.name = action.payload.name
+            state.profileImg = action.payload.profile_image_path
         },
     },
 });

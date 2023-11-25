@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeMain, changeSub } from "./redux/CategoryReducer";
 import {
   TextField,
@@ -10,8 +10,11 @@ import {
   MenuItem,
   FormControl,
   Select,
+  Typography,
+  Avatar
 } from "@mui/material";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import SearchIcon from '@mui/icons-material/Search';
 
 import DefaultModal from "./Modal/DefaultModal";
 import VideoUploadModal from "./Modal/VideoUploadModal";
@@ -19,27 +22,28 @@ import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
 
-import SignInAPI from "./API/Accoount/SignUpAPI";
 
 export default function Header() {
-  const [searchOpt, setSearchOpt] = useState("Title");
 
+  // dispatch
+  const dispatch = useDispatch();
+
+  // user name
+  const userData = useSelector((state) => state.user)
+
+  // Login Modal handler
   const [loginOpen, setLoginOpen] = useState(false);
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
 
+  // Sign up Modal handler
   const [signUpOpen, setSignUpOpen] = useState(false);
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
-  const handleSearchOptChange = (event) => {
-    setSearchOpt(event.target.value);
-  };
 
 
-  /**
-   * handling Upload Btn_Vd
-   */
+  // handling Upload Btn_Vd
   const [openUploaVideoModal, setOpenUploadVideoModal] = useState(false);
   const handleVideoUploadModal = () => {
     // 1. 인증 유효 검사
@@ -48,13 +52,27 @@ export default function Header() {
   };
 
   // For Logo Click event
-  const dispatch = useDispatch();
   const handleLogoClick = () => {
     dispatch(changeMain("Main"));
     dispatch(changeSub("Home"));
   };
 
-  
+  // Search String
+  const [searchString, setSearchString] = useState("")
+  const handleSearchStringChange = (e) => {
+    setSearchString(e.target.value)
+  }
+  // search option state & handler
+  const [searchOpt, setSearchOpt] = useState("Title");
+  const handleSearchOptChange = (e) => {
+    setSearchOpt(e.target.value);
+  };
+
+  // search Btn handler
+  const handleSearch = () => {
+    dispatch(changeSub(searchString));
+    dispatch(changeMain("Search"));
+  }
 
 
   return (
@@ -82,15 +100,16 @@ export default function Header() {
         ></Box>
 
         {/* Search */}
-        <Box
-          component="form"
+        <Stack
+          direction="row"
+          spacing={1}
           sx={{ display: "flex", width: "40vw", minWidth: "400px" }}
         >
           {/* Search Option */}
           <FormControl
             color="white"
             size="small"
-            sx={{ width: "200px", marginRight: "10px" }}
+            sx={{ width: "200px", }}
           >
             <Select
               value={searchOpt}
@@ -107,44 +126,71 @@ export default function Header() {
 
           {/* Search String */}
           <TextField
+            onChange={handleSearchStringChange}
             fullWidth
             id="standard-search"
             label="Search"
             color="white"
             size="small"
           ></TextField>
-        </Box>
+
+          {/* Search Btn */}
+          <Button
+            variant="outlined"
+            color="white"
+            sx={{ height: "40px", marginRight: "10px" }}
+            onClick={handleSearch}
+          >
+            <SearchIcon />
+          </Button>
+
+
+        </Stack>
 
         {/* Account & Video Upload Btn */}
-        <Box>
-
-          {/* Video Upload Btn */}
-          <Button
-            variant="outlined"
-            color="white"
-            sx={{ height: "40px", marginRight: "10px" }}
-            onClick={handleVideoUploadModal}
-          >
-            <FileUploadOutlinedIcon />
-          </Button>
+        <>
 
           {/* Logint sign in Btn */}
-          <Button
-            variant="outlined"
-            color="white"
-            sx={{ height: "40px", marginRight: "10px" }}
-            onClick={handleLoginOpen}
-          >
-            Login
-          </Button>
-          <Button
-            variant="outlined"
-            color="white"
-            sx={{ height: "40px" }}
-            onClick={handleSignUpOpen}
-          >
-            Sign Up
-          </Button>
+          {(userData.name == null) ?
+            // Before Login
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Button
+                variant="outlined"
+                color="white"
+                sx={{ height: "40px" }}
+                onClick={handleLoginOpen}
+              >
+                Login
+              </Button>
+              <Button
+                variant="outlined"
+                color="white"
+                sx={{ height: "40px" }}
+                onClick={handleSignUpOpen}
+              >
+                Sign Up
+              </Button>
+            </Stack>
+            :
+            // Login Success
+            // Video Upload Btn
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Button
+                variant="outlined"
+                color="white"
+                sx={{ height: "40px", marginRight: "10px" }}
+                onClick={handleVideoUploadModal}
+              >
+                <FileUploadOutlinedIcon />
+              </Button>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
+                <Typography>
+                  {userData.name}
+                </Typography>
+              </Stack>
+            </Stack>
+          }
 
           {/* Video Upload Modal */}
           <DefaultModal
@@ -169,7 +215,7 @@ export default function Header() {
             children={SignUpModal}
           ></DefaultModal>
 
-        </Box>
+        </>
       </Stack>
     </AppBar>
   );

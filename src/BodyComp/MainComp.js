@@ -1,21 +1,31 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState, } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Stack } from '@mui/material';
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
 
+// main opt Value
+const VIDEO = "V"
+const COMMUNITY = "C"
+
 export default function MainComp() {
-  const [mainOptSelect, setMainOptSelect] = useState("Video")
+  const [mainOptSelect, setMainOptSelect] = useState(VIDEO)
+
+  const category = useSelector((state) => state.category)
+
+  useEffect(() => {
+    handleVideoSelect()
+  }, [category])
 
   const handleVideoSelect = () => {
-    setMainOptSelect("Video")
+    setMainOptSelect(VIDEO)
   }
   const handleCommunitySelect = () => {
-    setMainOptSelect("Community")
+    setMainOptSelect(COMMUNITY)
   }
 
-
   return (
-    <Fragment>
+    <Stack>
       {/* Main Option Select Btn */}
       <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'
@@ -33,10 +43,10 @@ export default function MainComp() {
         </Button>
       </Stack>
 
-      {(mainOptSelect === "Video")
+      {(mainOptSelect === VIDEO)
         ? <VideoCardList></VideoCardList>
         : <CommunityCardList></CommunityCardList>}
       
-    </Fragment>
+    </Stack>
   )
 }

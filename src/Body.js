@@ -5,6 +5,7 @@ import SideMenu from './SideMenu';
 import MainComp from './BodyComp/MainComp';
 import UserComp from './BodyComp/UserComp';
 import VideoListComp from './BodyComp/VideoListComp';
+import SearchComp from './BodyComp/SearchComp';
 export default function Body() {
 
   const category = useSelector((state) => state.category)
@@ -24,6 +25,7 @@ export default function Body() {
           {(category.main === "Main") && <MainComp></MainComp>}
           {(category.main === "Subscribe") && <UserComp></UserComp>}
           {(category.main === "VideoList") && <VideoListComp></VideoListComp>}
+          {(category.main === "Search") && <SearchComp searchString={category.sub}></SearchComp>}
         </Grid>
 
       </Grid>

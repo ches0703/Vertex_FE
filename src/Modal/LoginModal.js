@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/UserReducer";
 import {
   Box,
   Button,
@@ -10,6 +12,8 @@ import {
 import LoginAPI from "../API/Accoount/LoginAPI";
 
 const LoginModal = (onClose, title) => {
+
+  const dispatch = useDispatch()
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("")
@@ -23,24 +27,26 @@ const LoginModal = (onClose, title) => {
   }
 
   const handleLogInSubmit = async () => {
+
     const data = {
-      email : email,
-      password : pwd
+      email: email,
+      password: pwd 
     }
-    console.log("Login Data : ", data)
+
     const res = await LoginAPI(data)
     console.log("Login result : ", res)
-    if (!res){
-      alert("Login Fail")
+    if (res){
+      console.log(res.data.token)
+      dispatch(login(res.data))
       onClose()
     } else {
-      
+      alert("Login Fail")
     }
   }
 
   return (
     <div>
-      <Stack spacing={2} sx={{ color: "#FFFFFF" }}>
+      <Stack spacing={2} sx={{ color: "#FFFFFF" }} >
 
         {/* Email */}
         <Box>
