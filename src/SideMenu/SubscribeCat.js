@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   List,
   ListItem,
@@ -10,12 +10,10 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
+import getSubscribeList from '../API/UserData/getSubscribeList';
 
 import AddIcon from '@mui/icons-material/Add';
 
-const testApi = () => {
-  return ["qwer", "asdf"]
-}
 
 export default function SubscribeCat() {
 
@@ -26,11 +24,20 @@ export default function SubscribeCat() {
     dispatch(changeSub(sub));
   }
 
-  const [subscribeList, setSubscribeList] = useState(["User0001", "User0002"])
+  const [subscribeList, setSubscribeList] = useState(false)
 
-  const handleMoreBtn = () => {
-    setSubscribeList(subscribeList.concat(testApi()))
-  }
+  useEffect(() => {
+    async function fetch() {
+      const res = await getSubscribeList()
+      setSubscribeList(res)
+    }
+    fetch()
+  }, [])
+
+
+  // const handleMoreBtn = () => {
+  //   setSubscribeList(subscribeList.concat(testApi()))
+  // }
 
   return (
     <Fragment>
@@ -40,27 +47,27 @@ export default function SubscribeCat() {
           List
         </Typography>
 
-        {subscribeList.map(user => {
-          return <ListItem disablePadding key={user}>
-            <ListItemButton onClick={() => { handleCategoryChainge(user) }}>
+        {(subscribeList) && subscribeList.map(user => {
+          return <ListItem disablePadding key={user.email}>
+            <ListItemButton onClick={() => { handleCategoryChainge(user.email) }}>
               <ListItemIcon>
-                <Avatar alt={user} src="/static/images/avatar/1.jpg"
+                <Avatar alt={user.name} src={user.thumbnail}
                   sx={{ width: "35px", height: "35px" }}
                 />
               </ListItemIcon>
-              <ListItemText primary={user} />
+              <ListItemText primary={user.name} />
             </ListItemButton>
           </ListItem>
-        })}
+        })} 
 
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleMoreBtn}>
+        {/* <ListItem disablePadding>
+          <ListItemButton onClick={() => {}}>
             <ListItemIcon >
               <AddIcon sx={{ width: "35px" }} />
             </ListItemIcon>
             <ListItemText primary="More" />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
 
       </List>
     </Fragment>
