@@ -19,6 +19,9 @@ import AccountSettingModal from '../Modal/AccountSettingModal';
 import ProfileUpdateModal from '../Modal/ProfileUpdateModal';
 import ListAddModal from '../Modal/ListAddModal';
 
+// API
+import getUserDataAPI from '../API/UserData/getUserDataAPI';
+
 // Category Values
 const VIDEO = "V"
 const VIDEO_LIST = "L"
@@ -56,6 +59,10 @@ export default function UserComp() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
   const handleProfilOpne = () => { setIsProfileModalOpen(true) }
   const handleProfilClose = () => { setIsProfileModalOpen(false) }
+
+  // userdata API
+
+
 
   return (
     <Stack spacing={2}>

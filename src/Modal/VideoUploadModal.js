@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 import uploadVideoAPI from "../API/Video/uploadVideoAPI";
+;
 
 // Category Values
 const THUMBNAIL = "THUMBNAIL";
@@ -68,20 +69,32 @@ const VideoUploadModal = (onClose, modalTitle) => {
 
   // Video Upload handler
   const handleUpload = async () => {
-    const data = {
-      title : title,
-      description : description,
-      video : video,
-      thumbnail : thumbnail,
-      // uploader : userData.email
-    }
-    const res = await uploadVideoAPI(data)
+    const formData = new FormData()
+
+    // const data = {
+    //   title: title,
+    //   description: description,
+    //   // video,
+    //   // thumbnail,
+    //   // uploader : userData.email
+    // }
+
+    formData.append("title", JSON.stringify(title))
+
+    formData.append("description", JSON.stringify(description))
+
+    formData.append("video", video)
+
+    formData.append("thumbnail", thumbnail)
+
+    const res = await uploadVideoAPI(formData)
     console.log(res)
   }
 
 
   return (
     <Stack spacing={2} component="form">
+
       {/* Video Title */}
       <Box className="Video Name">
         <Typography sx={{ color: "#FFFFFF", }}>

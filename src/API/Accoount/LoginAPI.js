@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://rooster-master-mayfly.ngrok-free.app/auth/login/local"
+const URL = "https://careful-horribly-ladybird.ngrok-free.app/auth/login/local"
 
 export default async function LoginAPI(data) {
   const res = await axios.post(URL, data,)
@@ -12,5 +12,4 @@ export default async function LoginAPI(data) {
       return false
     })
   return res
-
 }

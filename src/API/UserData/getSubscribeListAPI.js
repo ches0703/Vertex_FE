@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default async function getSubscribeList() {
+export default async function getSubscribeListAPI() {
   const res = [
     {
       name: "1111",

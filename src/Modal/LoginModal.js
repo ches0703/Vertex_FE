@@ -8,6 +8,7 @@ import {
   Stack,
   Typography
 } from "@mui/material";
+import Cookies from "js-cookie";
 
 import LoginAPI from "../API/Accoount/LoginAPI";
 
@@ -34,6 +35,9 @@ const LoginModal = (onClose, title) => {
     }
 
     const res = await LoginAPI(data)
+    const { session: sessionId } = res.data;
+    // Cookies에 sessionID 저장
+    Cookies.set('connect.sid', sessionId);
     console.log("Login result : ", res)
     if (res){
       dispatch(login(res.data.user))

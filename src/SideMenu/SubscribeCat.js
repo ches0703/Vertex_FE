@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
-import getSubscribeList from '../API/UserData/getSubscribeList';
+import getSubscribeListAPI from '../API/UserData/getSubscribeListAPI';
 
 import AddIcon from '@mui/icons-material/Add';
 
@@ -24,11 +24,11 @@ export default function SubscribeCat() {
     dispatch(changeSub(sub));
   }
 
-  const [subscribeList, setSubscribeList] = useState(false)
+  const [subscribeList, setSubscribeList] = useState([])
 
   useEffect(() => {
     async function fetch() {
-      const res = await getSubscribeList()
+      const res = await getSubscribeListAPI()
       setSubscribeList(res)
     }
     fetch()
@@ -47,8 +47,8 @@ export default function SubscribeCat() {
           Subscribe
         </Typography>
 
-        {(subscribeList) && subscribeList.map(user => {
-          return <ListItem disablePadding key={user.email}>
+        {subscribeList.map(user =>
+          <ListItem disablePadding key={user.email}>
             <ListItemButton onClick={() => { handleCategoryChainge(user.email) }}>
               <ListItemIcon>
                 <Avatar alt={user.name} src={user.thumbnail}
@@ -58,7 +58,7 @@ export default function SubscribeCat() {
               <ListItemText primary={user.name} />
             </ListItemButton>
           </ListItem>
-        })} 
+        )}
 
         {/* <ListItem disablePadding>
           <ListItemButton onClick={() => {}}>
