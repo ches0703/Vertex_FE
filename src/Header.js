@@ -19,6 +19,8 @@ import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
 
+import SignInAPI from "./API/Accoount/SignUpAPI";
+
 export default function Header() {
   const [searchOpt, setSearchOpt] = useState("Title");
 
@@ -51,6 +53,9 @@ export default function Header() {
     dispatch(changeMain("Main"));
     dispatch(changeSub("Home"));
   };
+
+  
+
 
   return (
     <AppBar

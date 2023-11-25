@@ -15,6 +15,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+// API
+import SignUpAPI from "../API/Accoount/SignUpAPI";
+import CheckDupName from "../API/Accoount/CheckDupName";
+import CheckDupEmail from "../API/Accoount/CheckDupEmail";
+
 // Regexp
 const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -34,8 +39,12 @@ const SignUpModal = (onClose, title) => {
   
   // Vaild Check
   const [isEmail, setIsEmail] = useState(false);
-  const [isPwd, setIsPwd] = useState(false);
   const [isName, setIsName] = useState(false);
+  const [isPwd, setIsPwd] = useState(false);
+  
+  // Dup Check
+  const [isEmailDup, setIsEmailDup] = useState(false)
+  const [isNameDup, setIsNameDup] = useState(false)
 
   // Vaild Msg
   const [emailMsg, setEmailMsg] = useState("Please Enter Email");
@@ -90,15 +99,34 @@ const SignUpModal = (onClose, title) => {
     }
   };
 
-  // Sign in Apply
-  const handleSignUpSubmit = async (event) => {
-    //event.preventDefault();
-    console.log(name)
-    console.log(email)
-    console.log(pwd)
-    console.log(gender)
-    console.log(birthday)
-    alert("SignUp Completed");
+  // Name DupCheck
+  const hadleNameDupCheck = async () => {
+    console.log(">>", name)
+    const result =  await CheckDupName(name)
+    console.log("Result", result)
+  }
+
+  const hadleEmailDupCheck = async () => {
+    console.log(">>", email)
+    const result =  await CheckDupName(name)
+    console.log("Result", result)
+  }
+
+
+  // Sign Up Apply
+  const handleSignUpSubmit = async () => {
+    const data = {
+      email: email,
+      name: name,
+      password: pwd,
+      birthday: birthday,
+      gender: gender
+    }
+    const res =  await SignUpAPI(data)
+    if (!res) {
+      alert()
+    }
+    onClose()
   };
 
   return (
@@ -119,7 +147,14 @@ const SignUpModal = (onClose, title) => {
           sx={{ marginTop: "5px", }}
           InputProps={{
             endAdornment: (
-              (isName && <Button variant="outlined" color='white' size='small' sx={{ marginLeft: "10px", width: "150px" }}>
+              (isName && 
+              <Button 
+                onClick={hadleNameDupCheck} 
+                variant="outlined" 
+                color='white' 
+                size='small' 
+                sx={{ marginLeft: "10px", width: "150px" }}
+              >
                 DupCheck
               </Button>)
             ),
@@ -198,7 +233,7 @@ const SignUpModal = (onClose, title) => {
           error={!isPwd}
           helperText={!isPwd ? pwdMsg : ""}
           color="white"
-          type="pwd"
+          type="password"
           sx={{ marginTop: "5px", }}
         />
       </Box>

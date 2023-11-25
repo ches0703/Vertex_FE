@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -6,7 +7,37 @@ import {
   Typography
 } from "@mui/material";
 
+import LoginAPI from "../API/Accoount/LoginAPI";
+
 const LoginModal = (onClose, title) => {
+
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("")
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handlePwdChange = (e) => {
+    setPwd(e.target.value)
+  }
+
+  const handleLogInSubmit = async () => {
+    const data = {
+      email : email,
+      password : pwd
+    }
+    console.log("Login Data : ", data)
+    const res = await LoginAPI(data)
+    console.log("Login result : ", res)
+    if (!res){
+      alert("Login Fail")
+      onClose()
+    } else {
+      
+    }
+  }
+
   return (
     <div>
       <Stack spacing={2} sx={{ color: "#FFFFFF" }}>
@@ -17,6 +48,7 @@ const LoginModal = (onClose, title) => {
             Email
           </Typography>
           <TextField
+            onChange={handleEmailChange}
             fullWidth
             name="email"
             autoComplete="email"
@@ -32,6 +64,7 @@ const LoginModal = (onClose, title) => {
             Password
           </Typography>
           <TextField
+            onChange={handlePwdChange}
             fullWidth
             type="password"
             autoComplete="current-password"
@@ -44,8 +77,10 @@ const LoginModal = (onClose, title) => {
         <Stack direction="row" spacing={2}>
           {/* Apply */}
           <Button
+            onClick={handleLogInSubmit}
             variant="outlined"
             color="blue"
+            disabled={(email === "") || (pwd === "")}
             sx={{ flexGrow: "7" }}
           >
             {title}
