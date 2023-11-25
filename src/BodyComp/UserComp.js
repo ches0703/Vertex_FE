@@ -17,6 +17,7 @@ import CommunityCardList from '../Comp/CommunityCardList';
 import VideoListCardList from '../Comp/VideoLsitCardList';
 import AccountSettingModal from '../Modal/AccountSettingModal';
 import ProfileUpdateModal from '../Modal/ProfileUpdateModal';
+import ListAddModal from '../Modal/ListAddModal';
 
 // Category Values
 const VIDEO = "V"
@@ -33,9 +34,13 @@ export default function UserComp() {
   const [searchOpt, setSearchOpt] = useState("Title");
   const handleSelect = (select) => { setSelect(select) }
   const handleSearchOptChange = (event) => { setSearchOpt(event.target.value); };
-  
+
   // The Category in UserComp
   const [select, setSelect] = useState(VIDEO)
+
+  // AddList Modal Handler
+  const [isListAddModalOpen, setIsListAddModalOpen] = useState(false);
+  const handleListAddModal = () => setIsListAddModalOpen(!isListAddModalOpen);
 
   // PostUpload Modal Handler
   const [isPostUplaodModalOpen, setIsPostUplaodModalOpen] = useState(false)
@@ -131,7 +136,17 @@ export default function UserComp() {
           ></TextField>
         </Box>
 
-        {/* Btn */}
+        {/* Btn add list */}
+        {(select === VIDEO_LIST) && <Button
+          fullWidth
+          sx={{ width: "150px" }}
+          color='white'
+          variant="outlined"
+          onClick={handleListAddModal}>
+          Create List
+        </Button>}
+
+        {/* Btn upload post */}
         {(select === COMMUNITY) && <Button
           fullWidth
           sx={{ width: "150px" }}
@@ -141,15 +156,13 @@ export default function UserComp() {
           Upload Post
         </Button>}
 
-        {(select === VIDEO_LIST) && <Button
-          fullWidth
-          sx={{ width: "150px" }}
-          color='white'
-          variant="outlined"
-          onClick={handlePostUploadOpne}>
-          Add Lsit
-        </Button>}
-
+        {/* Add List Mdl_Lst */}
+        <DefaultModal
+          open={isListAddModalOpen}
+          onClose={handleListAddModal}
+          title={"Create List"}
+          children={ListAddModal}
+        />
 
         {/* Upload Post Mdl_Pst */}
         <DefaultModal
