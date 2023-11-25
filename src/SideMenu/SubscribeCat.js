@@ -44,7 +44,7 @@ export default function SubscribeCat() {
       {/* Subscribe List */}
       <List sx={{ color: "#FFFFFF" }}>
         <Typography variant="h6" gutterBottom sx={{ padding: "5px 16px" }}>
-          List
+          Subscribe
         </Typography>
 
         {(subscribeList) && subscribeList.map(user => {
