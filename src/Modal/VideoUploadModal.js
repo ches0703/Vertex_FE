@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Button,
   TextField,
@@ -9,6 +10,7 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
+import uploadVideoAPI from "../API/Video/uploadVideoAPI";
 
 // Category Values
 const THUMBNAIL = "THUMBNAIL";
@@ -38,16 +40,45 @@ const reducer = (state, action) => {
   }
 };
 
-const VideoUploadModal = (onClose, title) => {
+const VideoUploadModal = (onClose, modalTitle) => {
+
+  const userData = useSelector((state) => state.user)
+
+  // Video & file Data & Handler
   const [state, dispatch] = useReducer(reducer, initialState);
   const { thumbnail, video } = state;
-
   const handleChange = (e, action) => {
     dispatch({
       type: action,
       payload: e,
     });
   };
+
+  // Video Data 
+  const [title, setVideoTitle] = useState("")
+  const [description, setDescription] = useState("")
+
+  // Video Data handler
+  const handleTitleChange = (e) => {
+    setVideoTitle(e.target.value)
+  }
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value)
+  }
+
+  // Video Upload handler
+  const handleUpload = async () => {
+    const data = {
+      title : title,
+      description : description,
+      video : video,
+      thumbnail : thumbnail,
+      // uploader : userData.email
+    }
+    const res = await uploadVideoAPI(data)
+    console.log(res)
+  }
+
 
   return (
     <Stack spacing={2} component="form">
@@ -58,6 +89,7 @@ const VideoUploadModal = (onClose, title) => {
         </Typography>
 
         <TextField
+          onChange={handleTitleChange}
           fullWidth
           color="white"
           size="small"
@@ -71,6 +103,7 @@ const VideoUploadModal = (onClose, title) => {
           Video Summary
         </Typography>
         <TextField
+          onChange={handleDescriptionChange}
           multiline
           rows={5}
           fullWidth
@@ -135,11 +168,12 @@ const VideoUploadModal = (onClose, title) => {
       <Stack direction="row" spacing={2}>
         {/* Apply */}
         <Button
+          onClick={handleUpload}
           variant="outlined"
           color="blue"
           sx={{flexGrow: "7"}}
         >
-          {title}
+          {modalTitle}
         </Button>
         {/* Cancel */}
         <Button

@@ -112,7 +112,7 @@ const SignUpModal = (onClose, title) => {
       birthday: birthday,
       gender: gender
     }
-    const res =  await SignUpAPI(data)
+    const res = await SignUpAPI(data)
     if (res) {
       alert("Sign up Success")
     } else {
