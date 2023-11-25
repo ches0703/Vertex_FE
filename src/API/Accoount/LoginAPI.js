@@ -1,12 +1,10 @@
 import axios from "axios";
-import { setToken } from "../Cookie";
 
 const URL = "https://rooster-master-mayfly.ngrok-free.app/auth/login/local"
 
 export default async function LoginAPI(data) {
   const res = await axios.post(URL, data,)
     .then((res) => {
-      setToken(res.data.session)
       return res
     })
     .catch((e) => {
@@ -14,7 +12,5 @@ export default async function LoginAPI(data) {
       return false
     })
   return res
-
-
 
 }
