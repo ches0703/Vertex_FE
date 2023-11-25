@@ -84,7 +84,7 @@ const AccountSettingModal = (onClose, title) => {
           color="white"
           onClick={() => handleTypeChange(PASSWORD)}
         >
-          Pwd
+          Password
         </Button>
         <Button
           fullWidth
