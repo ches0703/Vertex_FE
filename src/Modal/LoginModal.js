@@ -36,8 +36,7 @@ const LoginModal = (onClose, title) => {
     const res = await LoginAPI(data)
     console.log("Login result : ", res)
     if (res){
-      console.log(res.data.token)
-      dispatch(login(res.data))
+      dispatch(login(res.data.user))
       onClose()
     } else {
       alert("Login Fail")

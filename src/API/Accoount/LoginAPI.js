@@ -1,11 +1,13 @@
 import axios from "axios";
+import { setToken } from "../Cookie";
 
 const URL = "https://rooster-master-mayfly.ngrok-free.app/auth/login/local"
 
 export default async function LoginAPI(data) {
-  const res = await axios.post(URL, data)
-    .then((data) => {
-      return data
+  const res = await axios.post(URL, data,)
+    .then((res) => {
+      setToken(res.data.session)
+      return res
     })
     .catch((e) => {
       console.error(e)
@@ -13,13 +15,6 @@ export default async function LoginAPI(data) {
     })
   return res
 
-  // const res = await axios.post(URL, data, {
-  //   headers: {
-  //     "Content-Type": `application/json`,
-  //   },
-  // }).then((res) => {
-  //   console.log("EEE", res);
-  // });
 
 
 }

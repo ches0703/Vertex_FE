@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import axios from "axios";
 import {
   Button,
   TextField,
@@ -9,6 +10,9 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
+import { getToken } from "../API/Cookie";
+
+axios.defaults.headers.Cookie = "sess:"+getToken()
 
 // Category Values
 const THUMBNAIL = "THUMBNAIL";
@@ -42,6 +46,35 @@ const VideoUploadModal = (onClose, title) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { thumbnail, video } = state;
 
+  const [ti, setTitle] = useState("Test")
+  const [des, setDes] = useState("aaaaa")
+
+
+  const hdUpload = async () => {
+  console.log("sess:"+getToken())
+
+    const data = {
+      video: video,
+      thumbnail: thumbnail,
+      title: ti,
+      description: des,
+    } 
+    
+    const url = "https://rooster-master-mayfly.ngrok-free.app/video"
+    const res = await axios.post(url, data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        console.log(res)
+        return res  
+      })
+
+  }
+
+
   const handleChange = (e, action) => {
     dispatch({
       type: action,
@@ -50,7 +83,7 @@ const VideoUploadModal = (onClose, title) => {
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} component="form">
       {/* Video Title */}
       <Box className="Video Name">
         <Typography sx={{ color: "#FFFFFF", }}>
@@ -135,6 +168,7 @@ const VideoUploadModal = (onClose, title) => {
       <Stack direction="row" spacing={2}>
         {/* Apply */}
         <Button
+          onClick={hdUpload}
           variant="outlined"
           color="blue"
           sx={{flexGrow: "7"}}
