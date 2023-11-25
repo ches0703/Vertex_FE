@@ -16,6 +16,7 @@ import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
 import VideoListCardList from '../Comp/VideoLsitCardList';
 import AccountSettingModal from '../Modal/AccountSettingModal';
+import ProfileUpdateModal from '../Modal/ProfileUpdateModal';
 
 // Category Values
 const VIDEO = "V"
@@ -27,22 +28,14 @@ const UPLOADED_POST = "U"
 export default function UserComp() {
 
   const category = useSelector((state) => state.category)
+
+  // Search handler
   const [searchOpt, setSearchOpt] = useState("Title");
+  const handleSelect = (select) => { setSelect(select) }
+  const handleSearchOptChange = (event) => { setSearchOpt(event.target.value); };
+  
+  // The Category in UserComp
   const [select, setSelect] = useState(VIDEO)
-
-
-
-  const handleSelect = (select) => {
-    setSelect(select)
-  }
-
-  const handleSearchOptChange = (event) => {
-    setSearchOpt(event.target.value);
-  };
-
-  const handleTestModal = () => {
-
-  };
 
   // PostUpload Modal Handler
   const [isPostUplaodModalOpen, setIsPostUplaodModalOpen] = useState(false)
@@ -53,6 +46,11 @@ export default function UserComp() {
   const [isAccountSettingOpen, setIsAccountSettingOpen] = useState(false);
   const handleAccounSettingOpen = () => { setIsAccountSettingOpen(true) }
   const handleAccounSettingClose = () => { setIsAccountSettingOpen(false) }
+
+  // Profile Modal Handler
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
+  const handleProfilOpne = () => { setIsProfileModalOpen(true) }
+  const handleProfilClose = () => { setIsProfileModalOpen(false) }
 
   return (
     <Stack spacing={2}>
@@ -85,7 +83,7 @@ export default function UserComp() {
         </Button>
         {/* Account Setting Btns : Update Profile, Account Setting */}
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => {}}
+          onClick={handleProfilOpne}
           sx={{ height: "40px" }}>
           Update Profile
         </Button>
@@ -159,6 +157,14 @@ export default function UserComp() {
           onClose={handlePostUploadClose}
           title={"Upload Post"}
           children={PostUploadModal}
+        />
+
+        {/* Profile Update Modal */}
+        <DefaultModal
+          open={isProfileModalOpen}
+          onClose={handleProfilClose}
+          title={"Profile Update"}
+          children={ProfileUpdateModal}
         />
 
         {/* Account Setting Modal */}
