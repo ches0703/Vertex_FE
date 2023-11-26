@@ -27,7 +27,6 @@ async function getNewestVideoListAPI() {
     },
   })
     .then((res) => {
-      console.log("in api res", res)
       return res
     })
     .catch((e) => {

@@ -26,12 +26,10 @@ export default function VideoCardList() {
       if (category.sub === "Home") {
         const fetch = async () => {
           const res = await getHomeVideoListAPI()
-          console.log(res)
           setVideoList(res.data.data)
         }
         fetch()
       } else if (category.sub === "Newest") {
-        console.log("New")
         const fetch = async () => {
           const res = await getNewestVideoListAPI()
           setVideoList(res.data.data)
@@ -52,19 +50,6 @@ export default function VideoCardList() {
         {videoList.map((videoData) => {
           return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
         })}
-
-        {/* <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard> */}
       </Stack>
       <Button color="white" size="large" fullWidth variant="outlined" startIcon={<KeyboardDoubleArrowDownIcon />}>
         More

@@ -59,7 +59,12 @@ export default function VideoCard({videoData}) {
           <CardMedia
             component="img"
             image={thumb}
-            sx={{ borderRadius: "5px", height: "200px", width:"300px",}}
+            sx={{ 
+              borderRadius: "5px", 
+              aspectRatio: "16/10",
+              minWidth: "250px",
+              maxWidth: "325px"
+              ,}}
           />
 
           <CardContent sx={{ padding: "10px"}}>
@@ -75,7 +80,7 @@ export default function VideoCard({videoData}) {
               </Stack>
             </Stack>
             <Typography variant="caption" display="block" sx={{display: "block", width: "100%", textAlign:"right", color: "rgba(255,255,255,0.5)"}}>
-              Watch : {videoData.view_count} / Like : {videoData.like_count} / {"23/01/01"}
+              Watch : {videoData.view_count} / Like : {videoData.like_count} / {videoData.createdAt.substr(0,10)}
             </Typography>
           </CardContent>
         </CardActionArea>

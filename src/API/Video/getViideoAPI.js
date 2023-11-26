@@ -3,7 +3,6 @@ import baseURL from "../URL";
 const URL = baseURL + "/video/watch"
 
 export default async function getVideoAPI(videoId) {
-  console.log(URL)
   const res = axios.get(URL, {
     params: videoId,
     responseType: 'blob',
@@ -12,7 +11,6 @@ export default async function getVideoAPI(videoId) {
     },
   })
     .then((res) => {
-      console.log("in get thumb api : ", res)
       return res
     })
     .catch((e) => {

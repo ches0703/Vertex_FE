@@ -17,6 +17,8 @@ import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getViideoAPI";
 
+
+
 export default function VideoModal({ handleCloseModal, videoData }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
@@ -87,43 +89,40 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 <Typography variant="h6" sx={{ padding: "5px 16px" }}>
                   Related Video
                 </Typography>
-                {/* <VideoCard></VideoCard>
-                <VideoCard></VideoCard>
-                <VideoCard></VideoCard> */}
+                <VideoCard videoData={videoData}></VideoCard>
+                <VideoCard videoData={videoData}></VideoCard>
+                <VideoCard videoData={videoData}></VideoCard>
               </Stack>
             </Stack>
 
             <Stack direction="row" marginTop="15px" flexWrap="wrap">
               {/* Video Info */}
-              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px" }}>
+              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "7"  }}>
                 <Typography variant="h5"  >
-                  This is Test Title
+                  {videoData.title}
                 </Typography>
                 <Box>
                   <Typography variant="caption" sx={{ marginRight: "15px", color: "rgba(255,255,255,0.5)" }}>
-                    Upload Date : {"23/01/01"}
+                    Upload Date : {videoData.createdAt.substr(0,10)}
                   </Typography>
                   <Typography variant="caption" sx={{ marginRight: "15px", color: "rgba(255,255,255,0.5)" }}>
-                    Watch : {"1234"}
+                    Watch : {videoData.view_count}
                   </Typography>
                 </Box>
                 <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                  body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                  blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-                  neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-                  quasi quidem quibusdam.
+                  {videoData.description}
                 </Typography>
               </Box>
 
-              <Box sx={{ margin: "auto 0px", flexGrow: "1" }}>
+              <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
                 <Stack direction="row" alignItems="center">
                   <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
                   <Box paddingLeft="25px">
                     <Typography variant="h6" marginTop="10px" >
-                      {"User0000"}
+                      {videoData.user_email}
                     </Typography>
                     <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-                      Subscribers : {"1234"}
+                      Subscribers : {"????"}
                     </Typography>
                   </Box>
                 </Stack>
@@ -149,7 +148,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             sx={{
               marginRight: "10px"
             }}>
-            Like : {1234}
+            Like : {videoData.like_count}
           </Button>
 
           <Button
@@ -157,7 +156,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             variant="outlined"
             startIcon={<CommentIcon />}
             onClick={handleCommnetExpand}>
-            Comment : {1234}
+            Comment : {"????"}
           </Button>
         </Stack>
 
