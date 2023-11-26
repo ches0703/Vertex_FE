@@ -1,16 +1,17 @@
-import axios from "axios";
+import axios from "axios"
 import baseURL from "../URL";
-const URL = baseURL+"/video/thumbnail"
+const URL = baseURL+"/video/watch"
 
-export default async function getThumbnailAPI(thumbData) {
+export default async function getVideoAPI(videoId) {
   const res = axios.get(URL, {
-    params: thumbData,
+    params: videoId,
     responseType: 'blob',
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
   })
     .then((res) => {
+      console.log("in get thumb api : ",res)
       return res
     })
     .catch((e) => {
@@ -19,3 +20,4 @@ export default async function getThumbnailAPI(thumbData) {
     })
   return res
 }
+

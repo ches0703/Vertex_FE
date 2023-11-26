@@ -28,15 +28,15 @@ export default function VideoCard({videoData}) {
     const fetch = async () => {
       const res = await getThumbnailAPI({
         videoId: videoData.id,
-        thumbnail_file_extension: videoData.thumbnail_file_extension
+        thumbnailFileExtension: videoData.thumbnailFileExtension
       })
-      const myFile = new File([res.data], 'imageName')
-      const reader = new FileReader()
-      reader.onload = ev => {
-        const previewImage = String(ev.target?.result)
-        setThumb(previewImage)
-        }
-      reader.readAsDataURL(myFile)
+      if (res) {
+        const url = URL.createObjectURL(res.data);
+        setThumb(url)
+  
+        // Blob URL을 해제해 메모리 누수를 방지합니다.
+        return () => URL.revokeObjectURL(url);
+      }
     } 
     fetch()
   }, [])
@@ -48,8 +48,6 @@ export default function VideoCard({videoData}) {
         onClick={handleOpenModal}
         sx={{
           margin: "10px",
-          minWidth: "250px",
-          maxWidth: "300px",
           backgroundColor: "#2c2c2c",
           boxShadow: "none",
           backgroundImage: "none",
@@ -61,7 +59,7 @@ export default function VideoCard({videoData}) {
           <CardMedia
             component="img"
             image={thumb}
-            sx={{ borderRadius: "5px" }}
+            sx={{ borderRadius: "5px", height: "200px", width:"300px",}}
           />
 
           <CardContent sx={{ padding: "10px"}}>
@@ -84,7 +82,7 @@ export default function VideoCard({videoData}) {
       </Card>
 
       {/* Modal */}
-      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoId={videoData.id} ></VideoModal>}
+      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoData={videoData} ></VideoModal>}
 
     </Fragment>
   )

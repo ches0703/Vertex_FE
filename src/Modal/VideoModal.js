@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import {
   IconButton,
@@ -15,9 +15,10 @@ import CommentIcon from '@mui/icons-material/Comment';
 import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
+import getVideoAPI from "../API/Video/getViideoAPI";
 
 
-export default function VideoModal({ handleCloseModal }) {
+export default function VideoModal({ handleCloseModal, videoData }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
 
@@ -25,6 +26,22 @@ export default function VideoModal({ handleCloseModal }) {
     setCommnetExpand(!commnetExpand);
   };
 
+  const [video, setVideo] = useState(null)
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getVideoAPI({
+        videoId: videoData.id
+      })
+      if (res) {
+        const url = URL.createObjectURL(res.data);
+        setVideo(url)
+  
+        // Blob URL을 해제해 메모리 누수를 방지합니다.
+        return () => URL.revokeObjectURL(url);
+      }
+    }
+    fetch()
+  }, [])
 
   return (
     <Modal
@@ -60,7 +77,8 @@ export default function VideoModal({ handleCloseModal }) {
             <Stack direction="row">
               {/* Video Player */}
               <ReactPlayer
-                url={"https://youtu.be/KxCpYYwtQD4"}
+                //url={"https://youtu.be/KxCpYYwtQD4"}
+                url={video}
                 volume={0.5}
                 width="100%"
                 height="calc(90vh - 30px)"
@@ -71,9 +89,9 @@ export default function VideoModal({ handleCloseModal }) {
                 <Typography variant="h6" sx={{ padding: "5px 16px" }}>
                   Related Video
                 </Typography>
+                {/* <VideoCard></VideoCard>
                 <VideoCard></VideoCard>
-                <VideoCard></VideoCard>
-                <VideoCard></VideoCard>
+                <VideoCard></VideoCard> */}
               </Stack>
             </Stack>
 
