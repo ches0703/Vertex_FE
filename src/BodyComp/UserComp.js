@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   TextField,
   Box,
@@ -34,7 +34,7 @@ export default function UserComp(channelId) {
   const category = useSelector((state) => state.category)
   const userData = useSelector((state) => state.user)
 
-  const isMyPage = useRef(category.sub === userData.email)
+  const [isMyPage, setIsMyPage] = useState(category.sub === userData.email)
 
   // Search handler
   const [searchOpt, setSearchOpt] = useState("Title");
@@ -64,10 +64,8 @@ export default function UserComp(channelId) {
   const handleProfilClose = () => { setIsProfileModalOpen(false) }
 
   useEffect(() => {
-    co
-  },[])
-
-
+    setIsMyPage(category.sub === userData.email)
+  }, [category])
 
   return (
     <Stack spacing={2}>
@@ -92,7 +90,7 @@ export default function UserComp(channelId) {
         </Button>
       </Stack>
 
-      <Stack direction="row" spacing={2}>
+      {isMyPage && <Stack direction="row" spacing={2}>
         <Button fullWidth variant="outlined" color='white'
           onClick={() => { handleSelect(UPLOADED_POST) }}
           sx={{ height: "40px", }}>
@@ -109,7 +107,7 @@ export default function UserComp(channelId) {
           sx={{ height: "40px" }}>
           Account Setting
         </Button>
-      </Stack>
+      </Stack>}
 
       {/* Search */}
       <Stack direction="row-reverse" sx={{ justifyContent: "space-between" }}>
