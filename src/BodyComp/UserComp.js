@@ -147,14 +147,15 @@ export default function UserComp() {
         </Box>
 
         {/* Btn add list */}
-        {(select === VIDEO_LIST) && <Button
-          fullWidth
-          sx={{ width: "150px" }}
-          color='white'
-          variant="outlined"
-          onClick={handleListAddModal}>
-          Create List
-        </Button>}
+        {(select === VIDEO_LIST && category.sub === userData.email) &&
+          <Button
+            fullWidth
+            sx={{ width: "150px" }}
+            color='white'
+            variant="outlined"
+            onClick={handleListAddModal}>
+            Create List
+          </Button>}
 
         {/* Btn upload post */}
         {(select === COMMUNITY) && <Button
