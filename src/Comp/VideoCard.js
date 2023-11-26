@@ -80,7 +80,7 @@ export default function VideoCard({videoData}) {
               </Stack>
             </Stack>
             <Typography variant="caption" display="block" sx={{display: "block", width: "100%", textAlign:"right", color: "rgba(255,255,255,0.5)"}}>
-              Watch : {videoData.view_count} / Like : {videoData.like_count} / {"23/01/01"}
+              Watch : {videoData.view_count} / Like : {videoData.like_count} / {videoData.createdAt.substr(0,10)}
             </Typography>
           </CardContent>
         </CardActionArea>
