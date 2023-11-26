@@ -17,7 +17,6 @@ import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getViideoAPI";
 
-
 export default function VideoModal({ handleCloseModal, videoData }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
@@ -35,7 +34,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       if (res) {
         const url = URL.createObjectURL(res.data);
         setVideo(url)
-  
         // Blob URL을 해제해 메모리 누수를 방지합니다.
         return () => URL.revokeObjectURL(url);
       }
@@ -53,7 +51,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         color: "#FFFFFF"
       }}
     >
-      
+
       {/* Modal Window */}
       <Box
         sx={{
@@ -70,7 +68,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           borderRadius: "10px",
         }}
       >
-        
+
         <Stack direction="row">
 
           <Box sx={{ width: "100%" }}>
@@ -97,7 +95,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
             <Stack direction="row" marginTop="15px" flexWrap="wrap">
               {/* Video Info */}
-              <Box sx={{maxWidth:"60vw", minWidth: "400px", marginBottom: "15px" }}>
+              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px" }}>
                 <Typography variant="h5"  >
                   This is Test Title
                 </Typography>
@@ -117,7 +115,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 </Typography>
               </Box>
 
-              <Box sx={{ margin: "auto 0px", flexGrow: "1"}}>
+              <Box sx={{ margin: "auto 0px", flexGrow: "1" }}>
                 <Stack direction="row" alignItems="center">
                   <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
                   <Box paddingLeft="25px">
@@ -130,10 +128,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   </Box>
                 </Stack>
                 <Button
-                    fullWidth
+                  fullWidth
                   color='white'
                   variant="outlined"
-                  sx={{ marginTop: "15px"}}
+                  sx={{ marginTop: "15px" }}
                   startIcon={<FavoriteIcon />}>
                   Subscribe
                 </Button>
@@ -169,7 +167,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           <CommentList></CommentList>
         </Collapse>
 
-        <IconButton onClick={handleCloseModal} sx={{position: "absolute", top: "0px", right: "0px"}}>
+        <IconButton onClick={handleCloseModal} sx={{ position: "absolute", top: "0px", right: "0px" }}>
           <CloseIcon />
         </IconButton>
 

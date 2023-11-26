@@ -1,12 +1,12 @@
 import axios from "axios";
 
 import baseURL from "../URL";
-const HOME_URL = baseURL+"/video/home"
-const NEW_URL = baseURL+"/video/home"
-const SUB_URL = baseURL+""
+const HOME_URL = baseURL + "/video/home"
+const NEW_URL = baseURL + "/video/home"
+const SUB_URL = baseURL + ""
 
 async function getHomeVideoListAPI() {
-  const res = await axios.get(URL, {
+  const res = await axios.get(HOME_URL, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
