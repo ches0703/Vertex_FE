@@ -79,6 +79,17 @@ export default function Header() {
     dispatch(changeSub(userData.email));
   }
 
+  // handle logout
+  const handleLogout = () => {
+    dispatch(login({
+      email : null,
+      name : null,
+      profileImg : null 
+    }))
+    sessionStorage.clear()
+  }
+
+
   useEffect(() => {
     if (sessionStorage.userData) {
       dispatch(login(JSON.parse(sessionStorage.userData)))
@@ -194,6 +205,7 @@ export default function Header() {
                 <FileUploadOutlinedIcon />
               </Button>
               <Button
+                color="white"
                 onClick={() => handleCategoryChainge()}
               >
                 <Stack direction="row" spacing={1} alignItems="center">
@@ -203,6 +215,13 @@ export default function Header() {
                   </Typography>
                 </Stack>
               </Button>
+
+              <Button
+                onClick={handleLogout} 
+                color="white">
+                logout
+              </Button>
+
             </Stack>
           }
 
