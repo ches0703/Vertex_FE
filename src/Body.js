@@ -28,7 +28,7 @@ export default function Body() {
         {/* Body Main Comp */}
         <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
           {(category.main === "Main") && <MainComp></MainComp>}
-          {(category.main === "Subscribe") && <UserComp channelId={category.sub}></UserComp>}
+          {(category.main === "Subscribe") && <UserComp ></UserComp>}
           {(category.main === "VideoList") && <VideoListComp></VideoListComp>}
           {(category.main === "Search") && <SearchComp searchString={category.sub}></SearchComp>}
         </Grid>
