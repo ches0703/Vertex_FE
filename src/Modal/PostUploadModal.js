@@ -7,11 +7,41 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
+import { useSelector } from 'react-redux';
+
+import { uploadCommunityPost } from '../API/Post/uploadPostAPI';
 
 const PostUploadModal = (onClose, title) => {
+  const category = useSelector((state) => state.category);
+  const userData = useSelector((state) => state.user);
 
+  const [postTitle, setTitle] = useState('');
+  const [postContent, setContent] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
+
   const handleChange = (e) => { setThumbnail(e); };
+  const handleTitleChange = (e) => {
+    // console.log(e);
+    setTitle(e);
+  }
+  const handleContentChange = (e) => setContent(e);
+
+  // postUpload
+  const handleUpload = async () => {
+    const formData = new FormData()
+    formData.append("email", userData.email)
+    formData.append("channelId", category.sub)
+    formData.append("title", postTitle)
+    formData.append("contents", postContent)
+    formData.append("img", thumbnail)
+
+    console.log('post upload data', formData);
+
+    const response = await uploadCommunityPost(formData);
+    console.log(response)
+
+    onClose();
+  }
 
   return (
     <Stack spacing={2} sx={{ color: "#FFFFFF", }}>
@@ -24,21 +54,25 @@ const PostUploadModal = (onClose, title) => {
           fullWidth
           color="white"
           size="small"
-          sx={{marginTop: "5px",}}
+          sx={{ marginTop: "5px", }}
+          value={postTitle}
+          onChange={(e) => { handleTitleChange(e.target.value) }}
         />
       </Box>
 
       {/* Post Body */}
-      <Box className="Post Detail">
+      <Box className="Post Content">
         <Typography>
-          Post Detail
+          Post Content
         </Typography>
         <TextField
           multiline
           rows={5}
           fullWidth
           color="white"
-          sx={{marginTop: "5px", }}
+          sx={{ marginTop: "5px", }}
+          value={postContent}
+          onChange={(e) => { handleContentChange(e.target.value) }}
         />
       </Box>
 
@@ -88,7 +122,8 @@ const PostUploadModal = (onClose, title) => {
         <Button
           variant="outlined"
           color="blue"
-          sx={{flexGrow: "7"}}
+          sx={{ flexGrow: "7" }}
+          onClick={handleUpload}
         >
           {title}
         </Button>
@@ -96,7 +131,7 @@ const PostUploadModal = (onClose, title) => {
         <Button
           variant="outlined"
           color="red"
-          sx={{flexGrow: "3"}}
+          sx={{ flexGrow: "3" }}
           onClick={onClose}
         >
           Cancel

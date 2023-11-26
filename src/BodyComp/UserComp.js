@@ -29,7 +29,7 @@ const COMMUNITY = "C"
 const UPLOADED_POST = "U"
 
 
-export default function UserComp(channelId) {
+export default function UserComp() {
 
   const category = useSelector((state) => state.category)
   const userData = useSelector((state) => state.user)
@@ -147,14 +147,15 @@ export default function UserComp(channelId) {
         </Box>
 
         {/* Btn add list */}
-        {(select === VIDEO_LIST) && <Button
-          fullWidth
-          sx={{ width: "150px" }}
-          color='white'
-          variant="outlined"
-          onClick={handleListAddModal}>
-          Create List
-        </Button>}
+        {(select === VIDEO_LIST && category.sub === userData.email) &&
+          <Button
+            fullWidth
+            sx={{ width: "150px" }}
+            color='white'
+            variant="outlined"
+            onClick={handleListAddModal}>
+            Create List
+          </Button>}
 
         {/* Btn upload post */}
         {(select === COMMUNITY) && <Button
@@ -203,7 +204,7 @@ export default function UserComp(channelId) {
 
       {(select === VIDEO) && <VideoCardList></VideoCardList>}
       {(select === VIDEO_LIST) && <VideoListCardList></VideoListCardList>}
-      {(select === COMMUNITY) && <CommunityCardList channelId={channelId}></CommunityCardList>}
+      {(select === COMMUNITY) && <CommunityCardList></CommunityCardList>}
       {(select === UPLOADED_POST) && <CommunityCardList></CommunityCardList>}
 
 

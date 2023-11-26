@@ -6,20 +6,20 @@ import {
 
 import CommunityCard from './CommunityCard';
 
-import { getCommunityPostList } from '../API/Post/getPostList';
+import { getCommunityPostList } from '../API/Post/getPostListAPI';
 
-export default function CommunityCardList(channelId) {
+export default function CommunityCardList() {
 
   const category = useSelector((state) => state.category)
-  console.log("channelId : ", channelId);
+  console.log("channelId : ", category.sub);
 
   // const postList = getCommunityPostList(channelId);
   const [postList, setPostList] = useState([]);
   useEffect(() => {
     if (category.main === "Subscribe") {
       const fetch = async () => {
-        const response = await getCommunityPostList(channelId);
-        setPostList(response);
+        const response = await getCommunityPostList(category.sub);
+        setPostList(response.data.data);
       }
       fetch();
       console.log("postList : ", postList)
