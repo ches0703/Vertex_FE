@@ -6,7 +6,7 @@ import {
 
 import CommunityCard from './CommunityCard';
 
-import { getCommunityPostList } from '../API/Post/getPostList';
+import { getCommunityPostList } from '../API/Post/getPostListAPI';
 
 export default function CommunityCardList() {
 

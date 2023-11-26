@@ -7,8 +7,13 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
+import { useSelector } from 'react-redux';
+
+import { uploadCommunityPost } from '../API/Post/uploadPostAPI';
 
 const PostUploadModal = (onClose, title) => {
+  const category = useSelector((state) => state.category);
+  const userData = useSelector((state) => state.user);
 
   const [postTitle, setTitle] = useState('');
   const [postContent, setContent] = useState('');
@@ -20,6 +25,23 @@ const PostUploadModal = (onClose, title) => {
     setTitle(e);
   }
   const handleContentChange = (e) => setContent(e);
+
+  // postUpload
+  const handleUpload = async () => {
+    const formData = new FormData()
+    formData.append("email", userData.email)
+    formData.append("channelId", category.sub)
+    formData.append("title", postTitle)
+    formData.append("contents", postContent)
+    formData.append("img", thumbnail)
+
+    console.log('post upload data', formData);
+
+    const response = await uploadCommunityPost(formData);
+    console.log(response)
+
+    onClose();
+  }
 
   return (
     <Stack spacing={2} sx={{ color: "#FFFFFF", }}>
@@ -101,6 +123,7 @@ const PostUploadModal = (onClose, title) => {
           variant="outlined"
           color="blue"
           sx={{ flexGrow: "7" }}
+          onClick={handleUpload}
         >
           {title}
         </Button>
