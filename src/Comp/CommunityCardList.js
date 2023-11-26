@@ -19,7 +19,7 @@ export default function CommunityCardList() {
     if (category.main === "Subscribe") {
       const fetch = async () => {
         const response = await getCommunityPostList(category.sub);
-        setPostList(response.data.data);
+        setPostList(response);
       }
       fetch();
       console.log("postList : ", postList)
@@ -28,9 +28,9 @@ export default function CommunityCardList() {
 
   return (
     <Stack margin="15px">
-      <CommunityCard></CommunityCard>
-      <CommunityCard></CommunityCard>
-      <CommunityCard></CommunityCard>
+      {postList.map((post) => {
+        return <CommunityCard psotData={post}></CommunityCard>
+      })}
     </Stack>
   )
 }

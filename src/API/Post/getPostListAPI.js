@@ -5,11 +5,14 @@ const communityList = "/community/list";
 
 const getCommunityPostList = async (channelId) => {
     const response = await axios.get(baseURL + communityList, {
-        channelId: channelId
+        params: { channelId: channelId },
+        headers: {
+            'ngrok-skip-browser-warning': '69420',
+        }
     })
         .then((res) => {
-            console.log("in api res", res)
-            return res
+            console.log("in api res", res.data.data)
+            return res.data.data
         })
         .catch((e) => {
             console.log(e)
