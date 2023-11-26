@@ -42,8 +42,6 @@ export default function Header() {
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
-
-
   // handling Upload Btn_Vd
   const [openUploaVideoModal, setOpenUploadVideoModal] = useState(false);
   const handleVideoUploadModal = () => {
@@ -75,8 +73,14 @@ export default function Header() {
     dispatch(changeMain("Search"));
   }
 
+  // move to my page
+  const handleCategoryChainge = () => {
+    dispatch(changeMain("Subscribe"));
+    dispatch(changeSub(userData.email));
+  }
+
   useEffect(() => {
-    if(sessionStorage.userData){
+    if (sessionStorage.userData) {
       dispatch(login(JSON.parse(sessionStorage.userData)))
     }
   }, [])
@@ -189,12 +193,16 @@ export default function Header() {
               >
                 <FileUploadOutlinedIcon />
               </Button>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
-                <Typography>
-                  {userData.name}
-                </Typography>
-              </Stack>
+              <Button
+                onClick={() => handleCategoryChainge()}
+              >
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
+                  <Typography>
+                    {userData.name}
+                  </Typography>
+                </Stack>
+              </Button>
             </Stack>
           }
 
@@ -223,6 +231,6 @@ export default function Header() {
 
         </>
       </Stack>
-    </AppBar>
+    </AppBar >
   );
 }
