@@ -7,15 +7,47 @@ import {
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import VideoCard from './VideoCard';
 
+// Home API
+import { 
+  getHomeVideoListAPI,
+  getNewestVideoListAPI,
+  getSubscribeVideoListAPI
+} from '../API/Video/getMainVideoListAPI';
+
+
 export default function VideoCardList() {
 
   const category = useSelector((state) => state.category)
+  const [videoList, setVideoList] = useState([])
 
+  useEffect(() => {
+    // Categeory : Main
+    if (category.main === "Main") {
+      if (category.sub === "Home") {
+
+      } else if (category.sub === "Newest") {
+        const fetch = async() => {
+          const res = await getNewestVideoListAPI()
+          setVideoList(res)
+        }
+        fetch()
+      } else if (category.sub === "Subscribe") {
+
+      } else {
+
+      }
+    }
+  },[category])
 
 
   return (
     <Stack spacing={2} margin="15px">
       <Stack direction="row" justifyContent="center" flexWrap="wrap">
+        {videoList.map((videoData) => {
+          return <VideoCard key={videoData.title} videoData={videoData}></VideoCard>
+        })}
+        
+        {/* <VideoCard></VideoCard>
         <VideoCard></VideoCard>
         <VideoCard></VideoCard>
         <VideoCard></VideoCard>
@@ -26,8 +58,7 @@ export default function VideoCardList() {
         <VideoCard></VideoCard>
         <VideoCard></VideoCard>
         <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
+        <VideoCard></VideoCard> */}
       </Stack>
       <Button color="white" size="large" fullWidth variant="outlined" startIcon={<KeyboardDoubleArrowDownIcon />}>
         More

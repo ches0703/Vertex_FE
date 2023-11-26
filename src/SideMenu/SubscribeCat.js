@@ -27,7 +27,7 @@ export default function SubscribeCat() {
   const [subscribeList, setSubscribeList] = useState([])
 
   useEffect(() => {
-    async function fetch() {
+    const fetch = async() => {
       const res = await getSubscribeListAPI()
       setSubscribeList(res)
     }

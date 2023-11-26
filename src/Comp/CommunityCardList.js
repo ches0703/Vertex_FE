@@ -10,10 +10,6 @@ export default function CommunityCardList() {
 
   const category = useSelector((state) => state.category)
 
-  useEffect(() => {
-    console.log(category)
-  }, [category])
-
   return (
     <Stack margin="15px">
       <CommunityCard></CommunityCard>

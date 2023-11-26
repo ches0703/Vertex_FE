@@ -11,7 +11,7 @@ import {
 
 import VideoModal from '../Modal/VideoModal';
 
-export default function VideoCard() {
+export default function VideoCard({videoData}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const handleOpenModal = () => {
@@ -49,7 +49,7 @@ export default function VideoCard() {
               <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
               <Stack justifyContent="center" marginLeft="10px">
                 <Typography variant="subtitle2">
-                  Test Title
+                  {videoData.title}
                 </Typography>
                 <Typography variant="caption" display="block" sx={{color: "rgba(255,255,255,0.5)"}}>
                   User Name
@@ -57,7 +57,7 @@ export default function VideoCard() {
               </Stack>
             </Stack>
             <Typography variant="caption" display="block" sx={{display: "block", width: "100%", textAlign:"right", color: "rgba(255,255,255,0.5)"}}>
-              Watch : {123} / Like : {456} / {"23/01/01"}
+              Watch : {videoData.watch} / Like : {videoData.like} / {"23/01/01"}
             </Typography>
           </CardContent>
         </CardActionArea>

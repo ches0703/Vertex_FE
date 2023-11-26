@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const URL = "https://careful-horribly-ladybird.ngrok-free.app/auth/login/local"
+import baseURL from "../URL";
+const URL = baseURL+"/auth/login/local"
 
 export default async function LoginAPI(data) {
   const res = await axios.post(URL, data,)

@@ -1,34 +1,32 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import baseURL from "../URL";
 
-// const URL = "https://careful-horribly-ladybird.ngrok-free.app/video"
-const URL = "https://careful-horribly-ladybird.ngrok-free.app/video"
+const URL = baseURL+"/video"
 
 
 export default async function uploadVideoAPI(data) {
-  //data.video = Blob(data.video)
-
-  // console.log(data)
-  console.log(document.cookie);
-
-  for (let key of data.keys()) {
-    console.log(key);
-  }
-  for (let value of data.values()) {
-    console.log(value);
-  }
   
+  console.log(data)
 
-  const res = await fetch({
-    method: 'post',
-    url: URL,
-    body: data,
-    headers: {
-      //'Content-Type': 'application/json',
-      'Content-Type': 'multipart/form-data',
-      "Cookie": document.cookie,
-    }
-  })
+  const res = axios.post(URL, data)
+    .then((res) => {
+      return res
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+
+  return res
+
+  // const res = await fetch({
+  //   method: 'POST',
+  //   url: URL,
+  //   body: data,
+  //   headers: {
+  //     "Cookie": document.cookie,
+  //   }
+  // })
 
   // const res = await axios({
   //   method: 'post',
@@ -40,10 +38,9 @@ export default async function uploadVideoAPI(data) {
   //     "Access-Control-Allow-Headers": "*",
   //     'Access-Control-Expose-Headers': '*',
   //     'Access-Control-Allow-Credentials': true,
-      // 'Content-Type': 'application/json',
+  //     'Content-Type': 'application/json',
   //     "Authorization": document.cookie,
   //   }
   // })
 
-  return res;
 }

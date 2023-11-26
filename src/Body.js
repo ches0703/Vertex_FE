@@ -6,9 +6,14 @@ import MainComp from './BodyComp/MainComp';
 import UserComp from './BodyComp/UserComp';
 import VideoListComp from './BodyComp/VideoListComp';
 import SearchComp from './BodyComp/SearchComp';
+import { useEffect } from 'react';
 export default function Body() {
 
   const category = useSelector((state) => state.category)
+
+  useEffect(() => {
+    console.log(category)
+  }, [category])
 
   return(
     <Box sx={{ flexGrow: 1,}}>

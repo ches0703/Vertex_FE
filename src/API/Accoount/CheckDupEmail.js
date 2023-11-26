@@ -1,13 +1,14 @@
 import axios from "axios";
+import baseURL from "../URL";
 
 const URL = ""
 
+
 export default async function CheckDupEmail(email) {
-  console.log("CheckDupEmail API Start : ", email)
+  
   await axios.get(URL, email)
-    .then((data) => {
-      console.log("in API", email)
-      return data
+    .then((res) => {
+      return res
     })
     .catch((e) => {
       console.error(e)

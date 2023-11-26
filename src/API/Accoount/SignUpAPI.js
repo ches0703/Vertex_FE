@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const URL = "https://rooster-master-mayfly.ngrok-free.app/auth/signup/local"
+//const URL = "https://rooster-master-mayfly.ngrok-free.app/auth/signup/local"
+
+import baseURL from "../URL";
+
+const URL = baseURL+"/auth/signup/local"
 
 export default async function SignUpAPI(data) {
   const res = await axios.post(URL, data)
