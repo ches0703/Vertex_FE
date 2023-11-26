@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   TextField,
   Box,
@@ -32,6 +32,9 @@ const UPLOADED_POST = "U"
 export default function UserComp() {
 
   const category = useSelector((state) => state.category)
+  const userData = useSelector((state) => state.user)
+
+  const isMyPage = useRef(category.sub === userData.email)
 
   // Search handler
   const [searchOpt, setSearchOpt] = useState("Title");
@@ -60,7 +63,9 @@ export default function UserComp() {
   const handleProfilOpne = () => { setIsProfileModalOpen(true) }
   const handleProfilClose = () => { setIsProfileModalOpen(false) }
 
-  // userdata API
+  useEffect(() => {
+    co
+  },[])
 
 
 
