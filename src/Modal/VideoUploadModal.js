@@ -69,22 +69,23 @@ const VideoUploadModal = (onClose, modalTitle) => {
 
   // Video Upload handler
   const handleUpload = async () => {
-    
-    const data = {
-      title,
-      description,
-      video,
-      thumbnail,
-      // uploader : userData.email
-    }
-    
-    // const formData = new FormData()
-    // formData.append("title", title)
-    // formData.append("description", description)
-    // formData.append("video", video)
-    // formData.append("thumbnail", thumbnail)
 
-    const res = await uploadVideoAPI(data)
+    // const data = {
+    //   title,
+    //   description,
+    //   video,
+    //   thumbnail,
+    //   email : userData.email
+    // }
+    
+    const formData = new FormData()
+    formData.append("title", title)
+    formData.append("description", description)
+    formData.append("video", video)
+    formData.append("thumbnail", thumbnail)
+    formData.append("email", userData.email)
+
+    const res = await uploadVideoAPI(formData)
     console.log(res)
 
   }

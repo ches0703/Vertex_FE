@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { login } from "./redux/UserReducer"
 import { changeMain, changeSub } from "./redux/CategoryReducer";
 import {
   TextField,
@@ -74,6 +75,11 @@ export default function Header() {
     dispatch(changeMain("Search"));
   }
 
+  useEffect(() => {
+    if(sessionStorage.userData){
+      dispatch(login(JSON.parse(sessionStorage.userData)))
+    }
+  }, [])
 
   return (
     <AppBar

@@ -24,17 +24,23 @@ export default function VideoCardList() {
     // Categeory : Main
     if (category.main === "Main") {
       if (category.sub === "Home") {
-
+        const fetch = async() => {
+          const res = await getHomeVideoListAPI()
+          console.log(res)
+          //setVideoList(res)
+        }
+        //fetch()
       } else if (category.sub === "Newest") {
+        console.log("New")
         const fetch = async() => {
           const res = await getNewestVideoListAPI()
-          setVideoList(res)
+          setVideoList(res.data.data)
         }
         fetch()
       } else if (category.sub === "Subscribe") {
-
+        
       } else {
-
+        
       }
     }
   },[category])
@@ -44,7 +50,7 @@ export default function VideoCardList() {
     <Stack spacing={2} margin="15px">
       <Stack direction="row" justifyContent="center" flexWrap="wrap">
         {videoList.map((videoData) => {
-          return <VideoCard key={videoData.title} videoData={videoData}></VideoCard>
+          return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
         })}
         
         {/* <VideoCard></VideoCard>

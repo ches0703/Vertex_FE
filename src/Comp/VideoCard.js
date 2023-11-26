@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   Typography,
   Card,
@@ -10,16 +10,36 @@ import {
 } from '@mui/material';
 
 import VideoModal from '../Modal/VideoModal';
+import getThumbnailAPI from '../API/Video/getThumbnailAPI';
+
 
 export default function VideoCard({videoData}) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [thumb, setThumb] = useState(null)
   const handleOpenModal = () => {
     setIsModalOpen(true)
   }
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getThumbnailAPI({
+        videoId: videoData.id,
+        thumbnail_file_extension: videoData.thumbnail_file_extension
+      })
+      const myFile = new File([res.data], 'imageName')
+      const reader = new FileReader()
+      reader.onload = ev => {
+        const previewImage = String(ev.target?.result)
+        setThumb(previewImage)
+        }
+      reader.readAsDataURL(myFile)
+    } 
+    fetch()
+  }, [])
 
   return (
     <Fragment>
@@ -40,7 +60,7 @@ export default function VideoCard({videoData}) {
 
           <CardMedia
             component="img"
-            image="./Test.jpg"
+            image={thumb}
             sx={{ borderRadius: "5px" }}
           />
 
@@ -52,19 +72,19 @@ export default function VideoCard({videoData}) {
                   {videoData.title}
                 </Typography>
                 <Typography variant="caption" display="block" sx={{color: "rgba(255,255,255,0.5)"}}>
-                  User Name
+                  {videoData.user_email}
                 </Typography>
               </Stack>
             </Stack>
             <Typography variant="caption" display="block" sx={{display: "block", width: "100%", textAlign:"right", color: "rgba(255,255,255,0.5)"}}>
-              Watch : {videoData.watch} / Like : {videoData.like} / {"23/01/01"}
+              Watch : {videoData.view_count} / Like : {videoData.like_count} / {"23/01/01"}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
 
       {/* Modal */}
-      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal}></VideoModal>}
+      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoId={videoData.id} ></VideoModal>}
 
     </Fragment>
   )

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/UserReducer";
 import {
   Box,
@@ -8,13 +8,13 @@ import {
   Stack,
   Typography
 } from "@mui/material";
-import Cookies from "js-cookie";
 
 import LoginAPI from "../API/Accoount/LoginAPI";
 
 const LoginModal = (onClose, title) => {
 
   const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user)
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("")
@@ -35,17 +35,18 @@ const LoginModal = (onClose, title) => {
     }
 
     const res = await LoginAPI(data)
-    const { session: sessionId } = res.data;
-    // Cookies에 sessionID 저장
-    Cookies.set('connect.sid', sessionId);
     console.log("Login result : ", res)
     if (res){
-      dispatch(login(res.data.user))
+      dispatch(login(res.data.data))
+      sessionStorage.userData = JSON.stringify(res.data.data)
       onClose()
     } else {
       alert("Login Fail")
     }
+
   }
+
+
 
   return (
     <div>

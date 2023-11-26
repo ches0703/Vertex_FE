@@ -6,12 +6,12 @@ const URL = baseURL+"/video"
 
 
 export default async function uploadVideoAPI(data) {
-  
+
   console.log(data)
 
   const res = axios.post(URL, data)
     .then((res) => {
-      return res
+      return res.data
     })
     .catch((e) => {
       console.error(e)

@@ -3,7 +3,7 @@ import baseURL from "../URL";
 const URL = baseURL+"/auth/login/local"
 
 export default async function LoginAPI(data) {
-  const res = await axios.post(URL, data,)
+  const res = await axios.post(URL, data)
     .then((res) => {
       return res
     })
