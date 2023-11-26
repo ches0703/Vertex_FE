@@ -29,7 +29,7 @@ const COMMUNITY = "C"
 const UPLOADED_POST = "U"
 
 
-export default function UserComp() {
+export default function UserComp(channelId) {
 
   const category = useSelector((state) => state.category)
   const userData = useSelector((state) => state.user)
@@ -205,7 +205,7 @@ export default function UserComp() {
 
       {(select === VIDEO) && <VideoCardList></VideoCardList>}
       {(select === VIDEO_LIST) && <VideoListCardList></VideoListCardList>}
-      {(select === COMMUNITY) && <CommunityCardList></CommunityCardList>}
+      {(select === COMMUNITY) && <CommunityCardList channelId={channelId}></CommunityCardList>}
       {(select === UPLOADED_POST) && <CommunityCardList></CommunityCardList>}
 
 
