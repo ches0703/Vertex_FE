@@ -61,7 +61,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
     }
     fetchVideo();
-    console.log("modal render",videoData)
     console.log("isLiked", isLiked)
   }, [isLiked])
 

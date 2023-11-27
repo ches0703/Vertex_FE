@@ -27,7 +27,7 @@ export default function CommunityCard({ post }) {
       const res = await getPostImage({
         postId: post.id,
       })
-      setImage(res)
+      setImage(res.data)
     }
     fetch()
   }, [])
