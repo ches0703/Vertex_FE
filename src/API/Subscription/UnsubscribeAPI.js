@@ -7,8 +7,7 @@ const URL = baseURL + "/subscription/unsubscribe";
  */
 export default async function UnsubscribeAPI(data) {
   const res = axios
-    .post(URL, {
-      body: data,
+    .post(URL, data, {
       headers: {
         "ngrok-skip-browser-warning": "69420",
       },

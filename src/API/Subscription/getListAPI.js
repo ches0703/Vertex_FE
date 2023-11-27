@@ -6,7 +6,7 @@ const URL = baseURL + "/subscription/list";
  * @description 사용자의 구독 리스트 받기
  * @param  data - userId
  */
-export default async function getListAPI(data) {
+export default async function getSubscribeListAPI(data) {
   const res = axios
     .get(URL, {
       params: data,

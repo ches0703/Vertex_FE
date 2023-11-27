@@ -7,8 +7,7 @@ const URL = baseURL + "/subscription/subscribe";
  */
 export default async function SubscribeAPI(data) {
   const res = axios
-    .post(URL, {
-      body: data,
+    .post(URL, data, {
       headers: {
         "ngrok-skip-browser-warning": "69420",
       },
