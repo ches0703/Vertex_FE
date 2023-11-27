@@ -22,6 +22,7 @@ const uploadComment = async (data) => {
 }
 
 const updateComment = async (data) => {
+    console.log(data)
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'patch',
@@ -29,7 +30,7 @@ const updateComment = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log(" comment : ", res);
+            console.log("update comment : ", res);
             return res;
         })
         .catch((e) => {

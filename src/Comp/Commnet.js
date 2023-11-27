@@ -21,18 +21,39 @@ export default function Comment({ comment, isReply, hasReply }) {
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
   const [profileImg, setProfileImg] = useState(null)
 
+  const [updateWriteExpand, setUpdateWriteExpand] = useState(false);
+  const [updateComment, setUpdateComment] = useState('');
+
   const handleReplyCommnetExpand = () => {
-    setReplyWriteExpand(false)
+    setUpdateWriteExpand(false);
+    setReplyWriteExpand(false);
     setReplyCommnetExpand(!replyCommnetExpand);
   };
 
   const handleReplyWriteExpand = () => {
-    setReplyCommnetExpand(true)
+    setUpdateWriteExpand(false);
+    setReplyCommnetExpand(false);
     setReplyWriteExpand(!replyWriteExpand);
   };
 
+  const handleUpdateWriteExpand = () => {
+    setReplyWriteExpand(false);
+    setReplyCommnetExpand(false);
+    setUpdateWriteExpand(!updateWriteExpand);
+  }
+
   const handleButton = (type) => {
     comment.func(comment, type);
+  }
+
+  const handleUpdate = (e) => {
+    setUpdateComment(e);
+  }
+  const handleUpdateClick = () => {
+    comment.content = updateComment;
+    handleButton(UPDATE);
+    setUpdateComment('');
+    setUpdateWriteExpand(!updateWriteExpand);
   }
 
   return (
@@ -69,7 +90,7 @@ export default function Comment({ comment, isReply, hasReply }) {
             </Button>}
             {(userData.email === comment.user_email) &&
               <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
-                onClick={() => { handleButton(UPDATE) }}>
+                onClick={handleUpdateWriteExpand}>
                 <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                   {"/ Update"}
                 </Typography>
@@ -107,6 +128,7 @@ export default function Comment({ comment, isReply, hasReply }) {
       <Collapse in={replyWriteExpand} timeout="auto" unmountOnExit>
         <Box component="form" sx={{ paddingLeft: "65px", paddingBottom: "15px" }}>
           <TextField
+            label={"Reply"}
             fullWidth
             color='white'
             multiline
@@ -120,7 +142,30 @@ export default function Comment({ comment, isReply, hasReply }) {
             }}
           ></TextField>
         </Box>
+      </Collapse>
 
+      {/* Update Write */}
+      <Collapse in={updateWriteExpand} timeout="auto" unmountOnExit>
+        <Box component="form" sx={{ paddingLeft: "65px", paddingBottom: "15px" }}>
+          <TextField
+            label={"update"}
+            fullWidth
+            color='white'
+            multiline
+            maxRows={4}
+            value={updateComment}
+            onChange={(e) => handleUpdate(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <Button variant="outlined" color='white' sx={{ marginLeft: "10px", width: "200px" }}
+                  onClick={handleUpdateClick}
+                >
+                  Update
+                </Button>
+              ),
+            }}
+          ></TextField>
+        </Box>
       </Collapse>
 
 
