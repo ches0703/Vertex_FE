@@ -6,23 +6,36 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import getUserDataAPI from '../API/UserData/getUserDataAPI';
 
-export default function UserCard({ user }) {
+export default function UserCard({ userEmail }) {
+
+  const category = useSelector((state) => state.category)
+  const [userData, setuserData] = useState(null)
 
   useEffect(() => {
-    console.log(user)
-  })
+    const fetch = async() => {
+      const res = await getUserDataAPI({
+        email: category.sub
+      })
+      console.log(res.data)
+      setuserData(res.data)
+    }
+    fetch()
+  }, [category.sub])
 
   return (
-    <Card sx={{ borderRadius: "10px", padding: "15px" }}>
+    <>
+    {userData && <Card sx={{ borderRadius: "10px", padding: "15px" }}>
 
       {/* Card Image */}
       <CardMedia
         component="img"
         image={"/Test.jpg"}
         sx={{ borderRadius: "10px", height: "300px" }}
-      />
+        />
 
       <Stack direction="row" sx={{ marginTop: "15px", justifyContent: "space-between", flexWrap: "wrap"}}>
 
@@ -34,14 +47,12 @@ export default function UserCard({ user }) {
 
             {/* User nickName */}
             <Typography variant="h5">
-              {user}
+              {userData.name}
             </Typography>
 
             {/* User Discription */}
             <Typography padding="0px" variant="body2" color="text.secondary">
-              This impressive paella is a perfect party dish and a fun meal to cook
-              together with your guests. Add 1 cup of frozen peas along with the mussels,
-              if you like.
+              {userData.description}
             </Typography>
           </Stack>
 
@@ -66,6 +77,7 @@ export default function UserCard({ user }) {
         </Stack>
 
       </Stack>
-    </Card>
+    </Card>}
+    </>
   )
 }
