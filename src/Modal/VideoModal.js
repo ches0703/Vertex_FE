@@ -17,47 +17,62 @@ import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
-import getVideoDataAPI from "../API/Video/getVideoDataAPI";
 
+import {
+  videoLikeAPI,
+  videoLikeCheck
+} from "../API/Video/videoLikeAPI";
 
 export default function VideoModal({ handleCloseModal, videoData }) {
 
   const userData = useSelector((state) => state.user)
 
   const [commnetExpand, setCommnetExpand] = useState(false);
+  const [isLiked, setIsLiked] = useState(false)
 
   const handleCommnetExpand = () => {
     setCommnetExpand(!commnetExpand);
   };
 
   const [video, setVideo] = useState(null)
-  const [videoDatas, setVideoDatas] = useState(null);
   useEffect(() => {
     const fetchVideo = async () => {
-      const res = await getVideoAPI({
+
+      // video like get
+      const likeRes = await videoLikeCheck({
         email: userData.email,
         videoId: videoData.id
       })
-      if (res) {
-        const url = URL.createObjectURL(res.data);
+      if (likeRes) {
+        setIsLiked(likeRes.data)
+      }
+
+      // video get
+      const videoRes = await getVideoAPI({
+        email: userData.email,
+        videoId: videoData.id
+      })
+      if (videoRes) {
+        const url = URL.createObjectURL(videoRes.data);
         setVideo(url)
         // Blob URL을 해제해 메모리 누수를 방지합니다.
         return () => URL.revokeObjectURL(url);
       }
-    }
-    const fetchVideoData = async () => {
-      const resData = await getVideoDataAPI({
-        videoId: videoData.id
-      })
 
-      console.log(resData);
-      if(resData){
-        setVideoDatas(resData.data);
-      }
     }
     fetchVideo();
-    fetchVideoData();
-  }, [])
+    console.log("modal render",videoData)
+    console.log("isLiked", isLiked)
+  }, [isLiked])
+
+  const handleLike = async() => {
+    const res = await videoLikeAPI({
+      email: userData.email,
+      videoId: videoData.id 
+    })
+    setIsLiked(!isLiked)
+    console.log(res)
+  }
 
   return (
     <Modal
@@ -135,7 +150,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
                   <Box paddingLeft="25px">
                     <Typography variant="h6" marginTop="10px" >
-                      {videoDatas.name}
+                      {videoData.name}
                     </Typography>
                     <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
                       Subscribers : {"????"}
@@ -147,7 +162,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   color='white'
                   variant="outlined"
                   sx={{ marginTop: "15px" }}
-                  startIcon={<FavoriteIcon />}>
+                >
                   Subscribe
                 </Button>
               </Box>
@@ -159,8 +174,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
         <Stack direction="row" marginTop="15px">
           <Button
+            onClick={handleLike}
             color='white'
             variant="outlined"
+            startIcon={<FavoriteIcon />}
             sx={{
               marginRight: "10px"
             }}>

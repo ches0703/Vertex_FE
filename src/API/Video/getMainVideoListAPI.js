@@ -11,6 +11,7 @@ async function getHomeVideoListAPI() {
     },
   })
     .then((res) => {
+      console.log("video list home api res : ",res)
       return res
     })
     .catch((e) => {
