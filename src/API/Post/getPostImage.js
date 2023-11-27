@@ -6,7 +6,6 @@ const URL = baseURL+"/community/image"
 export default async function getPostImage(postData) {
   const res = await axios.get(URL, {
     params: postData,
-    responseType: 'blob',
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },

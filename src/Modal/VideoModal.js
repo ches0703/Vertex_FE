@@ -33,8 +33,8 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const handleCommnetExpand = () => {
     setCommnetExpand(!commnetExpand);
   };
-
   const [video, setVideo] = useState(null)
+
   useEffect(() => {
     const fetchVideo = async () => {
 
@@ -53,15 +53,11 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         videoId: videoData.id
       })
       if (videoRes) {
-        const url = URL.createObjectURL(videoRes.data);
-        setVideo(url)
-        // Blob URL을 해제해 메모리 누수를 방지합니다.
-        return () => URL.revokeObjectURL(url);
+        setVideo(videoRes.data)
       }
 
     }
     fetchVideo();
-    console.log("modal render",videoData)
     console.log("isLiked", isLiked)
   }, [isLiked])
 
@@ -70,8 +66,8 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       email: userData.email,
       videoId: videoData.id 
     })
+    console.log("like res", res)
     setIsLiked(!isLiked)
-    console.log(res)
   }
 
   return (
@@ -108,7 +104,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             <Stack direction="row">
               {/* Video Player */}
               <ReactPlayer
-                //url={"https://youtu.be/KxCpYYwtQD4"}
                 url={video}
                 volume={0.5}
                 width="100%"

@@ -27,13 +27,7 @@ export default function CommunityCard({ post }) {
       const res = await getPostImage({
         postId: post.id,
       })
-      if (res) {
-        const url = URL.createObjectURL(res.data);
-        setImage(url)
-
-        // Blob URL을 해제해 메모리 누수를 방지합니다.
-        return () => URL.revokeObjectURL(url);
-      }
+      setImage(res)
     }
     fetch()
   }, [])

@@ -5,7 +5,6 @@ const URL = baseURL+"/video/thumbnail"
 export default async function getThumbnailAPI(thumbData) {
   const res = await axios.get(URL, {
     params: thumbData,
-    responseType: 'blob',
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
