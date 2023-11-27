@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 import {
   IconButton,
@@ -21,6 +22,8 @@ import getVideoAPI from "../API/Video/getViideoAPI";
 
 export default function VideoModal({ handleCloseModal, videoData }) {
 
+  const userData = useSelector((state) => state.user)
+
   const [commnetExpand, setCommnetExpand] = useState(false);
 
   const handleCommnetExpand = () => {
@@ -31,6 +34,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   useEffect(() => {
     const fetch = async () => {
       const res = await getVideoAPI({
+        email: userData.email,
         videoId: videoData.id
       })
       if (res) {
