@@ -1,15 +1,32 @@
 import { useReducer } from "react";
+import { useSelector } from 'react-redux';
 import { Button, TextField, Typography, Box, Stack } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 
+import { updateProfile } from '../API/UserData/updateProfileAPI';
+
+const NICKNAME = "NICKNAME";
+const INTRODUCTION = "INTRODUCTION";
 const PROFILE = "PROFILE";
 const CHANNELCARD = "CHANNELCARD";
 const initialState = {
+  nickName: '',
+  introduction: '',
   profile: null,
   channelCard: null,
 };
 const reducer = (state, action) => {
   switch (action.type) {
+    case NICKNAME:
+      return {
+        ...state,
+        nickName: action.payload,
+      };
+    case INTRODUCTION:
+      return {
+        ...state,
+        introduction: action.payload,
+      };
     case PROFILE:
       return {
         ...state,
@@ -21,20 +38,46 @@ const reducer = (state, action) => {
         channelCard: action.payload,
       };
     default:
-      return state;
+      return {
+        nickName: action.payload,
+      };
   }
 };
 
 const ProfileUpdateModal = (onClose, title) => {
+  const userData = useSelector(state => state.user);
+
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { profile, channelCard } = state;
+  const { nickName, introduction, profile, channelCard } = state;
 
   const handleChange = (e, action) => {
+    const payload = (action === PROFILE || action === CHANNELCARD) ? e : e.target.value;
     dispatch({
       type: action,
-      payload: e,
+      payload: payload,
     });
   };
+
+  const handleUpdate = async () => {
+    const data = new FormData()
+    data.append("email", userData.email);
+    data.append("name", (nickName.trim() === '') ? null : nickName);
+    data.append("description", (introduction.trim() === '') ? null : introduction);
+    data.append("profileImage", profile);
+    data.append("channelImage", channelCard);
+
+    const result = await updateProfile(data);
+    handleChange(null, "INIT");
+
+    console.log(result);
+    if (result) {
+      alert("Profile Update Success")
+      onClose()
+    } else {
+      alert("Profile Update Fail")
+      onClose()
+    }
+  }
 
   return (
     <>
@@ -53,6 +96,8 @@ const ProfileUpdateModal = (onClose, title) => {
             fullWidth
             color='white'
             size='small'
+            value={nickName}
+            onChange={(e) => handleChange(e, NICKNAME)}
             sx={{ marginTop: "5px", }}
           />
         </Box>
@@ -65,6 +110,8 @@ const ProfileUpdateModal = (onClose, title) => {
             fullWidth
             color='white'
             size='small'
+            value={introduction}
+            onChange={(e) => handleChange(e, INTRODUCTION)}
             sx={{ marginTop: "5px", }}
           />
         </Box>
@@ -142,6 +189,7 @@ const ProfileUpdateModal = (onClose, title) => {
             variant="outlined"
             color="blue"
             sx={{ flexGrow: "7" }}
+            onClick={handleUpdate}
           >
             {title}
           </Button>
