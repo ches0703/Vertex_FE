@@ -14,7 +14,7 @@ export default async function getThumbnailAPI(thumbData) {
     })
     .catch((e) => {
       console.error(e)
-      return null
+      return false
     })
   return res
 }

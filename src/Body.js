@@ -16,7 +16,7 @@ export default function Body() {
   }, [category])
 
   return (
-    <Box sx={{ flexGrow: 1, }}>
+    <Box sx={{ flexGrow: 1,  }}>
       <Grid container spacing={0} flexWrap="nowrap">
 
         {/* Side Menu */}
@@ -26,7 +26,11 @@ export default function Body() {
 
 
         {/* Body Main Comp */}
-        <Grid xs={10} bgcolor="#2c2c2c" padding="15px" overflow="hidden">
+        <Grid xs={10}
+          sx={{position: "relative"}} 
+          bgcolor="#2c2c2c" 
+          padding="15px" 
+          overflow="hidden">
           {(category.main === "Main") && <MainComp></MainComp>}
           {(category.main === "Subscribe") && <UserComp ></UserComp>}
           {(category.main === "VideoList") && <VideoListComp></VideoListComp>}

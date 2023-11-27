@@ -5,6 +5,7 @@ import {
   Avatar,
   Stack,
   Button,
+  Box
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -32,29 +33,38 @@ export default function UserCard({ userEmail }) {
       const profileImgRes = await getUserProfileImgAPI({
         email: category.sub
       })
-      setProfileImg(profileImgRes.data)
+      if(profileImgRes){
+        setProfileImg(profileImgRes.data)
+      }
 
       // card img
       const cardImgRes = await getUserProfileImgAPI({
         email: category.sub
       })
-      setCardImg(cardImgRes.data)
+      if(cardImgRes){
+        setCardImg(cardImgRes.data)
+      }
     }
     fetch()
   }, [category.sub])
 
   return (
-    <>
-    {userData && <Card sx={{ borderRadius: "10px", padding: "15px" }}>
+    <Box sx={{display: "flex"}}>
+    {userData && <Card 
+      sx={{ 
+        borderRadius: "10px", 
+        padding: "15px",
+        flexGrow: "1"
+      }}>
 
       {/* Card Image */}
       {cardImg && <CardMedia
         component="img"
         image={cardImg}
-        sx={{ borderRadius: "10px", height: "300px" }}
+        sx={{ borderRadius: "10px", marginBottom: "15px", height: "300px" }}
         />}
 
-      <Stack direction="row" sx={{ marginTop: "15px", justifyContent: "space-between", flexWrap: "wrap"}}>
+      <Stack direction="row" sx={{ justifyContent: "space-between", flexWrap: "wrap"}}>
 
         <Stack direction="row" sx={{alignItems: "center", width: "60vw", paddingRight:"15px",}}>
           {/* User Profile Img */}
@@ -95,6 +105,6 @@ export default function UserCard({ userEmail }) {
 
       </Stack>
     </Card>}
-    </>
+    </Box>
   )
 }

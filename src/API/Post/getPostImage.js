@@ -15,7 +15,7 @@ export default async function getPostImage(postData) {
     })
     .catch((e) => {
       console.error(e)
-      return null
+      return false
     })
   return res
 }

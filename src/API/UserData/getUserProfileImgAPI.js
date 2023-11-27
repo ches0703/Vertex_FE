@@ -15,7 +15,7 @@ export default async function getUserProfileImgAPI(email) {
     })
     .catch((e) => {
       console.error(e)
-      return null
+      return false
     })
   return res
 }

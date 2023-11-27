@@ -18,6 +18,8 @@ import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
 
+import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
+
 import {
   videoLikeAPI,
   videoLikeCheck
@@ -38,8 +40,11 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   };
   const [video, setVideo] = useState(null)
 
+  const [profileImg, setProfileImg] = useState(null)
+
   useEffect(() => {
-    const fetchVideo = async () => {
+    console.log(videoData)
+    const fetch = async () => {
 
       // video like get
       const likeRes = await videoLikeCheck({
@@ -59,8 +64,16 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         setVideo(videoRes.data)
       }
 
+      // uploader profile
+      const profileRes = await getUserProfileImgAPI({
+        email: videoData.user_email
+      })
+      if(profileRes){
+        setProfileImg(profileRes.data)
+      }
+
     }
-    fetchVideo();
+    fetch();
     console.log("isLiked", isLiked)
   }, [isLiked])
 
@@ -153,12 +166,18 @@ export default function VideoModal({ handleCloseModal, videoData }) {
               </Box>
 
               <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
-                <Stack direction="row" alignItems="center" justifyContent="flex-start">
-                  <Button fullWidth sx={{ color: "#ffffff" }}
+                <Stack direction="row">
+                  <Button fullWidth sx={{ 
+                      justifyContent: "flex-start"
+                  }}
+                    color="white"
                     onClick={() => handleCategoryChainge(videoData.user_email)}
                   >
-                    <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
-                    <Box paddingLeft="25px">
+                    <Avatar 
+                      src={profileImg}
+                      sx={{ width: "70px", height: "70px" }}>
+                    </Avatar>
+                    <Box paddingLeft="25px" textAlign="left">
                       <Typography variant="h6" marginTop="10px" >
                         {videoData.name}
                       </Typography>
