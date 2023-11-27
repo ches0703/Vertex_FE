@@ -16,8 +16,8 @@ import CommentIcon from '@mui/icons-material/Comment';
 import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
-import getVideoAPI from "../API/Video/getViideoAPI";
-
+import getVideoAPI from "../API/Video/getVideoAPI";
+import getVideoDataAPI from "../API/Video/getVideoDataAPI";
 
 
 export default function VideoModal({ handleCloseModal, videoData }) {
@@ -31,8 +31,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   };
 
   const [video, setVideo] = useState(null)
+  const [videoDatas, setVideoDatas] = useState(null);
   useEffect(() => {
-    const fetch = async () => {
+    const fetchVideo = async () => {
       const res = await getVideoAPI({
         email: userData.email,
         videoId: videoData.id
@@ -44,7 +45,18 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         return () => URL.revokeObjectURL(url);
       }
     }
-    fetch()
+    const fetchVideoData = async () => {
+      const resData = await getVideoDataAPI({
+        videoId: videoData.id
+      })
+
+      console.log(resData);
+      if(resData){
+        setVideoDatas(resData.data);
+      }
+    }
+    fetchVideo();
+    fetchVideoData();
   }, [])
 
   return (
@@ -123,7 +135,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
                   <Box paddingLeft="25px">
                     <Typography variant="h6" marginTop="10px" >
-                      {videoData.user_email}
+                      {videoDatas.name}
                     </Typography>
                     <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
                       Subscribers : {"????"}
