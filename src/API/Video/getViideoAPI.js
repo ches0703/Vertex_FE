@@ -1,9 +1,9 @@
 import axios from "axios"
 import baseURL from "../URL";
-const URL = baseURL+"/video/watch"
+const URL = baseURL + "/video/watch"
 
 export default async function getVideoAPI(videoId) {
-  const res = axios.get(URL, {
+  const res = await axios.get(URL, {
     params: videoId,
     responseType: 'blob',
     headers: {
@@ -11,7 +11,6 @@ export default async function getVideoAPI(videoId) {
     },
   })
     .then((res) => {
-      console.log("in get thumb api : ",res)
       return res
     })
     .catch((e) => {

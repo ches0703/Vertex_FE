@@ -42,8 +42,6 @@ export default function Header() {
   const handleSignUpOpen = () => setSignUpOpen(true);
   const handleSignUpClose = () => setSignUpOpen(false);
 
-
-
   // handling Upload Btn_Vd
   const [openUploaVideoModal, setOpenUploadVideoModal] = useState(false);
   const handleVideoUploadModal = () => {
@@ -75,8 +73,25 @@ export default function Header() {
     dispatch(changeMain("Search"));
   }
 
+  // move to my page
+  const handleCategoryChainge = () => {
+    dispatch(changeMain("Subscribe"));
+    dispatch(changeSub(userData.email));
+  }
+
+  // handle logout
+  const handleLogout = () => {
+    dispatch(login({
+      email : null,
+      name : null,
+      profileImg : null 
+    }))
+    sessionStorage.clear()
+  }
+
+
   useEffect(() => {
-    if(sessionStorage.userData){
+    if (sessionStorage.userData) {
       dispatch(login(JSON.parse(sessionStorage.userData)))
     }
   }, [])
@@ -189,12 +204,24 @@ export default function Header() {
               >
                 <FileUploadOutlinedIcon />
               </Button>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
-                <Typography>
-                  {userData.name}
-                </Typography>
-              </Stack>
+              <Button
+                color="white"
+                onClick={() => handleCategoryChainge()}
+              >
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
+                  <Typography>
+                    {userData.name}
+                  </Typography>
+                </Stack>
+              </Button>
+
+              <Button
+                onClick={handleLogout} 
+                color="white">
+                logout
+              </Button>
+
             </Stack>
           }
 
@@ -223,6 +250,6 @@ export default function Header() {
 
         </>
       </Stack>
-    </AppBar>
+    </AppBar >
   );
 }

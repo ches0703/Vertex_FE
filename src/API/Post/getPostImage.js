@@ -1,10 +1,11 @@
 import axios from "axios";
 import baseURL from "../URL";
-const URL = baseURL+"/video/thumbnail"
 
-export default async function getThumbnailAPI(thumbData) {
+const URL = baseURL+"/community/image"
+
+export default async function getPostImage(postData) {
   const res = await axios.get(URL, {
-    params: thumbData,
+    params: postData,
     responseType: 'blob',
     headers: {
       'ngrok-skip-browser-warning': '69420',

@@ -9,7 +9,7 @@ export default async function uploadVideoAPI(data) {
 
   console.log(data)
 
-  const res = axios.post(URL, data)
+  const res = await axios.post(URL, data)
     .then((res) => {
       return res.data
     })

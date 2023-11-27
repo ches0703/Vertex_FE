@@ -8,7 +8,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import VideoCard from './VideoCard';
 
 // Home API
-import { 
+import {
   getHomeVideoListAPI,
   getNewestVideoListAPI,
   getSubscribeVideoListAPI
@@ -24,26 +24,24 @@ export default function VideoCardList() {
     // Categeory : Main
     if (category.main === "Main") {
       if (category.sub === "Home") {
-        const fetch = async() => {
+        const fetch = async () => {
           const res = await getHomeVideoListAPI()
-          console.log(res)
-          //setVideoList(res)
+          setVideoList(res.data.data)
         }
-        //fetch()
+        fetch()
       } else if (category.sub === "Newest") {
-        console.log("New")
-        const fetch = async() => {
+        const fetch = async () => {
           const res = await getNewestVideoListAPI()
           setVideoList(res.data.data)
         }
         fetch()
       } else if (category.sub === "Subscribe") {
-        
+
       } else {
-        
+
       }
     }
-  },[category])
+  }, [category])
 
 
   return (
@@ -52,19 +50,6 @@ export default function VideoCardList() {
         {videoList.map((videoData) => {
           return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
         })}
-        
-        {/* <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard>
-        <VideoCard></VideoCard> */}
       </Stack>
       <Button color="white" size="large" fullWidth variant="outlined" startIcon={<KeyboardDoubleArrowDownIcon />}>
         More
