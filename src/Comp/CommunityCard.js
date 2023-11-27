@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { changeMain, changeSub } from "../redux/CategoryReducer";
 import {
   Typography,
   Card,
@@ -16,8 +18,12 @@ import CommentList from './CommentList';
 
 import getPostImage from '../API/Post/getPostImage';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
+import { postLikeAPI, postLikeCheckAPI } from '../API/Post/postLikeAPI';
 
 export default function CommunityCard({ post }) {
+  
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user)
 
   const [commnetExpand, setCommnetExpand] = useState(false);
 
@@ -25,6 +31,7 @@ export default function CommunityCard({ post }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
+    console.log("post data : ", post)
     const fetch = async () => {
       // content img
       const imgRes = await getPostImage({
@@ -40,6 +47,10 @@ export default function CommunityCard({ post }) {
       if(profileImg){
         setProfileImg(profileImg.data)
       }
+      postLikeCheckAPI({
+        postId: post.id,
+        email: userData.email
+      })
     }
     fetch()
   }, [])
@@ -49,19 +60,30 @@ export default function CommunityCard({ post }) {
     setCommnetExpand(!commnetExpand);
   };
 
+  // move to my page
+  const handleUserPage = () => {
+    dispatch(changeMain("Subscribe"));
+    dispatch(changeSub(post.user_email));
+  }
+
   return (
     <Stack alignItems="center" padding="5px 5px">
 
       {/* Card Hearder */}
       <Card sx={{ minWidth: "500px", maxWidth: "35vw", borderRadius: "10px", padding: "15px" }}>
         <Stack direction="row" alignItems="center">
-          <Avatar src={profileImg} sx={{ width: "70px", height: "70px" }}>R</Avatar>
+          <Button
+            color='white'
+            onClick={handleUserPage}
+          >
+            <Avatar src={profileImg} sx={{ width: "70px", height: "70px" }}/>
+          </Button>
           <Stack marginLeft="16px" >
             <Typography variant="h6">
               {post.title}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-              Author : {post.channel_email}
+              Author : {post["user.name"]}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Watch : {post.view_count} / Date : {post.createdAt}

@@ -11,7 +11,11 @@ import {
 
 import Comment from './Commnet';
 
-import { uploadComment, getCommentList } from '../API/Comment/Video/uploadComment';
+import { uploadComment, getCommentList, deleteComment, updateComment } from '../API/Comment/Video/uploadComment';
+
+const DELETE = "DELETE";
+const UPDATE = "UPDATE";
+const REPLY = "REPLY";
 
 export default function CommentList({ videoId }) {
   const userData = useSelector(state => state.user);
@@ -51,6 +55,41 @@ export default function CommentList({ videoId }) {
     fetch();
   }, [])
 
+  const handleButtonAtComment = async (cmt, type) => {
+    let data;
+    switch (type) {
+      case DELETE:
+        data = {
+          email: cmt.user_email,
+          id: cmt.id,
+          videoId: cmt.videoId
+        }
+        const res_del = await deleteComment(data);
+        console.log(res_del)
+        if (res_del) {
+          fetch()
+        }
+        break;
+      case UPDATE:
+        data = {
+          email: cmt.user_email,
+          id: cmt.id,
+          content: cmt.content,
+          parentId: cmt.parentId,
+          videoId: cmt.videoId
+        }
+        const res_udt = await updateComment(data);
+        if (res_udt) {
+          fetch()
+        }
+        break;
+      case REPLY:
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <Stack sx={{ color: "#FFFFFF" }}>
       <Typography variant="h6" gutterBottom>
@@ -82,6 +121,8 @@ export default function CommentList({ videoId }) {
       <Comment hasReply={true}></Comment>
       <Comment></Comment> */}
       {commentList.map(cmt => {
+        cmt.videoId = videoId
+        cmt.func = handleButtonAtComment
         console.log(cmt);
         return <Comment key={cmt.id} comment={cmt}></Comment>
       })}
