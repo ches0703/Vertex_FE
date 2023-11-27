@@ -6,8 +6,14 @@ import {
   Stack,
   Button,
 } from '@mui/material';
+import { useEffect } from 'react';
 
 export default function UserCard({ user }) {
+
+  useEffect(() => {
+    console.log(user)
+  })
+
   return (
     <Card sx={{ borderRadius: "10px", padding: "15px" }}>
 
