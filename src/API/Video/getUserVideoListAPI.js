@@ -1,16 +1,16 @@
-import axios from "axios";
+import axios from "axios"
 import baseURL from "../URL";
+const URL = baseURL + "/video/channel/list"
 
-const URL = baseURL+"/user/channel/image"
-
-export default async function getUserCardImgAPI(email) {
-  const res = await axios.get(URL, {
-    params: email,
+export default async function(data) {
+  const res = axios.get(URL, {
+    params: data,
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
   })
     .then((res) => {
+      console.log(res)
       return res
     })
     .catch((e) => {

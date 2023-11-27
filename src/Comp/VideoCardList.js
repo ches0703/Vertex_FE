@@ -13,6 +13,7 @@ import {
   getNewestVideoListAPI,
   getSubscribeVideoListAPI
 } from '../API/Video/getMainVideoListAPI';
+import getUserVideoListAPI from '../API/Video/getUserVideoListAPI';
 
 
 export default function VideoCardList() {
@@ -36,10 +37,16 @@ export default function VideoCardList() {
         }
         fetch()
       } else if (category.sub === "Subscribe") {
-
-      } else {
-
+        
       }
+    } else if(category.main === "Subscribe"){
+      const fetch = async () => {
+        const res = await getUserVideoListAPI({
+          channelId: category.sub
+        })
+        setVideoList(res.data.data)
+      }
+      fetch()
     }
   }, [category])
 

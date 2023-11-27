@@ -32,21 +32,13 @@ export default function UserCard({ userEmail }) {
       const profileImgRes = await getUserProfileImgAPI({
         email: category.sub
       })
-      if (profileImgRes) {
-        const url = URL.createObjectURL(profileImgRes.data);
-        setProfileImg(url)
-        return () => URL.revokeObjectURL(url);
-      }
+      setProfileImg(profileImgRes.data)
 
       // card img
       const cardImgRes = await getUserProfileImgAPI({
         email: category.sub
       })
-      if (cardImgRes) {
-        const url = URL.createObjectURL(cardImgRes.data);
-        setCardImg(url)
-        return () => URL.revokeObjectURL(url);
-      }
+      setCardImg(cardImgRes.data)
     }
     fetch()
   }, [category.sub])
