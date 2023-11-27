@@ -70,7 +70,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       const profileRes = await getUserProfileImgAPI({
         email: videoData.user_email
       })
-      if(profileRes){
+      if (profileRes) {
         setProfileImg(profileRes.data)
       }
 
@@ -169,13 +169,13 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
               <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
                 <Stack direction="row">
-                  <Button fullWidth sx={{ 
-                      justifyContent: "flex-start"
+                  <Button fullWidth sx={{
+                    justifyContent: "flex-start"
                   }}
                     color="white"
                     onClick={() => handleCategoryChainge(videoData.user_email)}
                   >
-                    <Avatar 
+                    <Avatar
                       src={profileImg}
                       sx={{ width: "70px", height: "70px" }}>
                     </Avatar>
@@ -202,8 +202,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           </Box>
         </Stack>
 
-
-
         <Stack direction="row" marginTop="15px">
           <Button
             onClick={handleLike}
@@ -228,7 +226,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
         {/* Comment Comp */}
         <Collapse in={commnetExpand} timeout="auto" unmountOnExit sx={{ marginTop: "15px" }}>
-          <CommentList></CommentList>
+          <CommentList videoId={videoData.id}></CommentList>
         </Collapse>
 
         <IconButton onClick={handleCloseModal} sx={{ position: "absolute", top: "0px", right: "0px" }}>
