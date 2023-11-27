@@ -23,6 +23,9 @@ import {
   videoLikeCheck
 } from "../API/Video/videoLikeAPI";
 
+import { useDispatch } from 'react-redux';
+import { changeMain, changeSub } from "../redux/CategoryReducer"
+
 export default function VideoModal({ handleCloseModal, videoData }) {
 
   const userData = useSelector((state) => state.user)
@@ -69,6 +72,15 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     })
     console.log("like res", res)
     setIsLiked(!isLiked)
+  }
+
+  const dispatch = useDispatch();
+  /**
+   * move to uploader's channel
+   */
+  const handleCategoryChainge = (sub) => {
+    dispatch(changeMain("Subscribe"));
+    dispatch(changeSub(sub));
   }
 
   return (
@@ -143,7 +155,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
               <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
                 <Stack direction="row" alignItems="center" justifyContent="flex-start">
-                  <Button fullWidth sx={{ color: "#ffffff" }}>
+                  <Button fullWidth sx={{ color: "#ffffff" }}
+                    onClick={() => handleCategoryChainge(videoData.user_email)}
+                  >
                     <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
                     <Box paddingLeft="25px">
                       <Typography variant="h6" marginTop="10px" >
