@@ -12,6 +12,7 @@ import {
   Stack
 } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import CommentIcon from '@mui/icons-material/Comment';
 import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
@@ -52,6 +53,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         videoId: videoData.id
       })
       if (likeRes) {
+        console.log("like res", likeRes.data)
         setIsLiked(likeRes.data)
       }
 
@@ -75,7 +77,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     }
     fetch();
     console.log("isLiked", isLiked)
-  }, [isLiked])
+  }, [])
 
   const handleLike = async () => {
     const res = await videoLikeAPI({
@@ -205,11 +207,11 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             onClick={handleLike}
             color='white'
             variant="outlined"
-            startIcon={<FavoriteIcon />}
+            startIcon={isLiked?<FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
             sx={{
               marginRight: "10px"
             }}>
-            Like : {videoData.like_count}
+            {isLiked?"Like Cancel":"Like"} : {videoData.like_count}
           </Button>
 
           <Button

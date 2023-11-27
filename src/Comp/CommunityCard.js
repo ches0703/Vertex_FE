@@ -25,7 +25,6 @@ export default function CommunityCard({ post }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
-    console.log(post)
     const fetch = async () => {
       // content img
       const imgRes = await getPostImage({
