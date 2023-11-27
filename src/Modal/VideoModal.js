@@ -61,14 +61,14 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
     }
     fetchVideo();
-    console.log("modal render",videoData)
+    console.log("modal render", videoData)
     console.log("isLiked", isLiked)
   }, [isLiked])
 
-  const handleLike = async() => {
+  const handleLike = async () => {
     const res = await videoLikeAPI({
       email: userData.email,
-      videoId: videoData.id 
+      videoId: videoData.id
     })
     setIsLiked(!isLiked)
     console.log(res)
@@ -128,13 +128,13 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
             <Stack direction="row" marginTop="15px" flexWrap="wrap">
               {/* Video Info */}
-              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "7"  }}>
+              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "7" }}>
                 <Typography variant="h5"  >
                   {videoData.title}
                 </Typography>
                 <Box>
                   <Typography variant="caption" sx={{ marginRight: "15px", color: "rgba(255,255,255,0.5)" }}>
-                    Upload Date : {videoData.createdAt.substr(0,10)}
+                    Upload Date : {videoData.createdAt.substr(0, 10)}
                   </Typography>
                   <Typography variant="caption" sx={{ marginRight: "15px", color: "rgba(255,255,255,0.5)" }}>
                     Watch : {videoData.view_count}
@@ -146,16 +146,18 @@ export default function VideoModal({ handleCloseModal, videoData }) {
               </Box>
 
               <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
-                <Stack direction="row" alignItems="center">
-                  <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
-                  <Box paddingLeft="25px">
-                    <Typography variant="h6" marginTop="10px" >
-                      {videoData.name}
-                    </Typography>
-                    <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-                      Subscribers : {"????"}
-                    </Typography>
-                  </Box>
+                <Stack direction="row" alignItems="center" justifyContent="flex-start">
+                  <Button fullWidth sx={{ color: "#ffffff" }}>
+                    <Avatar sx={{ width: "70px", height: "70px" }}>R</Avatar>
+                    <Box paddingLeft="25px">
+                      <Typography variant="h6" marginTop="10px" >
+                        {videoData.name}
+                      </Typography>
+                      <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+                        Subscribers : {"????"}
+                      </Typography>
+                    </Box>
+                  </Button>
                 </Stack>
                 <Button
                   fullWidth
