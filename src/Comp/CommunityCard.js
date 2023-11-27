@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   Typography,
   Card,
@@ -13,38 +14,35 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import CommentList from './CommentList';
 
+import getPostImage from '../API/Post/getPostImage';
 
-import { useState } from 'react';
-
-export default function CommunityCard(postData) {
+export default function CommunityCard({post}) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
+
+  const [image, setImage] = useState(null)
+
+  useEffect(() => {
+    console.log(post)
+    const fetch = async () => {
+      const res = await getPostImage({
+        postId: post.id,
+      })
+      if (res) {
+        const url = URL.createObjectURL(res.data);
+        setImage(url)
+  
+        // Blob URL을 해제해 메모리 누수를 방지합니다.
+        return () => URL.revokeObjectURL(url);
+      }
+    }
+    fetch()
+  }, [])
+
 
   const handleCommnetExpand = () => {
     setCommnetExpand(!commnetExpand);
   };
-
-  // const { channel_email, contents, createdAt, updatedAt, id, image_file_path, like_count, title, user_email, view_count, } = postData;
-  const userName = postData["user.name"];
-  const title = postData[0]
-  const contents = postData["contents"];
-  const createdAt = postData["createdAt"];
-  const image_file_path = postData["image_file_path"];
-  const like_count = postData["like_count"];
-  const view_count = postData["view_count"];
-  console.log(title);
-  /*
-  channel_email:"lhj@mail.com"
-  contents:"sjcvv asdfj avs"
-  createdAt:"2023-11-26 16:06:40"
-  id:2
-  image_file_path:null
-  like_count:0
-  title:"sfxcljv"
-  updatedAt:"2023-11-26 16:06:40"
-  user_email: "lhj@mail.com"
-  view_count:0
-  */
 
   return (
     <Stack alignItems="center" padding="5px 5px">
@@ -55,13 +53,13 @@ export default function CommunityCard(postData) {
           <Avatar src='' sx={{ width: "70px", height: "70px" }}>R</Avatar>
           <Stack marginLeft="16px" >
             <Typography variant="h6">
-              {title}
+              {post.title}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-              Author : {userName}
+              Author : {post.channel_email}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-              Watch : {view_count} / Date : {createdAt}
+              Watch : {post.view_count} / Date : {post.createdAt}
             </Typography>
           </Stack>
         </Stack>
@@ -69,14 +67,14 @@ export default function CommunityCard(postData) {
         {/* Card Text */}
         <CardContent sx={{ padding: "15px 0px" }}>
           <Typography variant="body2" color="text.secondary">
-            {contents}
+            {post.contents}
           </Typography>
         </CardContent>
 
         {/* Card Image */}
         <CardMedia
           component="img"
-          image={"/Test.jpg"}
+          image={image}
           sx={{ borderRadius: "10px" }}
         />
 
@@ -86,7 +84,7 @@ export default function CommunityCard(postData) {
             color='white'
             variant="outlined"
             startIcon={<FavoriteIcon />}>
-            Like : {like_count}
+            Like : {post.like_count}
           </Button>
 
           <Button
@@ -94,7 +92,7 @@ export default function CommunityCard(postData) {
             variant="outlined"
             startIcon={<CommentIcon />}
             onClick={handleCommnetExpand}>
-            Comment : {1234}
+            Comment : {"????"}
           </Button>
         </CardActions>
 
