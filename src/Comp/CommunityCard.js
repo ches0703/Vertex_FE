@@ -15,19 +15,32 @@ import CommentIcon from '@mui/icons-material/Comment';
 import CommentList from './CommentList';
 
 import getPostImage from '../API/Post/getPostImage';
+import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 
 export default function CommunityCard({ post }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
 
   const [image, setImage] = useState(null)
+  const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
+    console.log(post)
     const fetch = async () => {
-      const res = await getPostImage({
+      // content img
+      const imgRes = await getPostImage({
         postId: post.id,
       })
-      setImage(res)
+      if(imgRes){
+        setImage(imgRes.data)
+      }
+      // profile img
+      const profileImg = await getUserProfileImgAPI({
+        email: post.channel_email
+      })
+      if(profileImg){
+        setProfileImg(profileImg.data)
+      }
     }
     fetch()
   }, [])
@@ -43,7 +56,7 @@ export default function CommunityCard({ post }) {
       {/* Card Hearder */}
       <Card sx={{ minWidth: "500px", maxWidth: "35vw", borderRadius: "10px", padding: "15px" }}>
         <Stack direction="row" alignItems="center">
-          <Avatar src='' sx={{ width: "70px", height: "70px" }}>R</Avatar>
+          <Avatar src={profileImg} sx={{ width: "70px", height: "70px" }}>R</Avatar>
           <Stack marginLeft="16px" >
             <Typography variant="h6">
               {post.title}

@@ -22,6 +22,7 @@ import VideoUploadModal from "./Modal/VideoUploadModal";
 import SignUpModal from "./Modal/SignUpModal";
 import LoginModal from "./Modal/LoginModal";
 
+import getUserProfileImgAPI from "./API/UserData/getUserProfileImgAPI";
 
 
 export default function Header() {
@@ -49,6 +50,8 @@ export default function Header() {
     // 2. 모달창 Open
     setOpenUploadVideoModal(!openUploaVideoModal);
   };
+
+  const [profileImg, setProfileImg] = useState(null)
 
   // For Logo Click event
   const handleLogoClick = () => {
@@ -92,9 +95,21 @@ export default function Header() {
 
   useEffect(() => {
     if (sessionStorage.userData) {
-      dispatch(login(JSON.parse(sessionStorage.userData)))
-    }
+      const res = dispatch(login(JSON.parse(sessionStorage.userData)))
+    } 
   }, [])
+
+  useEffect(()=> {
+    const fetch = async() => {
+      const profileRes = await getUserProfileImgAPI({
+        email: userData.email
+      })
+      if(profileRes){
+        setProfileImg(profileRes.data)
+      }
+    }    
+    fetch()
+  }, [userData])
 
   return (
     <AppBar
@@ -209,7 +224,7 @@ export default function Header() {
                 onClick={() => handleCategoryChainge()}
               >
                 <Stack direction="row" spacing={1} alignItems="center">
-                  <Avatar src={userData.profileImg} sx={{ height: "35px", width: "35px" }} />
+                  <Avatar src={profileImg} sx={{ height: "35px", width: "35px" }} />
                   <Typography>
                     {userData.name}
                   </Typography>

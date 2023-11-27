@@ -6,7 +6,6 @@ const URL = baseURL+"/user/profile/image"
 export default async function getUserProfileImgAPI(email) {
   const res = await axios.get(URL, {
     params: email,
-    responseType: 'blob',
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
@@ -16,7 +15,7 @@ export default async function getUserProfileImgAPI(email) {
     })
     .catch((e) => {
       console.error(e)
-      return null
+      return false
     })
   return res
 }
