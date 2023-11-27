@@ -9,7 +9,7 @@ import {
   TextField
 } from "@mui/material";
 
-export default function Comment({ isReply, hasReply }) {
+export default function Comment({ comment, isReply, hasReply }) {
 
   const [replyCommnetExpand, setReplyCommnetExpand] = useState(false);
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
@@ -26,7 +26,7 @@ export default function Comment({ isReply, hasReply }) {
 
 
   return (
-    <Box sx={isReply && {paddingLeft: "65px"}}>
+    <Box sx={isReply && { paddingLeft: "65px" }}>
       <Stack
         direction="row"
         alignItems="center"
@@ -40,28 +40,28 @@ export default function Comment({ isReply, hasReply }) {
         <Stack>
           <Stack direction="row" alignItems="baseline">
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", marginRight: "15px" }}>
-              {"User Name"}
+              {comment.user.name}
             </Typography>
-            <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5) ", marginRight: "15px"}}>
-              {"23/01/01"}
+            <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5) ", marginRight: "15px" }}>
+              {comment.createdAt}
             </Typography>
 
 
-            {!isReply && <Button 
-                            variant="text" 
-                            color="white"
-                            onClick={handleReplyWriteExpand} 
-                            sx={{padding: "0px", minWidth:0, marginRight: "5px"}}>
+            {!isReply && <Button
+              variant="text"
+              color="white"
+              onClick={handleReplyWriteExpand}
+              sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Reply /"}
               </Typography>
             </Button>}
-            <Button variant="text" color="white" sx={{padding: "0px", minWidth:0, marginRight: "5px"}}>
+            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Update /"}
               </Typography>
             </Button>
-            <Button variant="text" color="white" sx={{padding: "0px", minWidth:0}}>
+            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0 }}>
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Delete"}
               </Typography>
@@ -69,14 +69,14 @@ export default function Comment({ isReply, hasReply }) {
 
           </Stack>
           <Typography variant="body2" color="white">
-            {"This is Test Comment!!!"}
+            {comment.content}
           </Typography>
 
 
-          {hasReply && <Button variant="text" color="white" onClick={handleReplyCommnetExpand} sx={{padding: "0px",}}>
-              <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
-                {"Show Reply"}
-              </Typography>
+          {hasReply && <Button variant="text" color="white" onClick={handleReplyCommnetExpand} sx={{ padding: "0px", }}>
+            <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
+              {"Show Reply"}
+            </Typography>
           </Button>}
 
         </Stack>
@@ -90,21 +90,21 @@ export default function Comment({ isReply, hasReply }) {
 
       {/* Reply Write */}
       <Collapse in={replyWriteExpand} timeout="auto" unmountOnExit>
-      <Box component="form" sx={{paddingLeft: "65px", paddingBottom: "15px"}}>
-        <TextField
-          fullWidth
-          color='white'
-          multiline
-          maxRows={4}
-          InputProps={{
-            endAdornment: (
-              <Button variant="outlined" color='white' sx={{marginLeft: "10px", width: "200px"}}>
-                Commit
-              </Button>
-            ),
-          }}
-        ></TextField>
-      </Box>
+        <Box component="form" sx={{ paddingLeft: "65px", paddingBottom: "15px" }}>
+          <TextField
+            fullWidth
+            color='white'
+            multiline
+            maxRows={4}
+            InputProps={{
+              endAdornment: (
+                <Button variant="outlined" color='white' sx={{ marginLeft: "10px", width: "200px" }}>
+                  Commit
+                </Button>
+              ),
+            }}
+          ></TextField>
+        </Box>
 
       </Collapse>
 

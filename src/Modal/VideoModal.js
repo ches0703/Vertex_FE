@@ -61,7 +61,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
     }
     fetchVideo();
-    console.log("modal render",videoData)
+    console.log("modal render", videoData)
     console.log("isLiked", isLiked)
   }, [isLiked])
 
@@ -182,8 +182,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           </Box>
         </Stack>
 
-
-
         <Stack direction="row" marginTop="15px">
           <Button
             onClick={handleLike}
@@ -208,7 +206,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
         {/* Comment Comp */}
         <Collapse in={commnetExpand} timeout="auto" unmountOnExit sx={{ marginTop: "15px" }}>
-          <CommentList></CommentList>
+          <CommentList videoId={videoData.id}></CommentList>
         </Collapse>
 
         <IconButton onClick={handleCloseModal} sx={{ position: "absolute", top: "0px", right: "0px" }}>
