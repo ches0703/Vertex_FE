@@ -8,10 +8,14 @@ import {
   Collapse,
   TextField
 } from "@mui/material";
+import { useSelector } from 'react-redux';
 
-import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
+const DELETE = "DELETE";
+const UPDATE = "UPDATE";
+const REPLY = "REPLY";
 
 export default function Comment({ comment, isReply, hasReply }) {
+  const userData = useSelector(state => state.user);
 
   const [replyCommnetExpand, setReplyCommnetExpand] = useState(false);
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
@@ -27,18 +31,9 @@ export default function Comment({ comment, isReply, hasReply }) {
     setReplyWriteExpand(!replyWriteExpand);
   };
 
-  useEffect(() => {
-    const fetch = async () => {
-      // profile img
-      const profileImg = await getUserProfileImgAPI({
-        email: comment.user_email
-      })
-      if(profileImg){
-        setProfileImg(profileImg.data)
-      }
-    }
-    fetch()
-  }, [])
+  const handleButton = (type) => {
+    comment.func(comment, type);
+  }
 
   return (
     <Box sx={isReply && { paddingLeft: "65px" }}>
@@ -66,21 +61,26 @@ export default function Comment({ comment, isReply, hasReply }) {
               variant="text"
               color="white"
               onClick={handleReplyWriteExpand}
-              sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
+              sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
+            >
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
-                {"Reply /"}
+                {"Reply"}
               </Typography>
             </Button>}
-            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
-              <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
-                {"Update /"}
-              </Typography>
-            </Button>
-            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0 }}>
-              <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
-                {"Delete"}
-              </Typography>
-            </Button>
+            {(userData.email === comment.user_email) &&
+              <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
+                onClick={() => { handleButton(UPDATE) }}>
+                <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
+                  {"/ Update"}
+                </Typography>
+              </Button>}
+            {(userData.email === comment.user_email) &&
+              <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0 }}
+                onClick={() => { handleButton(DELETE) }}>
+                <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
+                  {"/ Delete"}
+                </Typography>
+              </Button>}
 
           </Stack>
           <Typography variant="body2" color="white">
