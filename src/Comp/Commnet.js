@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Avatar,
@@ -9,10 +9,13 @@ import {
   TextField
 } from "@mui/material";
 
+import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
+
 export default function Comment({ comment, isReply, hasReply }) {
 
   const [replyCommnetExpand, setReplyCommnetExpand] = useState(false);
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
+  const [profileImg, setProfileImg] = useState(null)
 
   const handleReplyCommnetExpand = () => {
     setReplyWriteExpand(false)
@@ -24,6 +27,18 @@ export default function Comment({ comment, isReply, hasReply }) {
     setReplyWriteExpand(!replyWriteExpand);
   };
 
+  useEffect(() => {
+    const fetch = async () => {
+      // profile img
+      const profileImg = await getUserProfileImgAPI({
+        email: comment.user_email
+      })
+      if(profileImg){
+        setProfileImg(profileImg.data)
+      }
+    }
+    fetch()
+  }, [])
 
   return (
     <Box sx={isReply && { paddingLeft: "65px" }}>
@@ -33,7 +48,7 @@ export default function Comment({ comment, isReply, hasReply }) {
         sx={{ padding: "10px 0px", width: "100%", margin: "0px 0px" }}
       >
 
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"
+        <Avatar src={profileImg}
           sx={{ marginRight: "15px", width: "50px", height: "50px" }}
         />
 
