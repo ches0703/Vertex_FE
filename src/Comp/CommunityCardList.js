@@ -21,7 +21,7 @@ export default function CommunityCardList() {
       }
       fetch();
     }
-  }, [])
+  }, [category.sub])
 
   return (
     <Stack margin="15px">
