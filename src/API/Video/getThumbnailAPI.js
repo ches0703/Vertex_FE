@@ -3,7 +3,7 @@ import baseURL from "../URL";
 const URL = baseURL+"/video/thumbnail"
 
 export default async function getThumbnailAPI(thumbData) {
-  const res = axios.get(URL, {
+  const res = await axios.get(URL, {
     params: thumbData,
     responseType: 'blob',
     headers: {

@@ -69,7 +69,7 @@ export default function UserComp() {
 
   return (
     <Stack spacing={2}>
-      <UserCard user={category.sub}></UserCard>
+      <UserCard></UserCard>
 
       {/* Btns : Video, Video List, Community */}
       <Stack direction="row" spacing={2}>

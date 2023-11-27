@@ -23,7 +23,6 @@ export default function CommunityCard({ post }) {
   const [image, setImage] = useState(null)
 
   useEffect(() => {
-    console.log(post)
     const fetch = async () => {
       const res = await getPostImage({
         postId: post.id,
