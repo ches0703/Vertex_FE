@@ -26,14 +26,13 @@ export default function CommunityCard(postData) {
 
   // const { channel_email, contents, createdAt, updatedAt, id, image_file_path, like_count, title, user_email, view_count, } = postData;
   const userName = postData["user.name"];
-  const title = postData["title"];
-  // const title = postData.title;
+  const title = postData[0]
   const contents = postData["contents"];
   const createdAt = postData["createdAt"];
   const image_file_path = postData["image_file_path"];
   const like_count = postData["like_count"];
   const view_count = postData["view_count"];
-
+  console.log(title);
   /*
   channel_email:"lhj@mail.com"
   contents:"sjcvv asdfj avs"
