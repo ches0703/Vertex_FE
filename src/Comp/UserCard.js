@@ -14,7 +14,9 @@ import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 export default function UserCard({ userEmail }) {
 
   const category = useSelector((state) => state.category)
-  const [userData, setuserData] = useState(null)
+  const myData = useSelector((state) => state.user)
+
+  const [userData, setUserData] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
   const [cardImg, setCardImg] = useState(null)
 
@@ -24,7 +26,7 @@ export default function UserCard({ userEmail }) {
       const userDataRes = await getUserDataAPI({
         email: category.sub
       })
-      setuserData(userDataRes.data)
+      setUserData(userDataRes.data)
 
       // profile img
       const profileImgRes = await getUserProfileImgAPI({
@@ -88,14 +90,14 @@ export default function UserCard({ userEmail }) {
           <Typography textAlign="right" variant="caption" sx={{display: "block",  fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
             Videos : {1234}
           </Typography>
-          <Button
+          {(userData.email !== myData.email) && <Button
             fullWidth
             sx={{marginTop: "5px"}}
             color='white'
             variant="outlined"
             onClick={() => {}}>
             Subscribe
-          </Button>
+          </Button>}
 
         </Stack>
 
