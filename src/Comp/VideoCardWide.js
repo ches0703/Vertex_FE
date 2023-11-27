@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import VideoModal from '../Modal/VideoModal';
 
-export default function VideoCardWide() {
+export default function VideoCardWide({ videoData }) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const handleOpenModal = () => {
@@ -64,12 +64,12 @@ export default function VideoCardWide() {
           </Stack>
         </CardActionArea>
       </Card>
-      <IconButton sx={{height: "40px"}} onClick={() => {}} >
+      <IconButton sx={{ height: "40px" }} onClick={() => { }} >
         <DeleteIcon />
       </IconButton>
 
       {/* Modal */}
-      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal}></VideoModal>}
+      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoData={videoData}></VideoModal>}
 
     </Stack>
   )
