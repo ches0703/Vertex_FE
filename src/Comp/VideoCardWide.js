@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Typography,
   Card,
@@ -13,6 +13,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import VideoModal from '../Modal/VideoModal';
 
+import getThumbnailAPI from '../API/Video/getThumbnailAPI';
+import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
+
 export default function VideoCardWide({ videoData }) {
   const video = videoData.video;
 
@@ -23,6 +26,29 @@ export default function VideoCardWide({ videoData }) {
   const handleCloseModal = () => {
     setIsModalOpen(false)
   }
+
+  const [profileImg, setProfileImg] = useState(null)
+  const [thumb, setThumb] = useState(null)
+  useEffect(() => {
+    const fetch = async () => {
+      const thumbRes = await getThumbnailAPI({
+        videoId: videoData.video_id,
+        thumbnailFileExtension: video.thumbnail_file_extension
+      })
+      if (thumbRes) {
+        setThumb(thumbRes.data)
+      }
+
+      const profileRes = await getUserProfileImgAPI({
+        email: videoData.user_email
+      })
+      if (profileRes) {
+        setProfileImg(profileRes.data)
+      }
+
+    }
+    fetch()
+  }, []);
 
   return (
     <Stack direction="row" alignItems="center">
@@ -44,7 +70,7 @@ export default function VideoCardWide({ videoData }) {
 
             <CardMedia
               component="img"
-              image="./Test.jpg"
+              image={thumb}
               sx={{ width: "300px", borderRadius: "5px" }}
             />
 
@@ -56,7 +82,7 @@ export default function VideoCardWide({ videoData }) {
                 Watch : {video.view_count} / Like : {video.like_count} / {videoData.createdAt}
               </Typography>
               <Stack direction="row" alignItems="center" >
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="Remy Sharp" src={profileImg} />
                 <Typography variant="caption" sx={{ marginLeft: "15px", color: "rgba(255,255,255,0.5)" }}>
                   {video.name}
                 </Typography>
