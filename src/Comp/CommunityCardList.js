@@ -6,14 +6,12 @@ import {
 
 import CommunityCard from './CommunityCard';
 
-import { getCommunityPostList } from '../API/Post/getPostListAPI';
+import getCommunityPostList from '../API/Post/getPostListAPI';
 
 export default function CommunityCardList() {
 
   const category = useSelector((state) => state.category)
-  console.log("channelId : ", category.sub);
 
-  // const postList = getCommunityPostList(channelId);
   const [postList, setPostList] = useState([]);
   useEffect(() => {
     if (category.main === "Subscribe") {
@@ -22,14 +20,13 @@ export default function CommunityCardList() {
         setPostList(response);
       }
       fetch();
-      console.log("postList : ", postList)
     }
-  }, [])
+  }, [category.sub])
 
   return (
     <Stack margin="15px">
       {postList.map((post) => {
-        return <CommunityCard psotData={post}></CommunityCard>
+        return <CommunityCard key={post.id} post={post}></CommunityCard>
       })}
     </Stack>
   )
