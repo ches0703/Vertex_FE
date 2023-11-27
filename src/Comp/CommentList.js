@@ -75,7 +75,7 @@ export default function CommentList({ videoId }) {
           email: cmt.user_email,
           id: cmt.id,
           content: cmt.content,
-          parentId: cmt.parentId,
+          parentId: cmt.parent_id,
           videoId: cmt.videoId
         }
         const res_udt = await updateComment(data);
