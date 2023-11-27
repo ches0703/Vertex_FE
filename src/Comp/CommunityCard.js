@@ -16,7 +16,7 @@ import CommentList from './CommentList';
 
 import getPostImage from '../API/Post/getPostImage';
 
-export default function CommunityCard({post}) {
+export default function CommunityCard({ post }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
 
@@ -30,7 +30,7 @@ export default function CommunityCard({post}) {
       if (res) {
         const url = URL.createObjectURL(res.data);
         setImage(url)
-  
+
         // Blob URL을 해제해 메모리 누수를 방지합니다.
         return () => URL.revokeObjectURL(url);
       }
