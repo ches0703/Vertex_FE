@@ -9,8 +9,11 @@ import {
   TextField
 } from "@mui/material";
 
-export default function Comment({ comment, isReply, hasReply }) {
+const DELETE = "DELETE";
+const UPDATE = "UPDATE";
+const REPLY = "REPLY";
 
+export default function Comment({ comment, isReply, hasReply }) {
   const [replyCommnetExpand, setReplyCommnetExpand] = useState(false);
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
 
@@ -24,6 +27,9 @@ export default function Comment({ comment, isReply, hasReply }) {
     setReplyWriteExpand(!replyWriteExpand);
   };
 
+  const handleButton = (type) => {
+    comment.func(comment, type)
+  }
 
   return (
     <Box sx={isReply && { paddingLeft: "65px" }}>
@@ -51,17 +57,20 @@ export default function Comment({ comment, isReply, hasReply }) {
               variant="text"
               color="white"
               onClick={handleReplyWriteExpand}
-              sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
+              sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
+            >
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Reply /"}
               </Typography>
             </Button>}
-            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}>
+            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
+              onClick={() => { handleButton(UPDATE) }}>
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Update /"}
               </Typography>
             </Button>
-            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0 }}>
+            <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0 }}
+              onClick={() => { handleButton(DELETE) }}>
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Delete"}
               </Typography>

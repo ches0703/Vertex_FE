@@ -21,11 +21,12 @@ const uploadComment = async (data) => {
     return response;
 }
 
-const updateComment = async () => {
+const updateComment = async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'patch',
         url: commentURL,
+        data: data
     })
         .then((res) => {
             console.log(" comment : ", res);
@@ -39,14 +40,15 @@ const updateComment = async () => {
 
 }
 
-const deleteComment = async () => {
+const deleteComment = async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'delete',
         url: commentURL,
+        data: data
     })
         .then((res) => {
-            console.log(" comment : ", res);
+            console.log("delete comment : ", res);
             return res;
         })
         .catch((e) => {
