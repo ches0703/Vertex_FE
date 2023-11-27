@@ -43,7 +43,7 @@ export default function VideoCardWide({ videoData }) {
       }
 
       const profileRes = await getUserProfileImgAPI({
-        email: videoData.user_email
+        email: videoData.video.user_email
       })
       if (profileRes) {
         setProfileImg(profileRes.data)
