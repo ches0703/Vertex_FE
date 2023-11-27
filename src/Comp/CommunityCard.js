@@ -32,7 +32,7 @@ export default function CommunityCard(postData) {
   const image_file_path = postData["image_file_path"];
   const like_count = postData["like_count"];
   const view_count = postData["view_count"];
-  console.log(title);
+  console.log(typeof postData);
   /*
   channel_email:"lhj@mail.com"
   contents:"sjcvv asdfj avs"
