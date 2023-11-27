@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import baseURL from '../URL';
 const recordURL = baseURL + '/video/record'
-const likrURL = baseURL + '/video/'
+const likeURL = baseURL + '/video/like/list'
 
 const getHistory = async (userEmail) => {
     const response = await axios.get(recordURL, {
@@ -20,7 +20,19 @@ const getHistory = async (userEmail) => {
     return response;
 }
 const getLiked = async (userEmail) => {
-    return userEmail;
+    const response = await axios.get(likeURL, {
+        params: { email: userEmail },
+        headers: { 'ngrok-skip-browser-warning': '69420', }
+    })
+        .then((response) => {
+            console.log(response)
+            return response
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+
+    return response;
 }
 
 export {

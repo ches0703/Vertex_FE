@@ -21,12 +21,18 @@ export default function VideoListComp() {
     const fetch = async () => {
       if (category.sub === 'History') {
         const result = await getHistory(userData.email);
-        console.log(result.data.data)
-        setVideoList(result.data.data)
+        if (result.data.data) {
+          console.log(result.data.data)
+          setVideoList(result.data.data)
+        }
       }
-      // else{
-      //   const result = await getLiked(userData.email);
-      // }
+      else {
+        const result = await getLiked(userData.email);
+        if (result.data.data) {
+          console.log(result.data.data)
+          setVideoList(result.data.data)
+        }
+      }
     }
     fetch();
   }, [category.sub])
@@ -43,7 +49,7 @@ export default function VideoListComp() {
 
       </Stack>
       {videoList.map((videoData) => {
-        return <VideoCardWide key={videoData.id} videoData={videoData}></VideoCardWide>
+        return <VideoCardWide key={videoData.video_id} videoData={videoData}></VideoCardWide>
       })}
       <Stack>
 
