@@ -26,13 +26,15 @@ export default function VideoCardList() {
       if (category.sub === "Home") {
         const fetch = async () => {
           const res = await getHomeVideoListAPI()
-          setVideoList(res.data.data)
+          console.log(res);
+          setVideoList([])
         }
         fetch()
       } else if (category.sub === "Newest") {
         const fetch = async () => {
           const res = await getNewestVideoListAPI()
-          setVideoList(res.data.data)
+          console.log(res.data.data);
+          setVideoList([])
         }
         fetch()
       } else if (category.sub === "Subscribe") {
