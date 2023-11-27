@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Avatar,
@@ -16,6 +16,7 @@ const REPLY = "REPLY";
 export default function Comment({ comment, isReply, hasReply }) {
   const [replyCommnetExpand, setReplyCommnetExpand] = useState(false);
   const [replyWriteExpand, setReplyWriteExpand] = useState(false);
+  const [profileImg, setProfileImg] = useState(null)
 
   const handleReplyCommnetExpand = () => {
     setReplyWriteExpand(false)
@@ -28,7 +29,7 @@ export default function Comment({ comment, isReply, hasReply }) {
   };
 
   const handleButton = (type) => {
-    comment.func(comment, type)
+    comment.func(comment, type);
   }
 
   return (
@@ -39,7 +40,7 @@ export default function Comment({ comment, isReply, hasReply }) {
         sx={{ padding: "10px 0px", width: "100%", margin: "0px 0px" }}
       >
 
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"
+        <Avatar src={profileImg}
           sx={{ marginRight: "15px", width: "50px", height: "50px" }}
         />
 

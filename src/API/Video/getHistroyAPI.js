@@ -10,7 +10,7 @@ const getHistory = async (userEmail) => {
         headers: { 'ngrok-skip-browser-warning': '69420', }
     })
         .then((response) => {
-            console.log(response)
+            console.log("get hitory api",response)
             return response
         })
         .catch((e) => {
