@@ -39,7 +39,10 @@ const reducer = (state, action) => {
       };
     default:
       return {
-        nickName: action.payload,
+        nickName: null,
+        introduction: null,
+        profile: null,
+        channelCard: null
       };
   }
 };
