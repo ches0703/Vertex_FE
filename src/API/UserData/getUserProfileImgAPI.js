@@ -4,6 +4,7 @@ import baseURL from "../URL";
 const URL = baseURL+"/user/profile/image"
 
 export default async function getUserProfileImgAPI(email) {
+  console.log("Get User Profile API Call")
   const res = await axios.get(URL, {
     params: email,
     headers: {
