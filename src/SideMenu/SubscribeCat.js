@@ -12,9 +12,6 @@ import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 import getSubscribeListAPI from '../API/UserData/getSubscribeListAPI';
 
-import AddIcon from '@mui/icons-material/Add';
-
-
 export default function SubscribeCat() {
 
   const dispatch = useDispatch();
@@ -27,7 +24,7 @@ export default function SubscribeCat() {
   const [subscribeList, setSubscribeList] = useState([])
 
   useEffect(() => {
-    const fetch = async() => {
+    const fetch = async () => {
       const res = await getSubscribeListAPI()
       setSubscribeList(res)
     }
