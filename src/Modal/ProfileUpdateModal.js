@@ -38,7 +38,9 @@ const reducer = (state, action) => {
         channelCard: action.payload,
       };
     default:
-      return state;
+      return {
+        nickName: action.payload,
+      };
   }
 };
 
@@ -57,14 +59,24 @@ const ProfileUpdateModal = (onClose, title) => {
   };
 
   const handleUpdate = async () => {
-    const data = {
-      email: userData.email,
-      name: (nickName.trim() === '') ? null : nickName,
-      description: (introduction.trim() === '') ? null : introduction,
-      profileImage: profile,
-      channelImage: channelCard
-    };
+    const data = new FormData()
+    data.append("email", userData.email);
+    data.append("name", (nickName.trim() === '') ? null : nickName);
+    data.append("description", (introduction.trim() === '') ? null : introduction);
+    data.append("profileImage", profile);
+    data.append("channelImage", channelCard);
+
     const result = await updateProfile(data);
+    handleChange(null, "INIT");
+
+    console.log(result);
+    if (result) {
+      alert("Profile Update Success")
+      onClose()
+    } else {
+      alert("Profile Update Fail")
+      onClose()
+    }
   }
 
   return (
