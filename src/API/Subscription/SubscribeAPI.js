@@ -33,14 +33,14 @@ const getCheckSubscribeAPI = async (data) => {
     },
   })
   .then((res) => {
-    if(res)
-      return true;
+    console.log(res)
+    return res
   })
   .catch((e) => {
     console.error(e)
     return false;
   })
-return false;
+return res;
 }
 
 const getSubscribeAPI = async () => {
