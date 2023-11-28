@@ -21,14 +21,20 @@ export default function VideoListComp() {
     setVideoList([]);
     const fetch = async () => {
       if (category.sub === 'History') {
-        const result = await getHistoryAPI(userData.email);
+        const result = await getHistoryAPI({
+          email: userData.email
+        });
         if (result.data.data) {
           setVideoList(result.data.data)
         }
       }
       else {
-        const result = await getLikeVideoListAPI(userData.email);
-        if (result.data.data) {
+        const result = await getLikeVideoListAPI({
+          email: userData.email
+        });
+        console.log("hi")
+        console.log(result)
+        if (result) {
           setVideoList(result.data.data)
         }
       }
