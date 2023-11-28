@@ -62,10 +62,11 @@ const ProfileUpdateModal = (onClose, title) => {
   };
 
   const handleUpdate = async () => {
+
     const data = new FormData()
     data.append("email", userData.email);
     data.append("name", (nickName.trim() === '') ? null : nickName);
-    data.append("description", (introduction.trim() === '') ? null : introduction);
+    data.append("description", (introduction.trim() === '') ? " " : introduction);
     data.append("profileImage", profile);
     data.append("channelImage", channelCard);
 
@@ -192,6 +193,7 @@ const ProfileUpdateModal = (onClose, title) => {
           <Button
             variant="outlined"
             color="blue"
+            disabled={(nickName === "")}
             sx={{ flexGrow: "7" }}
             onClick={handleUpdate}
           >

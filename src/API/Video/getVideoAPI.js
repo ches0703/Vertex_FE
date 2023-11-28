@@ -3,7 +3,7 @@ import baseURL from "../URL";
 const URL = baseURL + "/video/watch"
 
 export default async function getVideoAPI(data) {
-  console.log("Get Video API Call")
+  console.log("Get Video API Call", data)
   const res = await axios.get(URL, {
     params: data,
     headers: {
@@ -11,6 +11,7 @@ export default async function getVideoAPI(data) {
     },
   })
     .then((res) => {
+      console.log("getVideo Res : ",res)
       return res
     })
     .catch((e) => {
