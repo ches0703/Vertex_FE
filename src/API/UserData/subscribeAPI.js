@@ -6,42 +6,22 @@ const contentsURL = baseURL + '/subscription/contents';
 const subscribeURL = baseURL + '/subscription/subscribe';
 const unsubscribeURL = baseURL + '/subscription/unsubscribe';
 
-const getSubscribeListAPI = async () => {
-  return [
-    {
-      name: "1111",
-      email: "1111@aaa.aaa",
-      thumbnail: "./Test.jpg"
+export default async function getSubscribeListAPI(email) {
+  console.log(email)
+  const res = await axios.get(URL, {
+    params: email,
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
     },
-    {
-      name: "2222",
-      email: "2222@aaa.aaa",
-      thumbnail: "./Test.jpg"
-    },
-    {
-      name: "3333",
-      email: "3333@aaa.aaa",
-      thumbnail: "./Test.jpg"
-    }
-  ]
-  // const response = axios({
-  //   method: 'get',
-  //   url: listURL,
-  //   params: {
-  //     email: email
-  //   }
-  // })
-
-  // if (response) {
-  //   console.log(response)
-  //   return response
-  // }
-  // else {
-
-  //   return null
-  // }
-
-  // return response
+  })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((e) => {
+      console.error(e)
+      return false;
+    })
+  return res;
 }
 
 const getSubScribeContentList = async () => {
