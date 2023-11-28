@@ -7,8 +7,8 @@ import {
 import VideoListCard from "../Comp/VideoListCard"
 import VideoCardWide from "../Comp/VideoCardWide"
 
-import getHistoryAPI from '../API/Video/getHistroyAPI';
-import getLikeVideoListAPI from '../API/Video/getLikeVideoListAPI'
+import {getHistoryAPI} from '../API/Video/HistroyAPI';
+import {getLikeVideoListAPI} from '../API/Video/LikeVideoListAPI'
 
 export default function VideoListComp() {
   const category = useSelector((state) => state.category)
@@ -31,6 +31,7 @@ export default function VideoListComp() {
         const result = await getLikeVideoListAPI({
           email: userData.email
         });
+        console.log(result.data)
         if (result.data) {
           const videoData = result.data;
           setVideoList(videoData);
