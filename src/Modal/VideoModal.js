@@ -80,8 +80,8 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const handleLike = async () => {
     console.log("now like: ",isLiked)
     const res = await videoLikeAPI({
-      email: userData.email,
-      videoId: videoData.id
+      videoId: videoData.id,
+      email: userData.email
     })
     console.log("like res", res)
     setIsLiked(!isLiked)
