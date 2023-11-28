@@ -44,8 +44,7 @@ const getCheckSubscribeAPI = async (data) => {
 }
 
 const getSubscribeAPI = async (data) => {
-  console.log(data);
-  const res = await axios.post(`http://localhost:8000/subscription/subscribe`, data, {
+  const res = await axios.post(subscribeURL, data, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
@@ -62,7 +61,7 @@ const getSubscribeAPI = async (data) => {
 }
 
 const getUnsubscribeAPI = async (data) => {
-  const res = await axios.post(`http://localhost:8000/subscription/unsubscribe`, data, {
+  const res = await axios.post(unsubscribeURL, data, {
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
