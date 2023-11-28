@@ -64,7 +64,7 @@ export default function CommunityCard({ post }) {
       
     }
     fetch()
-  }, [])
+  }, [post, userData])
 
 
   const handleCommnetExpand = () => {
@@ -118,12 +118,12 @@ export default function CommunityCard({ post }) {
 
         {/* Card Btn */}
         <CardActions sx={{ padding: "0px", marginTop: "15px" }}>
-          <Button
+          {(userData.email) && <Button
             color='white'
             variant="outlined"
             startIcon={<FavoriteIcon />}>
             Like : {post.like_count}
-          </Button>
+          </Button>}
 
           <Button
             color='white'

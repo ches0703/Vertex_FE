@@ -23,6 +23,7 @@ export default function UserCard({ userEmail }) {
   const [cardImg, setCardImg] = useState(null)
 
   useEffect(() => {
+    console.log(userData)
     const fetch = async () => {
       // userData
       const userDataRes = await getUserDataAPI({
@@ -87,13 +88,13 @@ export default function UserCard({ userEmail }) {
           </Stack>
 
           <Stack sx={{ justifyContent: "center", flexGrow: "1" }}>
-            <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+            {/* <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Subscriber : {1234}
             </Typography>
             <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Videos : {1234}
-            </Typography>
-            {(userData.email !== myData.email) && <Button
+            </Typography> */}
+            {(myData.email) && (userData.email !== myData.email) && <Button
               fullWidth
               sx={{ marginTop: "5px" }}
               color='white'

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { login } from "../redux/UserReducer";
 import {
   Box,
@@ -14,7 +14,6 @@ import LoginAPI from "../API/Accoount/LoginAPI";
 const LoginModal = (onClose, title) => {
 
   const dispatch = useDispatch()
-  const userData = useSelector((state) => state.user)
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("")

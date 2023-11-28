@@ -44,16 +44,16 @@ export default function CommentList({ videoId }) {
     }
   }
 
-  const fetch = async () => {
-    const res = await getCommentList(videoId);
-    if (res) {
-      console.log(res.data.data);
-      setCommentList(res.data.data);
-    }
-  }
   useEffect(() => {
+    const fetch = async () => {
+      const res = await getCommentList(videoId);
+      if (res) {
+        console.log(res.data.data);
+        setCommentList(res.data.data);
+      }
+    }
     fetch();
-  }, [])
+  }, [videoId])
 
   const handleButtonAtComment = async (cmt, type) => {
     let data;

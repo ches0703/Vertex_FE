@@ -15,6 +15,7 @@ export default async function getSubscribeListAPI(email) {
     },
   })
     .then((res) => {
+      console.log("API sub check res : ",res)
       return res.data.data;
     })
     .catch((e) => {

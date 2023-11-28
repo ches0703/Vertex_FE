@@ -1,18 +1,15 @@
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Button,
   TextField,
   Typography,
   Box,
-  Select,
-  MenuItem,
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
 import uploadVideoAPI from "../API/Video/uploadVideoAPI";
 import CircularProgress from '@mui/material/CircularProgress';
-import { margin } from "@mui/system";
 
 
 // Category Values
