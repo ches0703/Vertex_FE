@@ -83,7 +83,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       videoId: videoData.id,
       email: userData.email
     })
-    console.log("like res", res)
+    videoData.like_count = res.data
     setIsLiked(!isLiked)
   }
 
@@ -182,9 +182,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                       <Typography variant="h6" marginTop="10px" >
                         {videoData.name}
                       </Typography>
-                      <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-                        Subscribers : {"????"}
-                      </Typography>
+                      {/* <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+                        Subscribers
+                      </Typography> */}
                     </Box>
                   </Button>
                 </Stack>
@@ -218,7 +218,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             variant="outlined"
             startIcon={<CommentIcon />}
             onClick={handleCommnetExpand}>
-            Comment : {"????"}
+            Comment
           </Button>
         </Stack>
 
