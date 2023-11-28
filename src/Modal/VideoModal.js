@@ -46,7 +46,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
-    console.log("video Data : ", videoData)
+    // console.log("video Data : ", videoData)
     const fetch = async () => {
 
       // video like user Subscirbe check
@@ -58,12 +58,12 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           videoId: videoData.id
         })
         if (likeRes) {
-          console.log("like check : ", likeRes)
+          // console.log("like check : ", likeRes)
           setIsLiked(likeRes.data)
         }
 
         // Subscirbe check
-        console.log("sub check start")
+        // console.log("sub check start")
         await getCheckSubscribeAPI({
           channelId: videoData.user_email,
           userId: userData.email
