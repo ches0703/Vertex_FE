@@ -13,7 +13,7 @@ import getUserDataAPI from '../API/UserData/getUserDataAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import getUserCardImgAPI from '../API/UserData/getUserCardImg';
 
-import { getCheckSubscribeAPI } from '../API/Subscription/SubscribeAPI';
+import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from '../API/Subscription/SubscribeAPI';
 
 export default function UserCard({ userEmail }) {
 
@@ -31,8 +31,23 @@ export default function UserCard({ userEmail }) {
       const userDataRes = await getUserDataAPI({
         email: category.sub
       })
-      console.log("userDataRes.data", userDataRes.data)
+      const getUserData = userDataRes.data
+      // console.log("getUserData",getUserData)
       setUserData(userDataRes.data)
+
+      // Subscirbe check
+      if(myData.email !== null){
+        // console.log("sub check start")
+        await getCheckSubscribeAPI({
+          channelId: getUserData.email,
+          userId: myData.email
+        }).then((res) => {
+          setIsSub(res.data)
+        }).catch((e) => {
+          console.log("Subscirbe check Error")
+          console.error(e)
+        })
+      }
 
       // profile img
       const profileImgRes = await getUserProfileImgAPI({
@@ -54,27 +69,6 @@ export default function UserCard({ userEmail }) {
     fetch()
   }, [category, myData])
 
-  useEffect(() => {
-    const fetch = async () => {
-      console.log("----",userData.email)
-      // video like user Subscirbe check
-      if (myData.email && userData.email) {
-        // Subscirbe check
-        console.log("sub check start")
-        await getCheckSubscribeAPI({
-          channelId: userData.email,
-          userId: myData.email
-        }).then((res) => {
-          console.log("sub chenk res(userCard) : ", res)
-          setIsSub(res.data)
-        }).catch((e) => {
-          console.log("Subscirbe check Error")
-          console.error(e)
-        })
-      }
-    }
-    fetch()
-  }, [userData, myData])
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -123,10 +117,10 @@ export default function UserCard({ userEmail }) {
             {(myData.email) && (userData.email !== myData.email) && <Button
               fullWidth
               sx={{ marginTop: "5px" }}
-              color='white'
+              color={isSub?"error":"white"}
               variant="outlined"
               onClick={() => { }}>
-              Subscribe
+              {isSub?"Cancel Subscribe":"Subscribe"}
             </Button>}
 
           </Stack>

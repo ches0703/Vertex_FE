@@ -75,7 +75,7 @@ const ProfileUpdateModal = (onClose, title) => {
     if (result) {
       alert("Profile Update Success")
       handleChange(null, "INIT");
-      window.location.reload('/');
+      window.location.reload();
       onClose()
     } else {
       alert("Profile Update Fail")
@@ -161,7 +161,7 @@ const ProfileUpdateModal = (onClose, title) => {
           />
         </Box>
 
-        <Box className="Hash Tag">
+        {/* <Box className="Hash Tag">
           <Typography
             sx={{
               color: "#FFFFFF",
@@ -186,7 +186,7 @@ const ProfileUpdateModal = (onClose, title) => {
               ),
             }}
           />
-        </Box>
+        </Box> */}
 
         <Stack direction="row" spacing={2}>
           <Button
