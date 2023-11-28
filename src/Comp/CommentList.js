@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import {
@@ -28,29 +28,6 @@ export default function CommentList({ videoId, postId }) {
   }
 
   const handleCommit = async () => {
-    const fetch = async () => {
-      if(videoId){
-        // Video Comment
-        console.log("Video Comment")
-        const res = await getCommentList(videoId);
-        if (res) {
-          console.log(res.data.data);
-          setCommentList(res.data.data);
-        }
-      } else if (postId) {
-        // Post Commnet
-        console.log("Post Commnet")
-        await getCommentList(postId)
-          .then((res) => {
-            console.log(res.data.data);
-            setCommentList(res.data.data);
-          })
-          .catch((e) => {
-            console.log("Post Commnet Error")
-            console.error(e)
-          })
-      }
-    }
     const data = {
       email: userData.email,
       content: comment,
@@ -67,82 +44,37 @@ export default function CommentList({ videoId, postId }) {
     fetch();
   }
 
-  const fetch = async () => {
-      if(videoId){
-        // Video Comment
-        console.log("Video Comment")
-        const res = await getCommentList(videoId);
-        if (res) {
+  const fetch = useCallback(async() => {
+    if(videoId){
+      // Video Comment
+      console.log("Video Comment")
+      const res = await getCommentListAPI(videoId);
+      if (res) {
+        console.log(res.data.data);
+        setCommentList(res.data.data);
+      }
+    } else if (postId) {
+      // Post Commnet
+      console.log("Post Commnet")
+      await getCommentListAPI(postId)
+        .then((res) => {
           console.log(res.data.data);
           setCommentList(res.data.data);
-        }
-      } else if (postId) {
-        // Post Commnet
-        console.log("Post Commnet")
-        await getCommentList(postId)
-          .then((res) => {
-            console.log(res.data.data);
-            setCommentList(res.data.data);
-          })
-          .catch((e) => {
-            console.log("Post Commnet Error")
-            console.error(e)
-          })
-      }
+        })
+        .catch((e) => {
+          console.log("Post Commnet Error")
+          console.error(e)
+        })
     }
+  }, [postId, videoId])
+
 
   
   useEffect(() => {
-    const fetch = async () => {
-      if(videoId){
-        // Video Comment
-        console.log("Video Comment")
-        const res = await getCommentListAPI(videoId);
-        if (res) {
-          console.log(res.data.data);
-          setCommentList(res.data.data);
-        }
-      } else if (postId) {
-        // Post Commnet
-        console.log("Post Commnet")
-        await getCommentListAPI(postId)
-          .then((res) => {
-            console.log(res.data.data);
-            setCommentList(res.data.data);
-          })
-          .catch((e) => {
-            console.log("Post Commnet Error")
-            console.error(e)
-          })
-      }
-    }
     fetch();
-  }, [postId, videoId])
+  }, [fetch])
 
   const handleButtonAtComment = async (cmt, type) => {
-    const fetch = async () => {
-      if(videoId){
-        // Video Comment
-        console.log("Video Comment")
-        const res = await getCommentList(videoId);
-        if (res) {
-          console.log(res.data.data);
-          setCommentList(res.data.data);
-        }
-      } else if (postId) {
-        // Post Commnet
-        console.log("Post Commnet")
-        await getCommentList(postId)
-          .then((res) => {
-            console.log(res.data.data);
-            setCommentList(res.data.data);
-          })
-          .catch((e) => {
-            console.log("Post Commnet Error")
-            console.error(e)
-          })
-      }
-    }
     let data;
     switch (type) {
       case DELETE:
@@ -210,7 +142,7 @@ export default function CommentList({ videoId, postId }) {
       {commentList.map(cmt => {
         cmt.videoId = videoId
         cmt.func = handleButtonAtComment
-        console.log(cmt);
+        // console.log(cmt);
         return <Comment key={cmt.id} comment={cmt}></Comment>
       })}
 
