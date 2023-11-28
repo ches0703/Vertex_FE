@@ -64,7 +64,7 @@ export default function VideoCard({ videoData }) {
 
           <CardMedia
             component="img"
-            image={thumb}
+            image={thumb?thumb:"./defaultImg.png"}
             sx={{
               borderRadius: "5px",
               aspectRatio: "16/10",
