@@ -150,7 +150,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
             <Stack direction="row" marginTop="15px" flexWrap="wrap">
               {/* Video Info */}
-              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "7" }}>
+              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "6" }}>
                 <Typography variant="h5"  >
                   {videoData.title}
                 </Typography>
@@ -167,7 +167,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 </Typography>
               </Box>
 
-              <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
+              <Box sx={{ margin: "auto 0px", flexGrow: "4" }}>
                 <Stack direction="row">
                   <Button fullWidth sx={{
                     justifyContent: "flex-start"
