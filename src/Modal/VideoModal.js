@@ -20,6 +20,8 @@ import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
 
 import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
+//import { getSubScribe, getUnsubScribe } from "../API/Subscription/SubscribeAPI";
+import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from "../API/Subscription/SubscribeAPI";
 
 import {
   videoLikeAPI,
@@ -35,6 +37,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
   const [commnetExpand, setCommnetExpand] = useState(false);
   const [isLiked, setIsLiked] = useState(false)
+  const [isSub, setIsSub] = useState(false)
 
   const handleCommnetExpand = () => {
     setCommnetExpand(!commnetExpand);
@@ -44,10 +47,13 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
+    console.log("video Data : ", videoData)
     const fetch = async () => {
 
-      // video like get
+      // video like user Subscirbe check
       if(userData.email !== null){
+        // like Check
+        
         const likeRes = await videoLikeCheck({
           email: userData.email,
           videoId: videoData.id
@@ -56,6 +62,16 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           console.log("like check : ", likeRes)
           setIsLiked(likeRes.data)
         }
+        
+        // Subscirbe check
+        console.log("sub check start")
+        await getCheckSubscribeAPI({
+          channelId: videoData.user_email,
+          userId: userData.email
+        }).then((res) => {
+          console.log("sub check res",res)
+        })
+
       }
 
       // video get
@@ -80,12 +96,43 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   }, [])
 
   const handleLike = async () => {
-    const res = await videoLikeAPI({
+    await videoLikeAPI({
       videoId: videoData.id,
       email: userData.email
+    }).then((res) => {
+      videoData.like_count = res.data
+      setIsLiked(!isLiked)
+    }).catch((e) => {
+      console.log("Handle Like Error : ")
+      console.error(e)
     })
-    videoData.like_count = res.data
-    setIsLiked(!isLiked)
+  }
+
+  const handlesubscribe = async () => {
+    if(isSub){
+      await getUnsubscribeAPI({
+        channelId: videoData.user_email,
+        userId: userData.email
+      }).then((res) => {
+        console.log(res)
+        setIsSub(false)
+      }).catch((e) => {
+        console.log("Handle Sub Error : ")
+        console.error(e)
+      })
+
+    } else {
+      await getSubscribeAPI({
+        chanelId: videoData.user_email,
+        userId: userData.email
+      }).then((res) => {
+        console.log(res)
+        setIsSub(true)
+      }).catch((e) => {
+        console.log("Handle Sub Error : ")
+        console.error(e)
+      })
+    }
   }
 
   const dispatch = useDispatch();
@@ -96,6 +143,8 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     dispatch(changeMain("Subscribe"));
     dispatch(changeSub(sub));
   }
+
+
 
   return (
     <Modal
@@ -190,12 +239,14 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   </Button>
                 </Stack>
                 <Button
+                  onClick={handlesubscribe}
                   fullWidth
-                  color='white'
+                  //color='white'
+                  color={isSub?"error":"white"}
                   variant="outlined"
                   sx={{ marginTop: "15px" }}
                 >
-                  Subscribe
+                  {isSub?"Cancel Subscribe":"Subscribe"}
                 </Button>
               </Box>
             </Stack>
