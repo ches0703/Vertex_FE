@@ -28,7 +28,7 @@ export default function UserCard({ userEmail }) {
       const userDataRes = await getUserDataAPI({
         email: category.sub
       })
-      setUserData(userDataRes.data)
+      if (userDataRes) setUserData(userDataRes.data)
 
       // profile img
       const profileImgRes = await getUserProfileImgAPI({

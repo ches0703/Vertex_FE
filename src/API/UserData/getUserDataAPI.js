@@ -1,7 +1,7 @@
 import axios from "axios";
 import baseURL from "../URL";
 
-const URL = baseURL+"/user/profile"
+const URL = baseURL + "/user/profile"
 
 export default async function getUserDataAPI(email) {
   const res = await axios.get(URL, {
@@ -11,6 +11,7 @@ export default async function getUserDataAPI(email) {
     },
   })
     .then((res) => {
+      console.log(res)
       return res
     })
     .catch((e) => {

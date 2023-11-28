@@ -30,7 +30,9 @@ export default function SubscribeCat() {
         const res = await getSubscribeListAPI({
           email: userData.email
         });
-        setSubscribeList(res);
+
+        if (res) setSubscribeList(res);
+
       }
     }
     fetch()
