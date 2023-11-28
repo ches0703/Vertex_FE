@@ -49,7 +49,6 @@ const reducer = (state, action) => {
 
 const ProfileUpdateModal = (onClose, title) => {
   const userData = useSelector(state => state.user);
-
   const [state, dispatch] = useReducer(reducer, initialState);
   const { nickName, introduction, profile, channelCard } = state;
 
@@ -101,9 +100,9 @@ const ProfileUpdateModal = (onClose, title) => {
             fullWidth
             color='white'
             size='small'
-            value={nickName}
             onChange={(e) => handleChange(e, NICKNAME)}
             sx={{ marginTop: "5px", }}
+            defaultValue={userData.name}
           />
         </Box>
         <Box className="Introduction">
