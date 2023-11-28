@@ -32,15 +32,15 @@ const getCheckSubscribeAPI = async (data) => {
       'ngrok-skip-browser-warning': '69420',
     },
   })
-  .then((res) => {
-    console.log(res)
-    return res
-  })
-  .catch((e) => {
-    console.error(e);
-    return;
-  })
-return res;
+    .then((res) => {
+      // console.log("sub check api", res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
 const getSubscribeAPI = async () => {

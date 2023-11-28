@@ -68,7 +68,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           channelId: videoData.user_email,
           userId: userData.email
         }).then((res) => {
-          console.log("sub check res",res)
+          setIsSub(res.data)
+        }).catch((e) => {
+          console.log("Subscirbe check Error")
+          console.error(e)
         })
 
       }
