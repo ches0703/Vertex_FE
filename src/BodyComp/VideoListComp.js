@@ -16,6 +16,13 @@ export default function VideoListComp() {
 
   const [videoList, setVideoList] = useState([]);
 
+  const remove = (videoId) => {
+    setVideoList(
+      videoList.filter(videoData => videoData.video_id !== videoId)
+    )
+  }
+
+
   useEffect(() => {
     setVideoList([]);
     const fetch = async () => {
@@ -53,7 +60,7 @@ export default function VideoListComp() {
 
       </Stack>
       {videoList.map((videoData) => {
-        return <VideoCardWide key={videoData.video_id} videoData={videoData}></VideoCardWide>
+        return <VideoCardWide key={videoData.video_id} videoData={videoData} remove={remove} ></VideoCardWide>
       })}
       <Stack>
 

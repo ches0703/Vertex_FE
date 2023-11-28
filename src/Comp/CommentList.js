@@ -28,6 +28,29 @@ export default function CommentList({ videoId, postId }) {
   }
 
   const handleCommit = async () => {
+    const fetch = async () => {
+      if(videoId){
+        // Video Comment
+        console.log("Video Comment")
+        const res = await getCommentList(videoId);
+        if (res) {
+          console.log(res.data.data);
+          setCommentList(res.data.data);
+        }
+      } else if (postId) {
+        // Post Commnet
+        console.log("Post Commnet")
+        await getCommentList(postId)
+          .then((res) => {
+            console.log(res.data.data);
+            setCommentList(res.data.data);
+          })
+          .catch((e) => {
+            console.log("Post Commnet Error")
+            console.error(e)
+          })
+      }
+    }
     const data = {
       email: userData.email,
       content: comment,
@@ -44,6 +67,31 @@ export default function CommentList({ videoId, postId }) {
     }
   }
 
+  const fetch = async () => {
+      if(videoId){
+        // Video Comment
+        console.log("Video Comment")
+        const res = await getCommentList(videoId);
+        if (res) {
+          console.log(res.data.data);
+          setCommentList(res.data.data);
+        }
+      } else if (postId) {
+        // Post Commnet
+        console.log("Post Commnet")
+        await getCommentList(postId)
+          .then((res) => {
+            console.log(res.data.data);
+            setCommentList(res.data.data);
+          })
+          .catch((e) => {
+            console.log("Post Commnet Error")
+            console.error(e)
+          })
+      }
+    }
+
+  
   useEffect(() => {
     const fetch = async () => {
       if(videoId){
@@ -69,9 +117,32 @@ export default function CommentList({ videoId, postId }) {
       }
     }
     fetch();
-  }, [videoId, postId])
+  }, [postId, videoId])
 
   const handleButtonAtComment = async (cmt, type) => {
+    const fetch = async () => {
+      if(videoId){
+        // Video Comment
+        console.log("Video Comment")
+        const res = await getCommentList(videoId);
+        if (res) {
+          console.log(res.data.data);
+          setCommentList(res.data.data);
+        }
+      } else if (postId) {
+        // Post Commnet
+        console.log("Post Commnet")
+        await getCommentList(postId)
+          .then((res) => {
+            console.log(res.data.data);
+            setCommentList(res.data.data);
+          })
+          .catch((e) => {
+            console.log("Post Commnet Error")
+            console.error(e)
+          })
+      }
+    }
     let data;
     switch (type) {
       case DELETE:
