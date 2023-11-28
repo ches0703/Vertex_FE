@@ -51,7 +51,7 @@ export default function VideoCardWide({ videoData }) {
 
     }
     fetch()
-  }, []);
+  }, [videoData]);
 
   return (
     <Stack direction="row" alignItems="center">
