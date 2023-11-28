@@ -33,7 +33,7 @@ const getCheckSubscribeAPI = async (data) => {
     },
   })
     .then((res) => {
-      // console.log("sub check api", res)
+      console.log(res)
       return res
     })
     .catch((e) => {
@@ -43,12 +43,39 @@ const getCheckSubscribeAPI = async (data) => {
   return res;
 }
 
-const getSubscribeAPI = async () => {
-
+const getSubscribeAPI = async (data) => {
+  console.log(data);
+  const res = await axios.post(`http://localhost:8000/subscription/subscribe`, data, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  })
+    .then((res) => {
+      console.log(res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
-const getUnsubscribeAPI = async () => {
-
+const getUnsubscribeAPI = async (data) => {
+  const res = await axios.post(`http://localhost:8000/subscription/unsubscribe`, data, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  })
+    .then((res) => {
+      console.log(res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
 export {
