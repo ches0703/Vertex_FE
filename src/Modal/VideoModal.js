@@ -114,17 +114,18 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
   const handlesubscribe = async () => {
     if(isSub){
-      await deleteLikeVideoListAPI({
-        email: userData.email,
-        videoId: videoData.video_id
-      });
+      await getUnsubscribeAPI({
+        userId: userData.email,
+        channelId: videoData.user_email,
+      }).then((res) => {
+        setIsSub(false);
+      })
     } else {
       console.log("sub Start")
       await getSubscribeAPI({
         channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
-        console.log("sub res : ",res)
         setIsSub(true)
       }).catch((e) => {
         console.log("Handle Sub Error : ")
@@ -137,7 +138,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   /**
    * move to uploader's channel
    */
-  const handleCategoryChainge = (sub) => {
+  const handleCategoryChange = (sub) => {
     dispatch(changeMain("Subscribe"));
     dispatch(changeSub(sub));
   }
@@ -220,7 +221,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                     justifyContent: "flex-start"
                   }}
                     color="white"
-                    onClick={() => handleCategoryChainge(videoData.user_email)}
+                    onClick={() => handleCategoryChange(videoData.user_email)}
                   >
                     <Avatar
                       src={profileImg}
