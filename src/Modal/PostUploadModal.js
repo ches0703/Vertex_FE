@@ -83,7 +83,7 @@ const PostUploadModal = (onClose, title) => {
         />
       </Box>
 
-      <Box className="Hash Tag">
+      {/* <Box className="Hash Tag">
         <Typography>
           Hash Tag
         </Typography>
@@ -104,7 +104,7 @@ const PostUploadModal = (onClose, title) => {
             ),
           }}
         />
-      </Box>
+      </Box> */}
 
       {/* Thumbnail uplaod Btn */}
       <Box className="Thumbnail Image">
