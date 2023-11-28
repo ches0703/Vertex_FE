@@ -116,19 +116,20 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
+        console.log("un sub res : ",res)
         console.log(res)
         setIsSub(false)
       }).catch((e) => {
         console.log("Handle Sub Error : ")
         console.error(e)
       })
-
     } else {
+      console.log("sub Start")
       await getSubscribeAPI({
         channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
-        console.log(res)
+        console.log("sub res : ",res)
         setIsSub(true)
       }).catch((e) => {
         console.log("Handle Sub Error : ")

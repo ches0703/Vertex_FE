@@ -13,22 +13,25 @@ import getUserDataAPI from '../API/UserData/getUserDataAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import getUserCardImgAPI from '../API/UserData/getUserCardImg';
 
+import { getCheckSubscribeAPI } from '../API/Subscription/SubscribeAPI';
+
 export default function UserCard({ userEmail }) {
 
   const category = useSelector((state) => state.category)
   const myData = useSelector((state) => state.user)
+  const [isSub, setIsSub] = useState(false)
 
   const [userData, setUserData] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
   const [cardImg, setCardImg] = useState(null)
 
   useEffect(() => {
-    console.log(userData)
     const fetch = async () => {
       // userData
       const userDataRes = await getUserDataAPI({
         email: category.sub
       })
+      console.log("userDataRes.data", userDataRes.data)
       setUserData(userDataRes.data)
 
       // profile img
@@ -46,9 +49,32 @@ export default function UserCard({ userEmail }) {
       if (cardImgRes) {
         setCardImg(cardImgRes.data)
       }
+
     }
     fetch()
-  }, [category.sub])
+  }, [category, myData])
+
+  useEffect(() => {
+    const fetch = async () => {
+      console.log("----",userData.email)
+      // video like user Subscirbe check
+      if (myData.email && userData.email) {
+        // Subscirbe check
+        console.log("sub check start")
+        await getCheckSubscribeAPI({
+          channelId: userData.email,
+          userId: myData.email
+        }).then((res) => {
+          console.log("sub chenk res(userCard) : ", res)
+          setIsSub(res.data)
+        }).catch((e) => {
+          console.log("Subscirbe check Error")
+          console.error(e)
+        })
+      }
+    }
+    fetch()
+  }, [userData, myData])
 
   return (
     <Box sx={{ display: "flex" }}>
