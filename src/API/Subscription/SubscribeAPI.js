@@ -8,7 +8,7 @@ const subscribeURL = baseURL + '/subscription/subscribe';
 const unsubscribeURL = baseURL + '/subscription/unsubscribe';
 
 export default async function getSubscribeListAPI(email) {
-  console.log(email)
+  // console.log(email)
   const res = await axios.get(listURL, {
     params: email,
     headers: {
@@ -19,7 +19,7 @@ export default async function getSubscribeListAPI(email) {
       return res.data.data;
     })
     .catch((e) => {
-      console.error(e)
+      // console.error(e)
       return false;
     })
   return res;
@@ -33,11 +33,11 @@ const getCheckSubscribeAPI = async (data) => {
     },
   })
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       return res
     })
     .catch((e) => {
-      console.error(e);
+      // console.error(e);
       return;
     })
   return res;

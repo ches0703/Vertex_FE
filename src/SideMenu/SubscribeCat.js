@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 import { getSubscribeListAPI } from '../API/Subscription/SubscribeAPI';
+import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 
 export default function SubscribeCat() {
 
@@ -30,6 +31,7 @@ export default function SubscribeCat() {
         const res = await getSubscribeListAPI({
           email: userData.email
         });
+        console.log("sub res",res);
         setSubscribeList(res);
       }
     }
@@ -50,14 +52,20 @@ export default function SubscribeCat() {
         </Typography>
 
         {subscribeList.map(user =>
-          <ListItem disablePadding key={user.email}>
-            <ListItemButton onClick={() => { handleCategoryChainge(user.email) }}>
+          <ListItem 
+            disablePadding 
+            key={user.channel_email}>
+            <ListItemButton onClick={() => { handleCategoryChainge(user.channel_email) }}>
               <ListItemIcon>
-                <Avatar alt={user.name} src={user.thumbnail}
+                <Avatar alt={user.name} src={
+                  getUserProfileImgAPI({
+                    email: user.channel_email
+                  }).data
+                }
                   sx={{ width: "35px", height: "35px" }}
                 />
               </ListItemIcon>
-              <ListItemText primary={user.name} />
+              <ListItemText primary={user["channel.name"]} />
             </ListItemButton>
           </ListItem>
         )}
