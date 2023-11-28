@@ -78,11 +78,12 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   }, [])
 
   const handleLike = async () => {
-    console.log("now like: ",isLiked)
+    console.log("now like: ", isLiked)
     const res = await videoLikeAPI({
       videoId: videoData.id,
       email: userData.email
     })
+    console.log(res)
     videoData.like_count = res.data
     setIsLiked(!isLiked)
   }
@@ -206,11 +207,11 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             onClick={handleLike}
             color='white'
             variant="outlined"
-            startIcon={isLiked?<FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
+            startIcon={isLiked ? <FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
             sx={{
               marginRight: "10px"
             }}>
-            {isLiked?"Like Cancel":"Like"} : {videoData.like_count}
+            {isLiked ? "Like Cancel" : "Like"} : {videoData.like_count}
           </Button>
 
           <Button
