@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
-import getSubscribeListAPI from '../API/UserData/getSubscribeListAPI';
+import { getSubscribeListAPI } from '../API/UserData/subscribeAPI';
 
 export default function SubscribeCat() {
 
