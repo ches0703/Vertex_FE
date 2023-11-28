@@ -46,7 +46,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
-    // console.log("video Data : ", videoData)
+    console.log("video Data : ", videoData)
     const fetch = async () => {
 
       // video like user Subscirbe check
@@ -55,7 +55,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         
         const likeRes = await videoLikeCheck({
           email: userData.email,
-          videoId: videoData.id
+          videoId: videoData.id,
         })
         if (likeRes) {
           // console.log("like check : ", likeRes)
@@ -79,7 +79,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       // video get
       const videoRes = await getVideoAPI({
         email: userData.email,
-        videoId: videoData.id
+        videoId: videoData.id,
+        isYoutube: videoData.is_youtube,
+        videoFileExtension : videoData.video_file_extension
       })
       if (videoRes) {
         setVideo(videoRes.data)
