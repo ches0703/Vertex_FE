@@ -9,7 +9,6 @@ export default async function getHistoryAPI(userEmail) {
         headers: { 'ngrok-skip-browser-warning': '69420', }
     })
         .then((res) => {
-            console.log("get hitory api",res)
             return res
         })
         .catch((e) => {

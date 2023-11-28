@@ -32,10 +32,9 @@ export default function VideoListComp() {
         const result = await getLikeVideoListAPI({
           email: userData.email
         });
-        console.log("hi")
-        console.log(result)
-        if (result) {
-          setVideoList(result.data.data)
+        if (result.data) {
+          const videoData = result.data;
+          setVideoList(videoData);
         }
       }
     }

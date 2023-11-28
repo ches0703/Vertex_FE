@@ -31,17 +31,11 @@ export default function SubscribeCat() {
         const res = await getSubscribeListAPI({
           email: userData.email
         });
-        console.log("sub res",res);
         setSubscribeList(res);
       }
     }
     fetch()
   }, [userData]);
-
-
-  // const handleMoreBtn = () => {
-  //   setSubscribeList(subscribeList.concat(testApi()))
-  // }
 
   return (
     <Fragment>
