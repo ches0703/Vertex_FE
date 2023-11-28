@@ -11,7 +11,7 @@ const uploadVideoCommentAPI= async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("upload comment : ", res);
+            // console.log("upload comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -30,7 +30,7 @@ const updateVideoCommentAPI = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("update comment : ", res);
+            // console.log("update comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -49,7 +49,7 @@ const deleteVideoCommentAPI = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("delete comment : ", res);
+            // console.log("delete comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -68,7 +68,7 @@ const getVideoCommentListAPI = async (videoId) => {
         params: { videoId: videoId }
     })
         .then((res) => {
-            console.log("get comment : ", res);
+            // console.log("get comment : ", res);
             return res;
         })
         .catch((e) => {

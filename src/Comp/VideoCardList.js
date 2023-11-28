@@ -23,6 +23,7 @@ const OFFSET = 12;
 export default function VideoCardList() {
 
   const category = useSelector((state) => state.category)
+  const userData = useSelector((state) => state.user)
   const [page, setPage] = useState(0)
   const [videoList, setVideoList] = useState([])
   const [isMore, setIsMore] = useState(true)
@@ -42,6 +43,7 @@ export default function VideoCardList() {
   }
 
   useEffect(() => {
+    //setPage(1)
     setVideoList([])
   }, [category])
 
@@ -80,8 +82,23 @@ export default function VideoCardList() {
         }
         fetch()
       } else if (category.sub === "Subscribe") {
-        
+        const fetch = async () => {
+          await getSubscribeVideoListAPI({
+            userId: userData.email,
+            page : page
+          }).then((res) => {
+            setVideoList((prevList) => {return prevList.concat(res.data.data)})
+            if(res.data.data.length < OFFSET){
+              setIsMore(false)
+            }
+          }).catch((e) => {
+            console.log("get Home Video List Error")
+            console.error(e)
+          })
+        }
+        fetch()
       }
+
     } else if(category.main === "Subscribe"){
       const fetch = async () => {
         const res = await getUserVideoListAPI({
@@ -91,7 +108,7 @@ export default function VideoCardList() {
       }
       fetch()
     }
-  }, [category, page,])
+  }, [category, page])
 
   const handleMore = () => {
     setPage(page + 1)

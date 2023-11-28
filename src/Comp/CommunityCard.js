@@ -45,17 +45,19 @@ export default function CommunityCard({ post, deletePost }) {
       
       // like check
       // console.log("like")
+      if(userData.email){
+        await postLikeCheckAPI({
+          email: userData.email,
+          postId: post.id,
+        }).then((res) => {
+          // console.log("like Check Res",res)
+          setIsLiked(res.data)
+        }).catch((e) => {
+          // console.log("Like Check Error")
+          console.error(e)
+        })
+      }
       
-      await postLikeCheckAPI({
-        email: userData.email,
-        postId: post.id,
-      }).then((res) => {
-        // console.log("like Check Res",res)
-        setIsLiked(res.data)
-      }).catch((e) => {
-        // console.log("Like Check Error")
-        console.error(e)
-      })
 
       // profile img
       const profileImg = await getUserProfileImgAPI({
@@ -119,7 +121,7 @@ export default function CommunityCard({ post, deletePost }) {
               Author : {post["user.name"]}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-              Watch : {post.view_count} / Date : {post.createdAt}
+              Watch : {post.view_count} / Date : {post.createdAt.substr(0, 10)}
             </Typography>
           </Stack>
         </Stack>
