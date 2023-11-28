@@ -11,7 +11,7 @@ import {
 
 import Comment from './Commnet';
 
-import { uploadComment, getCommentList, deleteComment, updateComment } from '../API/Comment/Video/uploadComment';
+import { uploadCommentAPI, getCommentListAPI, deleteCommentAPI, updateCommentAPI } from '../API/Comment/Video/uploadComment';
 
 const DELETE = "DELETE";
 const UPDATE = "UPDATE";
@@ -59,12 +59,12 @@ export default function CommentList({ videoId, postId }) {
     }
     console.log(data)
 
-    const res = await uploadComment(data);
+    const res = await uploadCommentAPI(data);
     if (res) {
       console.log(res)
       setComment('');
-      fetch();
     }
+    fetch();
   }
 
   const fetch = async () => {
@@ -97,7 +97,7 @@ export default function CommentList({ videoId, postId }) {
       if(videoId){
         // Video Comment
         console.log("Video Comment")
-        const res = await getCommentList(videoId);
+        const res = await getCommentListAPI(videoId);
         if (res) {
           console.log(res.data.data);
           setCommentList(res.data.data);
@@ -105,7 +105,7 @@ export default function CommentList({ videoId, postId }) {
       } else if (postId) {
         // Post Commnet
         console.log("Post Commnet")
-        await getCommentList(postId)
+        await getCommentListAPI(postId)
           .then((res) => {
             console.log(res.data.data);
             setCommentList(res.data.data);
@@ -151,7 +151,7 @@ export default function CommentList({ videoId, postId }) {
           id: cmt.id,
           videoId: cmt.videoId
         }
-        const res_del = await deleteComment(data);
+        const res_del = await deleteCommentAPI(data);
         console.log(res_del)
         if (res_del) {
           fetch()
@@ -165,7 +165,7 @@ export default function CommentList({ videoId, postId }) {
           parentId: cmt.parent_id,
           videoId: cmt.videoId
         }
-        const res_udt = await updateComment(data);
+        const res_udt = await updateCommentAPI(data);
         if (res_udt) {
           fetch()
         }
