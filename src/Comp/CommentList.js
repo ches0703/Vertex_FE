@@ -11,8 +11,8 @@ import {
 
 import Comment from './Commnet';
 
-import { uploadCommentAPI, getCommentListAPI, deleteCommentAPI, updateCommentAPI } from '../API/Comment/Video/uploadComment';
-
+import { uploadVideoCommentAPI, getVideoCommentListAPI, deleteVideoCommentAPI, updateVideoCommentAPI } from '../API/Comment/videoCommentAPI';
+import { getPostCommentAPI } from '../API/Comment/postCommnetAPI.js';
 const DELETE = "DELETE";
 const UPDATE = "UPDATE";
 const REPLY = "REPLY";
@@ -31,7 +31,7 @@ export default function CommentList({ videoId, postId }) {
     if (videoId) {
       // Video Comment
       console.log("Video Comment")
-      const res = await getCommentListAPI(videoId);
+      const res = await getVideoCommentListAPI(videoId);
       if (res) {
         console.log(res.data.data);
         setCommentList(res.data.data);
@@ -39,7 +39,7 @@ export default function CommentList({ videoId, postId }) {
     } else if (postId) {
       // Post Commnet
       console.log("Post Commnet")
-      await getCommentListAPI(postId)
+      await getVideoCommentListAPI(postId)
         .then((res) => {
           console.log(res.data.data);
           setCommentList(res.data.data);
@@ -66,7 +66,7 @@ export default function CommentList({ videoId, postId }) {
     }
     console.log(data)
 
-    const res = await uploadCommentAPI(data);
+    const res = await uploadVideoCommentAPI(data);
     if (res) {
       console.log(res)
       setComment('');
@@ -83,7 +83,7 @@ export default function CommentList({ videoId, postId }) {
           id: cmt.id,
           videoId: cmt.videoId
         }
-        const res_del = await deleteCommentAPI(data);
+        const res_del = await deleteVideoCommentAPI(data);
         console.log(res_del)
         if (res_del) {
           fetch()
@@ -97,7 +97,7 @@ export default function CommentList({ videoId, postId }) {
           parentId: cmt.parent_id,
           videoId: cmt.videoId
         }
-        const res_udt = await updateCommentAPI(data);
+        const res_udt = await updateVideoCommentAPI(data);
         if (res_udt) {
           fetch()
         }

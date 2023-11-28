@@ -41,7 +41,11 @@ export default function VideoCardList() {
     })
   }
 
+  useEffect(() => {
+    setVideoList([])
+  }, [category])
 
+  
   useEffect(() => {
     // Categeory : Main
     if (category.main === "Main") {
@@ -50,10 +54,7 @@ export default function VideoCardList() {
           await getHomeVideoListAPI({
             page : page
           }).then((res) => {
-            //setVideoList(res.data.data)
-            setVideoList(videoList.concat(res.data.data))
-            console.log("got arr : ", res)
-            console.log(res.data.data.length)
+            setVideoList((prevList) => {return prevList.concat(res.data.data)})
             if(res.data.data.length < OFFSET){
               setIsMore(false)
             }
@@ -65,8 +66,17 @@ export default function VideoCardList() {
         fetch()
       } else if (category.sub === "Newest") {
         const fetch = async () => {
-          const res = await getNewestVideoListAPI()
-          setVideoList(res.data.data)
+          await getNewestVideoListAPI({
+              page : page
+            }).then((res) => {
+            setVideoList((prevList) => {return prevList.concat(res.data.data)})
+            if(res.data.data.length < OFFSET){
+              setIsMore(false)
+            }
+          }).catch((e) => {
+            console.log("get Home Video List Error")
+            console.error(e)
+          })
         }
         fetch()
       } else if (category.sub === "Subscribe") {
@@ -81,7 +91,7 @@ export default function VideoCardList() {
       }
       fetch()
     }
-  }, [category, page])
+  }, [category, page,])
 
   const handleMore = () => {
     setPage(page + 1)
