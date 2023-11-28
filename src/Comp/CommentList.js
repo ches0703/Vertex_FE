@@ -32,7 +32,7 @@ export default function CommentList({ videoId, postId }) {
       if(videoId){
         // Video Comment
         console.log("Video Comment")
-        const res = await getCommentList(videoId);
+        const res = await getCommentListAPI(videoId);
         if (res) {
           console.log(res.data.data);
           setCommentList(res.data.data);
@@ -40,7 +40,7 @@ export default function CommentList({ videoId, postId }) {
       } else if (postId) {
         // Post Commnet
         console.log("Post Commnet")
-        await getCommentList(postId)
+        await getCommentListAPI(postId)
           .then((res) => {
             console.log(res.data.data);
             setCommentList(res.data.data);
@@ -71,7 +71,7 @@ export default function CommentList({ videoId, postId }) {
       if(videoId){
         // Video Comment
         console.log("Video Comment")
-        const res = await getCommentList(videoId);
+        const res = await getCommentListAPI(videoId);
         if (res) {
           console.log(res.data.data);
           setCommentList(res.data.data);
@@ -79,7 +79,7 @@ export default function CommentList({ videoId, postId }) {
       } else if (postId) {
         // Post Commnet
         console.log("Post Commnet")
-        await getCommentList(postId)
+        await getCommentListAPI(postId)
           .then((res) => {
             console.log(res.data.data);
             setCommentList(res.data.data);
@@ -124,7 +124,7 @@ export default function CommentList({ videoId, postId }) {
       if(videoId){
         // Video Comment
         console.log("Video Comment")
-        const res = await getCommentList(videoId);
+        const res = await getCommentListAPI(videoId);
         if (res) {
           console.log(res.data.data);
           setCommentList(res.data.data);
@@ -132,7 +132,7 @@ export default function CommentList({ videoId, postId }) {
       } else if (postId) {
         // Post Commnet
         console.log("Post Commnet")
-        await getCommentList(postId)
+        await getCommentListAPI(postId)
           .then((res) => {
             console.log(res.data.data);
             setCommentList(res.data.data);
