@@ -1,7 +1,7 @@
 import axios from "axios";
 import baseURL from "../URL";
 
-const URL = baseURL+"/user/profile/image"
+const URL = baseURL + "/user/profile/image"
 
 export default async function getUserProfileImgAPI(email) {
   console.log("Get User Profile API Call")

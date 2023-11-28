@@ -1,7 +1,7 @@
 import axios from "axios";
 import baseURL from "../URL";
 
-const URL = baseURL+"/user/channel/image"
+const URL = baseURL + "/user/channel/image"
 
 export default async function getUserCardImgAPI(email) {
   console.log("Get User Card API Call")
@@ -12,11 +12,12 @@ export default async function getUserCardImgAPI(email) {
     },
   })
     .then((res) => {
+      console.log(res);
       return res
     })
     .catch((e) => {
       console.error(e)
-      return null
+      return false
     })
   return res
 }

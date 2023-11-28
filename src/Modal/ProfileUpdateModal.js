@@ -39,8 +39,8 @@ const reducer = (state, action) => {
       };
     default:
       return {
-        nickName: null,
-        introduction: null,
+        nickName: '',
+        introduction: '',
         profile: null,
         channelCard: null
       };
@@ -54,7 +54,7 @@ const ProfileUpdateModal = (onClose, title) => {
   const { nickName, introduction, profile, channelCard } = state;
 
   const handleChange = (e, action) => {
-    const payload = (action === PROFILE || action === CHANNELCARD) ? e : e.target.value;
+    const payload = (action === "INIT" || action === PROFILE || action === CHANNELCARD) ? e : e.target.value;
     dispatch({
       type: action,
       payload: payload,
@@ -70,11 +70,12 @@ const ProfileUpdateModal = (onClose, title) => {
     data.append("channelImage", channelCard);
 
     const result = await updateProfile(data);
-    handleChange(null, "INIT");
 
     console.log(result);
     if (result) {
       alert("Profile Update Success")
+      handleChange(null, "INIT");
+      window.location.reload('/');
       onClose()
     } else {
       alert("Profile Update Fail")
