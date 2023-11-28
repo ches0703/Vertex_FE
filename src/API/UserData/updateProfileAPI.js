@@ -5,8 +5,9 @@ const profileURL = baseURL + '/user/profile';
 
 const updateProfile = async (data) => {
     console.log(data)
-    const response = await axios.patch(profileURL, data, {
+    const response = await axios.patch(profileURL, {
         headers: { 'ngrok-skip-browser-warning': '69420' },
+        params: data
     })
         .then((res) => {
             console.log(res);
