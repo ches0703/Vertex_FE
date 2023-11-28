@@ -40,7 +40,14 @@ const PostUploadModal = (onClose, title) => {
     const response = await uploadCommunityPost(formData);
     console.log(response)
 
-    onClose();
+    if (response) {
+      alert('success')
+      window.location.reload('/');
+    }
+    else {
+      alert('fail to upload')
+      onClose()
+    }
   }
 
   return (
