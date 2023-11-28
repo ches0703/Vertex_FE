@@ -3,7 +3,7 @@ import axios from 'axios';
 import baseURL from '../../URL';
 const commentURL = baseURL + '/video/comment'
 
-const uploadComment = async (data) => {
+const uploadCommentAPI= async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'post',
@@ -21,7 +21,7 @@ const uploadComment = async (data) => {
     return response;
 }
 
-const updateComment = async (data) => {
+const updateCommentAPI = async (data) => {
     console.log(data)
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
@@ -41,7 +41,7 @@ const updateComment = async (data) => {
 
 }
 
-const deleteComment = async (data) => {
+const deleteCommentAPI = async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'delete',
@@ -60,7 +60,7 @@ const deleteComment = async (data) => {
 
 }
 
-const getCommentList = async (videoId) => {
+const getCommentListAPI = async (videoId) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'get',
@@ -80,8 +80,8 @@ const getCommentList = async (videoId) => {
 }
 
 export {
-    uploadComment,
-    updateComment,
-    deleteComment,
-    getCommentList
+    uploadCommentAPI,
+    updateCommentAPI,
+    deleteCommentAPI,
+    getCommentListAPI
 }
