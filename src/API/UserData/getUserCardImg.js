@@ -4,7 +4,7 @@ import baseURL from "../URL";
 const URL = baseURL + "/user/channel/image"
 
 export default async function getUserCardImgAPI(email) {
-  console.log("Get User Card API Call")
+  // console.log("Get User Card API Call")
   if (email.email) {
     const res = await axios.get(URL, {
       params: email,
