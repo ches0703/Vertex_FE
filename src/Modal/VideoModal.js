@@ -66,7 +66,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         // Subscirbe check
         console.log("sub check start")
         await getCheckSubscribeAPI({
-          chanelId: videoData.user_email,
+          channelId: videoData.user_email,
           userId: userData.email
         }).then((res) => {
           console.log("sub check res",res)
@@ -111,7 +111,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const handlesubscribe = async () => {
     if(isSub){
       await getUnsubscribeAPI({
-        chanelId: videoData.user_email,
+        channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
         console.log(res)
