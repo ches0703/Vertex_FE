@@ -48,15 +48,15 @@ export default function CommunityCard({ post }) {
       if(profileImg){
         setProfileImg(profileImg.data)
       }
-      postLikeCheckAPI({
-        postId: post.id,
-        email: userData.email
-      })
 
       // like check
       const likeRes = await postLikeCheckAPI({
-
+        email: userData.email,
+        postId: post.id,
       })
+      if(likeRes){
+        console.log("like Res",likeRes)
+      }
 
       
     }

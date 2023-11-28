@@ -23,15 +23,15 @@ async function postLikeAPI(data) {
   return res
 }
 
+
 async function postLikeCheckAPI(data) {
-  const res = axios.get(LIKE_CHECK_URL, {
-    params: data,
+  const res = axios.get(LIKE_CHECK_URL, data, {
+    // params: data,
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
   })
     .then((res) => {
-      
       console.log("POST like Check api :", res)
       return res
     })
