@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useSelector } from "react-redux"
 import {
   Stack,
-  Button,
   Container,
 } from "@mui/material"
 import VideoListCard from "../Comp/VideoListCard"
@@ -39,7 +38,7 @@ export default function VideoListComp() {
       }
     }
     fetch();
-  }, [category.sub])
+  }, [category.sub, userData])
 
   return (
     <Container maxWidth="md" >

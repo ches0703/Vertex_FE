@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
 import { Stack, Button } from "@mui/material";
 
 import VideoCardList from '../Comp/VideoCardList';
@@ -11,7 +12,9 @@ const USER = "U"
 const COMMUNITY = "C"
 
 
-export default function SearchComp({searchString}) {
+export default function SearchComp() {
+
+  const category = useSelector((state) => state.category)
 
   const [searchCatSelect, setSearchCatSelect] = useState(VIDEO)
 
@@ -19,13 +22,15 @@ export default function SearchComp({searchString}) {
     setSearchCatSelect(VIDEO)
   }
 
-  const handleUserSelect = () => {
-    setSearchCatSelect(USER)
-  }
+  // const handleUserSelect = () => {
+  //   setSearchCatSelect(USER)
+  // }
 
-  const handleCommunitySelect = () => {
-    setSearchCatSelect(COMMUNITY)
-  }
+  // const handleCommunitySelect = () => {
+  //   setSearchCatSelect(COMMUNITY)
+  // }
+
+
 
 
   return (
@@ -39,7 +44,8 @@ export default function SearchComp({searchString}) {
         }}>
           Video
         </Button>
-        <Button fullWidth variant="outlined" color='white'
+
+        {/* <Button fullWidth variant="outlined" color='white'
           onClick={handleUserSelect}
           sx={{
             height: "40px",
@@ -51,13 +57,17 @@ export default function SearchComp({searchString}) {
           onClick={handleCommunitySelect}
           sx={{ height: "40px" }}>
           Community
-        </Button>
+        </Button> */}
+
       </Stack>
 
+
+
       {(searchCatSelect === VIDEO) && <VideoCardList></VideoCardList>}
+      {/* 
       {(searchCatSelect === USER) && <UserCardList></UserCardList>}
       {(searchCatSelect === COMMUNITY) && <CommunityCardList></CommunityCardList>}
-      
+       */}
       
 
     </Stack>

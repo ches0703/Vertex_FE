@@ -29,6 +29,7 @@ export default function CommunityCard({ post }) {
 
   const [image, setImage] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
+  const [isLiked, setIsLiked] = useState(false)
 
   useEffect(() => {
     console.log("post dat = ", post)
@@ -45,14 +46,16 @@ export default function CommunityCard({ post }) {
       // like check
       console.log("like")
       
-      const likeRes = await postLikeCheckAPI({
+      await postLikeCheckAPI({
         email: userData.email,
         postId: post.id,
+      }).then((res) => {
+        console.log("like Check Res",res)
+        setIsLiked(res.data)
+      }).catch((e) => {
+        console.log("Like Check Error")
+        console.error(e)
       })
-      if(likeRes){
-        console.log("like Res",likeRes)
-      }
-      console.log("like check done")
 
       // profile img
       const profileImg = await getUserProfileImgAPI({
@@ -76,6 +79,22 @@ export default function CommunityCard({ post }) {
     dispatch(changeMain("Subscribe"));
     dispatch(changeSub(post.user_email));
   }
+
+  const handleLike = async () => {
+    // console.log("hendle ",post.id, userData.email)
+    await postLikeAPI({
+      postId: post.id,
+      email: userData.email,
+    }).then((res) => {
+      // console.log("post Like res", res)
+      setIsLiked(!isLiked)
+    }).catch((e) => {
+      // console.log("Handle Like Error : ")
+      console.error(e)
+    })
+  }
+
+
 
   return (
     <Stack alignItems="center" padding="5px 5px">
@@ -119,6 +138,7 @@ export default function CommunityCard({ post }) {
         {/* Card Btn */}
         <CardActions sx={{ padding: "0px", marginTop: "15px" }}>
           {(userData.email) && <Button
+            onClick={handleLike}
             color='white'
             variant="outlined"
             startIcon={<FavoriteIcon />}>
