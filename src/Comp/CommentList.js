@@ -97,7 +97,7 @@ export default function CommentList({ videoId }) {
       </Typography>
 
       {/* Comment Write */}
-      <Box component="form" sx={{ paddingBottom: "15px" }}>
+      {(userData.email) && <Box component="form" sx={{ paddingBottom: "15px" }}>
         <TextField
           fullWidth
           color='white'
@@ -114,7 +114,7 @@ export default function CommentList({ videoId }) {
             ),
           }}
         ></TextField>
-      </Box>
+      </Box>}
 
       {/* Commnet */}
       {/* <Comment></Comment>

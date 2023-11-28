@@ -6,6 +6,7 @@ const LIKE_URL = baseURL+"/community/like"
 const LIKE_CHECK_URL = baseURL+"/community/like/check"
 
 async function postLikeAPI(data) {
+  console.log("post like check start", data)
   const res = axios.post(LIKE_URL, {
     params: data,
     headers: {
@@ -25,8 +26,8 @@ async function postLikeAPI(data) {
 
 
 async function postLikeCheckAPI(data) {
-  const res = axios.get(LIKE_CHECK_URL, data, {
-    // params: data,
+  const res = axios.get(LIKE_CHECK_URL,  {
+    params: data,
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
