@@ -96,9 +96,9 @@ export default function Header() {
 
   useEffect(() => {
     if (sessionStorage.userData) {
-      const res = dispatch(login(JSON.parse(sessionStorage.userData)))
+      dispatch(login(JSON.parse(sessionStorage.userData)))
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     const fetch = async () => {

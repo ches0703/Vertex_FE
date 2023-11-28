@@ -32,7 +32,7 @@ export default function VideoCardWide({ videoData }) {
   const [thumb, setThumb] = useState(null)
 
   useEffect(() => {
-    console.log("vw : ",videoData)
+    // console.log("vw : ",videoData)
     const fetch = async () => {
       const thumbRes = await getThumbnailAPI({
         videoId: videoData.video_id,
@@ -51,7 +51,7 @@ export default function VideoCardWide({ videoData }) {
 
     }
     fetch()
-  }, []);
+  }, [videoData]);
 
   return (
     <Stack direction="row" alignItems="center">
@@ -74,7 +74,7 @@ export default function VideoCardWide({ videoData }) {
             <CardMedia
               component="img"
               image={thumb}
-              sx={{ width: "300px", borderRadius: "5px" }}
+              sx={{ width: "300px", aspectRatio: "16/10", borderRadius: "5px" }}
             />
 
             <CardContent sx={{ flexGrow: "1", padding: "20px" }}>

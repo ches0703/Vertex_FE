@@ -20,7 +20,6 @@ import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
 
 import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
-//import { getSubScribe, getUnsubScribe } from "../API/Subscription/SubscribeAPI";
 import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from "../API/Subscription/SubscribeAPI";
 
 import {
@@ -62,14 +61,17 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           console.log("like check : ", likeRes)
           setIsLiked(likeRes.data)
         }
-        
+
         // Subscirbe check
         console.log("sub check start")
         await getCheckSubscribeAPI({
           channelId: videoData.user_email,
           userId: userData.email
         }).then((res) => {
-          console.log("sub check res",res)
+          setIsSub(res.data)
+        }).catch((e) => {
+          console.log("Subscirbe check Error")
+          console.error(e)
         })
 
       }
@@ -93,7 +95,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
     }
     fetch();
-  }, [])
+  }, [videoData, userData])
 
   const handleLike = async () => {
     await videoLikeAPI({
@@ -114,19 +116,20 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
+        console.log("un sub res : ",res)
         console.log(res)
         setIsSub(false)
       }).catch((e) => {
         console.log("Handle Sub Error : ")
         console.error(e)
       })
-
     } else {
+      console.log("sub Start")
       await getSubscribeAPI({
-        chanelId: videoData.user_email,
+        channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
-        console.log(res)
+        console.log("sub res : ",res)
         setIsSub(true)
       }).catch((e) => {
         console.log("Handle Sub Error : ")
@@ -238,7 +241,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                     </Box>
                   </Button>
                 </Stack>
-                <Button
+                {(userData.email) && (videoData.user_email !== userData.email) && <Button
                   onClick={handlesubscribe}
                   fullWidth
                   //color='white'
@@ -247,7 +250,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                   sx={{ marginTop: "15px" }}
                 >
                   {isSub?"Cancel Subscribe":"Subscribe"}
-                </Button>
+                </Button>}
               </Box>
             </Stack>
           </Box>

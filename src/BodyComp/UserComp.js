@@ -65,7 +65,7 @@ export default function UserComp() {
 
   useEffect(() => {
     setIsMyPage(category.sub === userData.email)
-  }, [category])
+  }, [category, userData])
 
   return (
     <Stack spacing={2}>

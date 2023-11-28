@@ -32,23 +32,49 @@ const getCheckSubscribeAPI = async (data) => {
       'ngrok-skip-browser-warning': '69420',
     },
   })
-  .then((res) => {
-    console.log(res)
-    return res
-  })
-  .catch((e) => {
-    console.error(e);
-    return;
-  })
-return res;
+    .then((res) => {
+      console.log(res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
-const getSubscribeAPI = async () => {
-
+const getSubscribeAPI = async (data) => {
+  const res = await axios.post(subscribeURL, data, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  })
+    .then((res) => {
+      console.log(res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
-const getUnsubscribeAPI = async () => {
-
+const getUnsubscribeAPI = async (data) => {
+  const res = await axios.post(unsubscribeURL, data, {
+    headers: {
+      'ngrok-skip-browser-warning': '69420',
+    },
+  })
+    .then((res) => {
+      console.log(res)
+      return res
+    })
+    .catch((e) => {
+      console.error(e);
+      return;
+    })
+  return res;
 }
 
 export {

@@ -1,12 +1,16 @@
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 
+import { useSelector } from 'react-redux';
+
 import MainCat from './SideMenu/MainCat';
 import VideoListCat from './SideMenu/VideoListCat';
 import SubscribeCat from './SideMenu/SubscribeCat';
 
 
 export default function SideMenu() {
+
+  const userData = useSelector(state => state.user);
 
   return(
     <Box position='sticky' sx={{top:"70px", 
@@ -20,11 +24,11 @@ export default function SideMenu() {
         <Divider />
 
         {/* Video List */}
-        <VideoListCat></VideoListCat>
+        {(userData.email) && <VideoListCat></VideoListCat>}
         <Divider />
 
         {/* Subscribe */}
-        <SubscribeCat></SubscribeCat>
+        {(userData.email) && <SubscribeCat></SubscribeCat>}
 
 
     </Box>

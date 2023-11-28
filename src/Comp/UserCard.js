@@ -13,10 +13,13 @@ import getUserDataAPI from '../API/UserData/getUserDataAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import getUserCardImgAPI from '../API/UserData/getUserCardImg';
 
+import { getCheckSubscribeAPI } from '../API/Subscription/SubscribeAPI';
+
 export default function UserCard({ userEmail }) {
 
   const category = useSelector((state) => state.category)
   const myData = useSelector((state) => state.user)
+  const [isSub, setIsSub] = useState(false)
 
   const [userData, setUserData] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
@@ -28,7 +31,8 @@ export default function UserCard({ userEmail }) {
       const userDataRes = await getUserDataAPI({
         email: category.sub
       })
-      if (userDataRes) setUserData(userDataRes.data)
+      console.log("userDataRes.data", userDataRes.data)
+      setUserData(userDataRes.data)
 
       // profile img
       const profileImgRes = await getUserProfileImgAPI({
@@ -45,9 +49,32 @@ export default function UserCard({ userEmail }) {
       if (cardImgRes) {
         setCardImg(cardImgRes.data)
       }
+
     }
     fetch()
-  }, [category.sub])
+  }, [category, myData])
+
+  useEffect(() => {
+    const fetch = async () => {
+      console.log("----", userData.email)
+      // video like user Subscirbe check
+      if (myData.email && userData.email) {
+        // Subscirbe check
+        console.log("sub check start")
+        await getCheckSubscribeAPI({
+          channelId: userData.email,
+          userId: myData.email
+        }).then((res) => {
+          console.log("sub chenk res(userCard) : ", res)
+          setIsSub(res.data)
+        }).catch((e) => {
+          console.log("Subscirbe check Error")
+          console.error(e)
+        })
+      }
+    }
+    fetch()
+  }, [userData, myData])
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -87,13 +114,13 @@ export default function UserCard({ userEmail }) {
           </Stack>
 
           <Stack sx={{ justifyContent: "center", flexGrow: "1" }}>
-            <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+            {/* <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Subscriber : {1234}
             </Typography>
             <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
               Videos : {1234}
-            </Typography>
-            {(userData.email !== myData.email) && <Button
+            </Typography> */}
+            {(myData.email) && (userData.email !== myData.email) && <Button
               fullWidth
               sx={{ marginTop: "5px" }}
               color='white'

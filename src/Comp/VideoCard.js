@@ -45,7 +45,7 @@ export default function VideoCard({ videoData }) {
 
     }
     fetch()
-  }, []);
+  }, [videoData]);
 
   return (
     <Fragment>
