@@ -18,7 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
-
+import { deleteLikeVideoListAPI } from '../API/Video/LikeVideoListAPI';
 import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
 import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from "../API/Subscription/SubscribeAPI";
 
@@ -114,17 +114,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
   const handlesubscribe = async () => {
     if(isSub){
-      await getUnsubscribeAPI({
-        channelId: videoData.user_email,
-        userId: userData.email
-      }).then((res) => {
-        console.log("un sub res : ",res)
-        console.log(res)
-        setIsSub(false)
-      }).catch((e) => {
-        console.log("Handle Sub Error : ")
-        console.error(e)
-      })
+      await deleteLikeVideoListAPI({
+        email: userData.email,
+        videoId: videoData.video_id
+      });
     } else {
       console.log("sub Start")
       await getSubscribeAPI({

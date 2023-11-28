@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux"
 import {
   Typography,
   Card,
@@ -15,12 +16,13 @@ import VideoModal from '../Modal/VideoModal';
 
 import getThumbnailAPI from '../API/Video/getThumbnailAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
+import { deleteHistoryAPI } from '../API/Video/HistroyAPI';
+
 
 export default function VideoCardWide({ videoData }) {
-
-  
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const category = useSelector((state) => state.category);
+  const userData = useSelector((state) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => {
     setIsModalOpen(true)
   }
@@ -53,6 +55,14 @@ export default function VideoCardWide({ videoData }) {
     fetch()
   }, [videoData]);
 
+  const handleDeleteList = async () => {
+    if (category.sub === 'History') {
+      await deleteHistoryAPI({
+        email: userData.email,
+        videoId: videoData.video_id
+      });
+    }
+  }
   return (
     <Stack direction="row" alignItems="center">
       {/* Video Card */}
@@ -94,7 +104,7 @@ export default function VideoCardWide({ videoData }) {
           </Stack>
         </CardActionArea>
       </Card>
-      <IconButton sx={{ height: "40px" }} onClick={() => { }} >
+      <IconButton sx={{ height: "40px" }} onClick={handleDeleteList} >
         <DeleteIcon />
       </IconButton>
 
