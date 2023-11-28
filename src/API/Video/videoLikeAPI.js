@@ -8,8 +8,8 @@ const LIKE_CHECK_URL = baseURL+"/video/like/check"
 async function videoLikeAPI(data) {
   
   console.log("like  api start : ", data);
-  const res = axios.post(LIKE_URL,  {
-    params: data,
+  const res = axios.post(LIKE_URL, data, {
+    // params: data,
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
