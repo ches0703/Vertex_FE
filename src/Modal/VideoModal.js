@@ -47,13 +47,15 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     const fetch = async () => {
 
       // video like get
-      const likeRes = await videoLikeCheck({
-        email: userData.email,
-        videoId: videoData.id
-      })
-      if (likeRes) {
-        console.log("like check : ", likeRes)
-        setIsLiked(likeRes.data)
+      if(userData.email !== null){
+        const likeRes = await videoLikeCheck({
+          email: userData.email,
+          videoId: videoData.id
+        })
+        if (likeRes) {
+          console.log("like check : ", likeRes)
+          setIsLiked(likeRes.data)
+        }
       }
 
       // video get
@@ -78,12 +80,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   }, [])
 
   const handleLike = async () => {
-    console.log("now like: ", isLiked)
     const res = await videoLikeAPI({
       videoId: videoData.id,
       email: userData.email
     })
-    console.log(res)
     videoData.like_count = res.data
     setIsLiked(!isLiked)
   }
@@ -202,17 +202,15 @@ export default function VideoModal({ handleCloseModal, videoData }) {
           </Box>
         </Stack>
 
-        <Stack direction="row" marginTop="15px">
-          <Button
+        <Stack direction="row" marginTop="15px" spacing={2}>
+          {(userData.email) && <Button
             onClick={handleLike}
             color='white'
             variant="outlined"
             startIcon={isLiked ? <FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
-            sx={{
-              marginRight: "10px"
-            }}>
+            >
             {isLiked ? "Like Cancel" : "Like"} : {videoData.like_count}
-          </Button>
+          </Button>}
 
           <Button
             color='white'
@@ -221,6 +219,15 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             onClick={handleCommnetExpand}>
             Comment
           </Button>
+
+          {(videoData.user_email === userData.email) &&<Button
+            color='error'
+            variant="outlined"
+            startIcon={<CommentIcon />}
+            onClick={handleCommnetExpand}>
+            Delete
+          </Button>}
+
         </Stack>
 
 

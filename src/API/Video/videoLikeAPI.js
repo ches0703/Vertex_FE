@@ -15,7 +15,7 @@ async function videoLikeAPI(data) {
     },
   })
     .then((res) => {
-      console.log("like  api :", res)
+      // console.log("like  api :", res)
       return res
     })
     .catch((e) => {

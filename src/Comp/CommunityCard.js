@@ -31,6 +31,7 @@ export default function CommunityCard({ post }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
+    console.log("post dat = ", post)
     const fetch = async () => {
 
       // content img
@@ -40,6 +41,18 @@ export default function CommunityCard({ post }) {
       if(imgRes){
         setImage(imgRes.data)
       }
+      
+      // like check
+      console.log("like")
+      
+      const likeRes = await postLikeCheckAPI({
+        email: userData.email,
+        postId: post.id,
+      })
+      if(likeRes){
+        console.log("like Res",likeRes)
+      }
+      console.log("like check done")
 
       // profile img
       const profileImg = await getUserProfileImgAPI({
@@ -48,16 +61,6 @@ export default function CommunityCard({ post }) {
       if(profileImg){
         setProfileImg(profileImg.data)
       }
-
-      // like check
-      const likeRes = await postLikeCheckAPI({
-        email: userData.email,
-        postId: post.id,
-      })
-      if(likeRes){
-        console.log("like Res",likeRes)
-      }
-
       
     }
     fetch()
@@ -127,8 +130,16 @@ export default function CommunityCard({ post }) {
             variant="outlined"
             startIcon={<CommentIcon />}
             onClick={handleCommnetExpand}>
-            Comment : {"????"}
+            Comment
           </Button>
+
+          {(post.user_email === userData.email) &&<Button
+            color='error'
+            variant="outlined"
+            startIcon={<CommentIcon />}
+            onClick={handleCommnetExpand}>
+            Delete
+          </Button>}
         </CardActions>
 
         {/* Comment Comp */}
