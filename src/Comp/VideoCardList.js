@@ -7,6 +7,7 @@ import {
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import VideoCard from './VideoCard';
 
+
 // Home API
 import {
   getHomeVideoListAPI,
@@ -16,11 +17,15 @@ import {
 import getUserVideoListAPI from '../API/Video/getUserVideoListAPI';
 import deleteVideoAPI from '../API/Video/deleteVideoAPI';
 
+// Offset
+const OFFSET = 12;
 
 export default function VideoCardList() {
 
   const category = useSelector((state) => state.category)
+  const [page, setPage] = useState(0)
   const [videoList, setVideoList] = useState([])
+  const [isMore, setIsMore] = useState(true)
 
   const deleteVideo = async (videoId) => {
     await deleteVideoAPI({
@@ -42,8 +47,20 @@ export default function VideoCardList() {
     if (category.main === "Main") {
       if (category.sub === "Home") {
         const fetch = async () => {
-          const res = await getHomeVideoListAPI()
-          setVideoList(res.data.data)
+          await getHomeVideoListAPI({
+            page : page
+          }).then((res) => {
+            //setVideoList(res.data.data)
+            setVideoList(videoList.concat(res.data.data))
+            console.log("got arr : ", res)
+            console.log(res.data.data.length)
+            if(res.data.data.length < OFFSET){
+              setIsMore(false)
+            }
+          }).catch((e) => {
+            console.log("get Home Video List Error")
+            console.error(e)
+          })
         }
         fetch()
       } else if (category.sub === "Newest") {
@@ -64,7 +81,11 @@ export default function VideoCardList() {
       }
       fetch()
     }
-  }, [category])
+  }, [category, page])
+
+  const handleMore = () => {
+    setPage(page + 1)
+  }
 
 
   return (
@@ -80,9 +101,16 @@ export default function VideoCardList() {
           )
         })}
       </Stack>
-      <Button color="white" size="large" fullWidth variant="outlined" startIcon={<KeyboardDoubleArrowDownIcon />}>
+      {isMore && (
+        <Button 
+          onClick={handleMore}
+          color="white" 
+          size="large" 
+          fullWidth 
+          variant="outlined" 
+          startIcon={<KeyboardDoubleArrowDownIcon />}>
         More
-      </Button>
+      </Button>)}
     </Stack>
   )
 }
