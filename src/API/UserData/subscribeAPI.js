@@ -8,7 +8,7 @@ const unsubscribeURL = baseURL + '/subscription/unsubscribe';
 
 export default async function getSubscribeListAPI(email) {
   console.log(email)
-  const res = await axios.get(URL, {
+  const res = await axios.get(listURL, {
     params: email,
     headers: {
       'ngrok-skip-browser-warning': '69420',
@@ -22,10 +22,6 @@ export default async function getSubscribeListAPI(email) {
       return false;
     })
   return res;
-}
-
-const getSubScribeContentList = async () => {
-
 }
 
 const getSubScribe = async () => {
