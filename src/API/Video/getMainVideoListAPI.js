@@ -10,7 +10,7 @@ async function getHomeVideoListAPI() {
       'ngrok-skip-browser-warning': '69420',
     },
   })
-    .then((res) => {
+  .then((res) => {
       return res
     })
     .catch((e) => {
@@ -25,7 +25,7 @@ async function getNewestVideoListAPI() {
       'ngrok-skip-browser-warning': '69420',
     },
   })
-    .then((res) => {
+  .then((res) => {
       return res
     })
     .catch((e) => {

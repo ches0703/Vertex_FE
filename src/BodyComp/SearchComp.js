@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
-import { Stack, Button } from "@mui/material";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { Stack, Button, } from "@mui/material";
+
+
 
 import VideoCardList from '../Comp/VideoCardList';
 import CommunityCardList from '../Comp/CommunityCardList';
@@ -40,7 +42,7 @@ export default function SearchComp() {
           onClick={handleVideoSelect}
           sx={{
             height: "40px",
-            marginRight: "10px"
+            marginRight: "10px",
         }}>
           Video
         </Button>
@@ -60,7 +62,6 @@ export default function SearchComp() {
         </Button> */}
 
       </Stack>
-
 
 
       {(searchCatSelect === VIDEO) && <VideoCardList></VideoCardList>}

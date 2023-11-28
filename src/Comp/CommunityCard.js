@@ -132,7 +132,7 @@ export default function CommunityCard({ post }) {
         {/* Card Image */}
         <CardMedia
           component="img"
-          image={image?image:"./defaultImg.png"}
+          image={image}
           sx={{ borderRadius: "10px" }}
         />
 

@@ -9,16 +9,19 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { render } from '../redux/UserReducer';
+import { useDispatch } from 'react-redux';
 import getUserDataAPI from '../API/UserData/getUserDataAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import getUserCardImgAPI from '../API/UserData/getUserCardImg';
-
 import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from '../API/Subscription/SubscribeAPI';
 
 export default function UserCard({ userEmail }) {
 
+  const dispatch = useDispatch()
   const category = useSelector((state) => state.category)
   const myData = useSelector((state) => state.user)
+
   const [isSub, setIsSub] = useState(false)
 
   const [userData, setUserData] = useState(null)
@@ -70,6 +73,7 @@ export default function UserCard({ userEmail }) {
   }, [category, myData])
 
   const handlesubscribe = async () => {
+    
     if(isSub){
       await getUnsubscribeAPI({
         channelId: userData.email,
@@ -95,6 +99,7 @@ export default function UserCard({ userEmail }) {
         console.error(e)
       })
     }
+    dispatch(render())
   }
 
 

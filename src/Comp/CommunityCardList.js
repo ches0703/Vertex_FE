@@ -49,7 +49,7 @@ export default function CommunityCardList() {
       }
       fetch();
     }
-  }, [category.sub])
+  }, [category])
 
   return (
     <Stack margin="15px">

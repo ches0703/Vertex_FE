@@ -27,26 +27,6 @@ export default function CommentList({ videoId, postId }) {
     setComment(e)
   }
 
-  const handleCommit = async () => {
-    const data = {
-      email: userData.email,
-      content: comment,
-      parentId: null,
-      videoId: videoId
-    }
-    console.log(data)
-
-    const res = await uploadCommentAPI(data);
-    if (res) {
-      console.log(res)
-      setComment('');
-    }
-    fetch();
-  }
-
-
-
-
   const fetch = useCallback(async () => {
     if (videoId) {
       // Video Comment
@@ -74,6 +54,25 @@ export default function CommentList({ videoId, postId }) {
   useEffect(() => {
     fetch();
   }, [fetch])
+
+
+  // Commit
+  const handleCommit = async () => {
+    const data = {
+      email: userData.email,
+      content: comment,
+      parentId: null,
+      videoId: videoId
+    }
+    console.log(data)
+
+    const res = await uploadCommentAPI(data);
+    if (res) {
+      console.log(res)
+      setComment('');
+    }
+    fetch();
+  }
 
   const handleButtonAtComment = async (cmt, type) => {
     let data;

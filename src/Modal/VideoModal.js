@@ -28,7 +28,7 @@ import {
 
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
-
+import { render } from "../redux/UserReducer";
 export default function VideoModal({ handleCloseModal, videoData }) {
 
   const userData = useSelector((state) => state.user)
@@ -131,6 +131,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         console.error(e)
       })
     }
+    dispatch(render())
   }
 
   const dispatch = useDispatch();

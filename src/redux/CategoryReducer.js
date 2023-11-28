@@ -5,6 +5,7 @@ export const CategorySlice = createSlice({
     initialState: {
       main : "Main",
       sub : "Home",
+      render : true
     },
     reducers: {
         changeMain: (state, action) => {
@@ -12,8 +13,11 @@ export const CategorySlice = createSlice({
         },
         changeSub: (state, action) => {
           state.sub = action.payload
+        },
+        render : (state) => {
+          state.render = !state.render
         }
     },
 });
-export const { changeMain, changeSub } = CategorySlice.actions;
+export const { changeMain, changeSub, render } = CategorySlice.actions;
 export default CategorySlice.reducer;
