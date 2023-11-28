@@ -19,7 +19,7 @@ import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import { deleteHistoryAPI } from '../API/Video/HistroyAPI';
 
 
-export default function VideoCardWide({ videoData }) {
+export default function VideoCardWide({ videoData, remove }) {
   const category = useSelector((state) => state.category);
   const userData = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,6 +60,8 @@ export default function VideoCardWide({ videoData }) {
       await deleteHistoryAPI({
         email: userData.email,
         videoId: videoData.video_id
+      }).then((res) => {
+        remove(videoData.video_id)
       });
     }
   }
