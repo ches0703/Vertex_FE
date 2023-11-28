@@ -32,7 +32,7 @@ export default function CommunityCard({ post }) {
   const [isLiked, setIsLiked] = useState(false)
 
   useEffect(() => {
-    console.log("post dat = ", post)
+    // console.log("post dat = ", post)
     const fetch = async () => {
 
       // content img
@@ -44,16 +44,16 @@ export default function CommunityCard({ post }) {
       }
       
       // like check
-      console.log("like")
+      // console.log("like")
       
       await postLikeCheckAPI({
         email: userData.email,
         postId: post.id,
       }).then((res) => {
-        console.log("like Check Res",res)
+        // console.log("like Check Res",res)
         setIsLiked(res.data)
       }).catch((e) => {
-        console.log("Like Check Error")
+        // console.log("Like Check Error")
         console.error(e)
       })
 
@@ -87,6 +87,7 @@ export default function CommunityCard({ post }) {
       email: userData.email,
     }).then((res) => {
       // console.log("post Like res", res)
+      post.like_count = res.data.data
       setIsLiked(!isLiked)
     }).catch((e) => {
       // console.log("Handle Like Error : ")
@@ -139,10 +140,10 @@ export default function CommunityCard({ post }) {
         <CardActions sx={{ padding: "0px", marginTop: "15px" }}>
           {(userData.email) && <Button
             onClick={handleLike}
-            color='white'
+            color={isLiked?"error":"white"}
             variant="outlined"
             startIcon={<FavoriteIcon />}>
-            Like : {post.like_count}
+            {isLiked?"Cancel Like":"Like"} : {post.like_count}
           </Button>}
 
           <Button
@@ -164,7 +165,7 @@ export default function CommunityCard({ post }) {
 
         {/* Comment Comp */}
         <Collapse in={commnetExpand} timeout="auto" unmountOnExit sx={{ marginTop: "15px" }}>
-          <CommentList></CommentList>
+          <CommentList postId={post.id}></CommentList>
         </Collapse>
 
       </Card>

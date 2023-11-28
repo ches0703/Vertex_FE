@@ -158,7 +158,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       {/* Modal Window */}
       <Box
         sx={{
-          padding: "15px",
+          padding: "10px",
           position: 'absolute',
           top: '50%',
           left: '50%',
@@ -181,12 +181,12 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 url={video}
                 volume={0.5}
                 width="100%"
-                height="calc(90vh - 30px)"
+                height="calc(90vh - 20px)"
                 controls={true}
               />
               {/* Related Video */}
-              <Stack marginLeft="15px" sx={{ height: "calc(90vh - 30px)", padding: "auto" }}>
-                <Typography variant="h6" sx={{ padding: "5px 16px" }}>
+              <Stack marginLeft="10px" sx={{ height: "calc(90vh - 20px)", padding: "auto" }}>
+                <Typography variant="h6" sx={{ padding: "0px 16px" }}>
                   Related Video
                 </Typography>
                 <VideoCard videoData={videoData}></VideoCard>
@@ -195,7 +195,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
               </Stack>
             </Stack>
 
-            <Stack direction="row" marginTop="15px" flexWrap="wrap">
+            <Stack direction="row" marginTop="10px" flexWrap="wrap">
               {/* Video Info */}
               <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "6" }}>
                 <Typography variant="h5"  >

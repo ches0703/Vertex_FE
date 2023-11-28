@@ -17,7 +17,7 @@ const DELETE = "DELETE";
 const UPDATE = "UPDATE";
 const REPLY = "REPLY";
 
-export default function CommentList({ videoId }) {
+export default function CommentList({ videoId, postId }) {
   const userData = useSelector(state => state.user);
 
   const [commentList, setCommentList] = useState([]);
@@ -46,14 +46,30 @@ export default function CommentList({ videoId }) {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await getCommentList(videoId);
-      if (res) {
-        console.log(res.data.data);
-        setCommentList(res.data.data);
+      if(videoId){
+        // Video Comment
+        console.log("Video Comment")
+        const res = await getCommentList(videoId);
+        if (res) {
+          console.log(res.data.data);
+          setCommentList(res.data.data);
+        }
+      } else if (postId) {
+        // Post Commnet
+        console.log("Post Commnet")
+        await getCommentList(postId)
+          .then((res) => {
+            console.log(res.data.data);
+            setCommentList(res.data.data);
+          })
+          .catch((e) => {
+            console.log("Post Commnet Error")
+            console.error(e)
+          })
       }
     }
     fetch();
-  }, [videoId])
+  }, [videoId, postId])
 
   const handleButtonAtComment = async (cmt, type) => {
     let data;
