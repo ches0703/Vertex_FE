@@ -69,6 +69,34 @@ export default function UserCard({ userEmail }) {
     fetch()
   }, [category, myData])
 
+  const handlesubscribe = async () => {
+    if (isSub) {
+      await getUnsubscribeAPI({
+        channelId: userData.email,
+        userId: myData.email
+      }).then((res) => {
+        console.log("un sub res : ", res)
+        console.log(res)
+        setIsSub(false)
+      }).catch((e) => {
+        console.log("Handle Sub Error : ")
+        console.error(e)
+      })
+    } else {
+      console.log("sub Start")
+      await getSubscribeAPI({
+        channelId: userData.email,
+        userId: myData.email
+      }).then((res) => {
+        console.log("sub res : ", res)
+        setIsSub(true)
+      }).catch((e) => {
+        console.log("Handle Sub Error : ")
+        console.error(e)
+      })
+    }
+  }
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -115,11 +143,11 @@ export default function UserCard({ userEmail }) {
               Videos : {1234}
             </Typography> */}
             {(myData.email) && (userData.email !== myData.email) && <Button
+              onClick={handlesubscribe}
               fullWidth
               sx={{ marginTop: "5px" }}
               color={isSub ? "error" : "white"}
-              variant="outlined"
-              onClick={() => { }}>
+              variant="outlined">
               {isSub ? "Cancel Subscribe" : "Subscribe"}
             </Button>}
 
