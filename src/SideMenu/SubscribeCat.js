@@ -8,13 +8,14 @@ import {
   Typography,
   Avatar,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 import getSubscribeListAPI from '../API/UserData/getSubscribeListAPI';
 
 export default function SubscribeCat() {
 
   const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user);
 
   const handleCategoryChainge = (sub) => {
     dispatch(changeMain("Subscribe"));
@@ -25,11 +26,15 @@ export default function SubscribeCat() {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await getSubscribeListAPI()
-      setSubscribeList(res)
+      if (userData.email) {
+        const res = await getSubscribeListAPI({
+          email: userData.email
+        });
+        setSubscribeList(res);
+      }
     }
     fetch()
-  }, [])
+  }, [userData]);
 
 
   // const handleMoreBtn = () => {
