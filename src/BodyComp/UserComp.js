@@ -79,11 +79,6 @@ export default function UserComp() {
           Video
         </Button>
         <Button fullWidth variant="outlined" color='white'
-          onClick={() => { handleSelect(VIDEO_LIST) }}
-          sx={{ height: "40px" }}>
-          Video List
-        </Button>
-        <Button fullWidth variant="outlined" color='white'
           onClick={() => { handleSelect(COMMUNITY) }}
           sx={{ height: "40px" }}>
           Community

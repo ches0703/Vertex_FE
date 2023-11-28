@@ -85,29 +85,30 @@ export default function Header() {
   // handle logout
   const handleLogout = () => {
     dispatch(login({
-      email : null,
-      name : null,
-      profileImg : null 
+      email: null,
+      name: null,
+      profileImg: null
     }))
     sessionStorage.clear()
+    window.location.reload('/');
   }
 
 
   useEffect(() => {
     if (sessionStorage.userData) {
       const res = dispatch(login(JSON.parse(sessionStorage.userData)))
-    } 
+    }
   }, [])
 
-  useEffect(()=> {
-    const fetch = async() => {
+  useEffect(() => {
+    const fetch = async () => {
       const profileRes = await getUserProfileImgAPI({
         email: userData.email
       })
-      if(profileRes){
+      if (profileRes) {
         setProfileImg(profileRes.data)
       }
-    }    
+    }
     fetch()
   }, [userData])
 
@@ -232,7 +233,7 @@ export default function Header() {
               </Button>
 
               <Button
-                onClick={handleLogout} 
+                onClick={handleLogout}
                 color="white">
                 logout
               </Button>

@@ -1,11 +1,11 @@
 import axios from "axios";
 import baseURL from "../URL";
 
-const URL = baseURL+"/user/profile/image"
+const URL = baseURL + "/user/profile/image"
 
 export default async function getUserProfileImgAPI(email) {
   // console.log("Get User Profile API Call", email)
-  if(email.email){
+  if (email.email) {
     const res = await axios.get(URL, {
       params: email,
       headers: {
@@ -13,6 +13,7 @@ export default async function getUserProfileImgAPI(email) {
       },
     })
       .then((res) => {
+        console.log(res);
         return res
       })
       .catch((e) => {

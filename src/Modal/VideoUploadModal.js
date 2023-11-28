@@ -201,7 +201,7 @@ const VideoUploadModal = (onClose, modalTitle) => {
       </Box>
 
       {/* Append Video List */}
-      <Box className="Specifiy Video List">
+      {/* <Box className="Specifiy Video List">
         <Typography sx={{ color: "#FFFFFF", }}>
           Specifiy Video List
         </Typography>
@@ -217,7 +217,7 @@ const VideoUploadModal = (onClose, modalTitle) => {
             <em>None</em>
           </MenuItem>
         </Select>
-      </Box>
+      </Box> */}
 
       {/* Bottom Btn */}
       <Stack direction="row" spacing={2}>

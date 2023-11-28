@@ -37,9 +37,13 @@ const LoginModal = (onClose, title) => {
     const res = await LoginAPI(data)
     console.log("Login result : ", res)
     if (res){
-      dispatch(login(res.data.data))
-      sessionStorage.userData = JSON.stringify(res.data.data)
-      onClose()
+      if(res.data === ""){
+        alert("Login Fail")
+      } else {
+        dispatch(login(res.data.data))
+        sessionStorage.userData = JSON.stringify(res.data.data)
+        onClose()
+      }
     } else {
       alert("Login Fail")
     }

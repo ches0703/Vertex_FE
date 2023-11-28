@@ -31,8 +31,8 @@ export default function CommunityCard({ post }) {
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
-    console.log("post data : ", post)
     const fetch = async () => {
+
       // content img
       const imgRes = await getPostImage({
         postId: post.id,
@@ -40,6 +40,7 @@ export default function CommunityCard({ post }) {
       if(imgRes){
         setImage(imgRes.data)
       }
+
       // profile img
       const profileImg = await getUserProfileImgAPI({
         email: post.channel_email
@@ -47,10 +48,17 @@ export default function CommunityCard({ post }) {
       if(profileImg){
         setProfileImg(profileImg.data)
       }
-      postLikeCheckAPI({
+
+      // like check
+      const likeRes = await postLikeCheckAPI({
+        email: userData.email,
         postId: post.id,
-        email: userData.email
       })
+      if(likeRes){
+        console.log("like Res",likeRes)
+      }
+
+      
     }
     fetch()
   }, [])
@@ -101,7 +109,7 @@ export default function CommunityCard({ post }) {
         {/* Card Image */}
         <CardMedia
           component="img"
-          image={image}
+          image={image?image:"./defaultImg.png"}
           sx={{ borderRadius: "10px" }}
         />
 

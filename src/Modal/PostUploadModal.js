@@ -40,7 +40,14 @@ const PostUploadModal = (onClose, title) => {
     const response = await uploadCommunityPost(formData);
     console.log(response)
 
-    onClose();
+    if (response) {
+      alert('success')
+      window.location.reload('/');
+    }
+    else {
+      alert('fail to upload')
+      onClose()
+    }
   }
 
   return (
@@ -76,7 +83,7 @@ const PostUploadModal = (onClose, title) => {
         />
       </Box>
 
-      <Box className="Hash Tag">
+      {/* <Box className="Hash Tag">
         <Typography>
           Hash Tag
         </Typography>
@@ -97,7 +104,7 @@ const PostUploadModal = (onClose, title) => {
             ),
           }}
         />
-      </Box>
+      </Box> */}
 
       {/* Thumbnail uplaod Btn */}
       <Box className="Thumbnail Image">

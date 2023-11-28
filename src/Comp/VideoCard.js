@@ -57,14 +57,16 @@ export default function VideoCard({ videoData }) {
           backgroundColor: "#2c2c2c",
           boxShadow: "none",
           backgroundImage: "none",
-          borderRadius: "5px"
+          borderRadius: "5px",
+          minWidth: "250px",
+          maxWidth: "325px"
         }}
       >
         <CardActionArea>
 
           <CardMedia
             component="img"
-            image={thumb}
+            image={thumb?thumb:"./defaultImg.png"}
             sx={{
               borderRadius: "5px",
               aspectRatio: "16/10",

@@ -78,12 +78,13 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   }, [])
 
   const handleLike = async () => {
-    console.log("now like: ",isLiked)
+    console.log("now like: ", isLiked)
     const res = await videoLikeAPI({
       videoId: videoData.id,
       email: userData.email
     })
-    console.log("like res", res)
+    console.log(res)
+    videoData.like_count = res.data
     setIsLiked(!isLiked)
   }
 
@@ -149,7 +150,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
 
             <Stack direction="row" marginTop="15px" flexWrap="wrap">
               {/* Video Info */}
-              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "7" }}>
+              <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "6" }}>
                 <Typography variant="h5"  >
                   {videoData.title}
                 </Typography>
@@ -166,7 +167,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 </Typography>
               </Box>
 
-              <Box sx={{ margin: "auto 0px", flexGrow: "3" }}>
+              <Box sx={{ margin: "auto 0px", flexGrow: "4" }}>
                 <Stack direction="row">
                   <Button fullWidth sx={{
                     justifyContent: "flex-start"
@@ -182,9 +183,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                       <Typography variant="h6" marginTop="10px" >
                         {videoData.name}
                       </Typography>
-                      <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-                        Subscribers : {"????"}
-                      </Typography>
+                      {/* <Typography variant="caption" display="block" gutterBottom sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+                        Subscribers
+                      </Typography> */}
                     </Box>
                   </Button>
                 </Stack>
@@ -206,11 +207,11 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             onClick={handleLike}
             color='white'
             variant="outlined"
-            startIcon={isLiked?<FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
+            startIcon={isLiked ? <FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
             sx={{
               marginRight: "10px"
             }}>
-            {isLiked?"Like Cancel":"Like"} : {videoData.like_count}
+            {isLiked ? "Like Cancel" : "Like"} : {videoData.like_count}
           </Button>
 
           <Button
@@ -218,7 +219,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             variant="outlined"
             startIcon={<CommentIcon />}
             onClick={handleCommnetExpand}>
-            Comment : {"????"}
+            Comment
           </Button>
         </Stack>
 
