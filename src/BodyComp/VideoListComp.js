@@ -8,7 +8,8 @@ import {
 import VideoListCard from "../Comp/VideoListCard"
 import VideoCardWide from "../Comp/VideoCardWide"
 
-import { getHistory, getLiked } from '../API/Video/getHistroyAPI'
+import getHistoryAPI from '../API/Video/getHistroyAPI';
+import getLikeVideoListAPI from '../API/Video/getLikeVideoListAPI'
 
 export default function VideoListComp() {
   const category = useSelector((state) => state.category)
@@ -20,16 +21,14 @@ export default function VideoListComp() {
     setVideoList([]);
     const fetch = async () => {
       if (category.sub === 'History') {
-        const result = await getHistory(userData.email);
+        const result = await getHistoryAPI(userData.email);
         if (result.data.data) {
-          console.log(result.data.data)
           setVideoList(result.data.data)
         }
       }
       else {
-        const result = await getLiked(userData.email);
+        const result = await getLikeVideoListAPI(userData.email);
         if (result.data.data) {
-          console.log(result.data.data)
           setVideoList(result.data.data)
         }
       }

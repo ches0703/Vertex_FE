@@ -2,40 +2,19 @@ import axios from 'axios';
 
 import baseURL from '../URL';
 const recordURL = baseURL + '/video/record'
-const likeURL = baseURL + '/video/like/list'
 
-const getHistory = async (userEmail) => {
-    const response = await axios.get(recordURL, {
-        params: { email: userEmail },
+export default async function getHistoryAPI(userEmail) {
+    const res = await axios.get(recordURL, {
+        params: userEmail,
         headers: { 'ngrok-skip-browser-warning': '69420', }
     })
-        .then((response) => {
-            console.log("get hitory api",response)
-            return response
+        .then((res) => {
+            console.log("get hitory api",res)
+            return res
         })
         .catch((e) => {
             console.log(e)
         })
 
-    return response;
-}
-const getLiked = async (userEmail) => {
-    const response = await axios.get(likeURL, {
-        params: { email: userEmail },
-        headers: { 'ngrok-skip-browser-warning': '69420', }
-    })
-        .then((response) => {
-            console.log(response)
-            return response
-        })
-        .catch((e) => {
-            console.log(e)
-        })
-
-    return response;
-}
-
-export {
-    getHistory,
-    getLiked
+    return res;
 }
