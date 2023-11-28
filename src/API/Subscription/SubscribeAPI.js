@@ -37,8 +37,8 @@ const getCheckSubscribeAPI = async (data) => {
     return res
   })
   .catch((e) => {
-    console.error(e)
-    return false;
+    console.error(e);
+    return;
   })
 return res;
 }
