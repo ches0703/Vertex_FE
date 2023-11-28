@@ -104,9 +104,12 @@ export default function VideoCardWide({ videoData }) {
           </Stack>
         </CardActionArea>
       </Card>
-      <IconButton sx={{ height: "40px" }} onClick={handleDeleteList} >
-        <DeleteIcon />
-      </IconButton>
+      {category.sub === 'History' && (
+        <IconButton sx={{ height: "40px" }} onClick={handleDeleteList} >
+          <DeleteIcon />
+        </IconButton>
+      )}
+
 
       {/* Modal */}
       {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoData={videoData.video}></VideoModal>}
