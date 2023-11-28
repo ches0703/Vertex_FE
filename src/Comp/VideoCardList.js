@@ -14,12 +14,28 @@ import {
   getSubscribeVideoListAPI
 } from '../API/Video/getMainVideoListAPI';
 import getUserVideoListAPI from '../API/Video/getUserVideoListAPI';
+import deleteVideoAPI from '../API/Video/deleteVideoAPI';
 
 
 export default function VideoCardList() {
 
   const category = useSelector((state) => state.category)
   const [videoList, setVideoList] = useState([])
+
+  const deleteVideo = async (videoId) => {
+    await deleteVideoAPI({
+      videoId: videoId
+    }).then((res) => {
+      console.log(res)
+      setVideoList(videoList.filter(video => video.id !== videoId))
+      alert("Video Delete Success")
+    }).catch((e) => {
+      console.log("Video Delete Error")
+      console.error(e)
+      alert("Video Delete Fail")
+    })
+  }
+
 
   useEffect(() => {
     // Categeory : Main
@@ -55,7 +71,13 @@ export default function VideoCardList() {
     <Stack spacing={2} margin="15px">
       <Stack direction="row" justifyContent="center" flexWrap="wrap">
         {videoList.map((videoData) => {
-          return <VideoCard key={videoData.id} videoData={videoData}></VideoCard>
+          return (
+            <VideoCard 
+              key={videoData.id} 
+              videoData={videoData}
+              deleteVideo={deleteVideo}
+              ></VideoCard>
+          )
         })}
       </Stack>
       <Button color="white" size="large" fullWidth variant="outlined" startIcon={<KeyboardDoubleArrowDownIcon />}>

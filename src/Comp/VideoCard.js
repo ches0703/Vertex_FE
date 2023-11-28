@@ -14,7 +14,7 @@ import getThumbnailAPI from '../API/Video/getThumbnailAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 
 
-export default function VideoCard({ videoData }) {
+export default function VideoCard({ videoData, deleteVideo }) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [thumb, setThumb] = useState(null)
@@ -96,7 +96,7 @@ export default function VideoCard({ videoData }) {
       </Card>
 
       {/* Modal */}
-      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoData={videoData} ></VideoModal>}
+      {isModalOpen && <VideoModal handleCloseModal={handleCloseModal} videoData={videoData} deleteVideo={deleteVideo}></VideoModal>}
 
     </Fragment>
   )

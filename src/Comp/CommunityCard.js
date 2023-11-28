@@ -20,7 +20,7 @@ import getPostImage from '../API/Post/getPostImage';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import { postLikeAPI, postLikeCheckAPI } from '../API/Post/postLikeAPI';
 
-export default function CommunityCard({ post }) {
+export default function CommunityCard({ post, deletePost }) {
   
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user)
@@ -32,7 +32,7 @@ export default function CommunityCard({ post }) {
   const [isLiked, setIsLiked] = useState(false)
 
   useEffect(() => {
-    // console.log("post dat = ", post)
+    console.log("post dat = ", post)
     const fetch = async () => {
 
       // content img
@@ -95,7 +95,9 @@ export default function CommunityCard({ post }) {
     })
   }
 
-
+  const handleDelete = () => {
+    deletePost(post.id)
+  }
 
   return (
     <Stack alignItems="center" padding="5px 5px">
@@ -158,7 +160,7 @@ export default function CommunityCard({ post }) {
             color='error'
             variant="outlined"
             startIcon={<CommentIcon />}
-            onClick={handleCommnetExpand}>
+            onClick={handleDelete}>
             Delete
           </Button>}
         </CardActions>

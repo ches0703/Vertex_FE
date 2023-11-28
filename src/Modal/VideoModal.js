@@ -29,7 +29,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 import { render } from "../redux/UserReducer";
-export default function VideoModal({ handleCloseModal, videoData }) {
+
+export default function VideoModal({ handleCloseModal, videoData, deleteVideo }) {
 
   const userData = useSelector((state) => state.user)
 
@@ -41,7 +42,6 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     setCommnetExpand(!commnetExpand);
   };
   const [video, setVideo] = useState(null)
-
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
@@ -132,6 +132,12 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       })
     }
     dispatch(render())
+  }
+
+  // Delete Video
+  const handelDelete = () => {
+    deleteVideo(videoData.id)  
+    handleCloseModal()
   }
 
   const dispatch = useDispatch();
@@ -274,7 +280,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             color='error'
             variant="outlined"
             startIcon={<CommentIcon />}
-            onClick={handleCommnetExpand}>
+            onClick={handelDelete}>
             Delete
           </Button>}
 
