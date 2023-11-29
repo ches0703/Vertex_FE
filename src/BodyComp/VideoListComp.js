@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import { useSelector } from "react-redux"
 import {
   Stack,
-  Button,
   Container,
 } from "@mui/material"
 import VideoListCard from "../Comp/VideoListCard"
 import VideoCardWide from "../Comp/VideoCardWide"
 
-import { getHistory, getLiked } from '../API/Video/getHistroyAPI'
+import {getHistoryAPI} from '../API/Video/HistroyAPI';
+import {getLikeVideoListAPI} from '../API/Video/LikeVideoListAPI'
 
 export default function VideoListComp() {
   const category = useSelector((state) => state.category)
@@ -16,26 +16,37 @@ export default function VideoListComp() {
 
   const [videoList, setVideoList] = useState([]);
 
+  const remove = (videoId) => {
+    setVideoList(
+      videoList.filter(videoData => videoData.video_id !== videoId)
+    )
+  }
+
+
   useEffect(() => {
     setVideoList([]);
     const fetch = async () => {
       if (category.sub === 'History') {
-        const result = await getHistory(userData.email);
+        const result = await getHistoryAPI({
+          email: userData.email
+        });
         if (result.data.data) {
-          console.log(result.data.data)
           setVideoList(result.data.data)
         }
       }
       else {
-        const result = await getLiked(userData.email);
-        if (result.data.data) {
-          console.log(result.data.data)
-          setVideoList(result.data.data)
+        const result = await getLikeVideoListAPI({
+          email: userData.email
+        });
+        console.log(result.data)
+        if (result.data) {
+          const videoData = result.data;
+          setVideoList(videoData);
         }
       }
     }
     fetch();
-  }, [category.sub])
+  }, [category.sub, userData])
 
   return (
     <Container maxWidth="md" >
@@ -49,7 +60,7 @@ export default function VideoListComp() {
 
       </Stack>
       {videoList.map((videoData) => {
-        return <VideoCardWide key={videoData.video_id} videoData={videoData}></VideoCardWide>
+        return <VideoCardWide key={videoData.video_id} videoData={videoData} remove={remove} ></VideoCardWide>
       })}
       <Stack>
 

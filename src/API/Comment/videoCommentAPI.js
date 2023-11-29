@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import baseURL from '../../URL';
+import baseURL from '../URL';
 const commentURL = baseURL + '/video/comment'
 
-const uploadComment = async (data) => {
+const uploadVideoCommentAPI= async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'post',
@@ -11,7 +11,7 @@ const uploadComment = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("upload comment : ", res);
+            // console.log("upload comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -21,7 +21,7 @@ const uploadComment = async (data) => {
     return response;
 }
 
-const updateComment = async (data) => {
+const updateVideoCommentAPI = async (data) => {
     console.log(data)
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
@@ -30,7 +30,7 @@ const updateComment = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("update comment : ", res);
+            // console.log("update comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -41,7 +41,7 @@ const updateComment = async (data) => {
 
 }
 
-const deleteComment = async (data) => {
+const deleteVideoCommentAPI = async (data) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'delete',
@@ -49,7 +49,7 @@ const deleteComment = async (data) => {
         data: data
     })
         .then((res) => {
-            console.log("delete comment : ", res);
+            // console.log("delete comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -60,7 +60,7 @@ const deleteComment = async (data) => {
 
 }
 
-const getCommentList = async (videoId) => {
+const getVideoCommentListAPI = async (videoId) => {
     const response = await axios({
         headers: { "ngrok-skip-browser-warning": "69420", },
         method: 'get',
@@ -68,7 +68,7 @@ const getCommentList = async (videoId) => {
         params: { videoId: videoId }
     })
         .then((res) => {
-            console.log("get comment : ", res);
+            // console.log("get comment : ", res);
             return res;
         })
         .catch((e) => {
@@ -80,8 +80,8 @@ const getCommentList = async (videoId) => {
 }
 
 export {
-    uploadComment,
-    updateComment,
-    deleteComment,
-    getCommentList
+    uploadVideoCommentAPI,
+    updateVideoCommentAPI,
+    deleteVideoCommentAPI,
+    getVideoCommentListAPI
 }

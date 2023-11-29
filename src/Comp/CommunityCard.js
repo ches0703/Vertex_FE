@@ -20,7 +20,7 @@ import getPostImage from '../API/Post/getPostImage';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import { postLikeAPI, postLikeCheckAPI } from '../API/Post/postLikeAPI';
 
-export default function CommunityCard({ post }) {
+export default function CommunityCard({ post, deletePost }) {
   
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user)
@@ -29,6 +29,7 @@ export default function CommunityCard({ post }) {
 
   const [image, setImage] = useState(null)
   const [profileImg, setProfileImg] = useState(null)
+  const [isLiked, setIsLiked] = useState(false)
 
   useEffect(() => {
     console.log("post dat = ", post)
@@ -43,16 +44,20 @@ export default function CommunityCard({ post }) {
       }
       
       // like check
-      console.log("like")
-      
-      const likeRes = await postLikeCheckAPI({
-        email: userData.email,
-        postId: post.id,
-      })
-      if(likeRes){
-        console.log("like Res",likeRes)
+      // console.log("like")
+      if(userData.email){
+        await postLikeCheckAPI({
+          email: userData.email,
+          postId: post.id,
+        }).then((res) => {
+          // console.log("like Check Res",res)
+          setIsLiked(res.data)
+        }).catch((e) => {
+          // console.log("Like Check Error")
+          console.error(e)
+        })
       }
-      console.log("like check done")
+      
 
       // profile img
       const profileImg = await getUserProfileImgAPI({
@@ -77,6 +82,25 @@ export default function CommunityCard({ post }) {
     dispatch(changeSub(post.user_email));
   }
 
+  const handleLike = async () => {
+    // console.log("hendle ",post.id, userData.email)
+    await postLikeAPI({
+      postId: post.id,
+      email: userData.email,
+    }).then((res) => {
+      // console.log("post Like res", res)
+      post.like_count = res.data.data
+      setIsLiked(!isLiked)
+    }).catch((e) => {
+      // console.log("Handle Like Error : ")
+      console.error(e)
+    })
+  }
+
+  const handleDelete = () => {
+    deletePost(post.id)
+  }
+
   return (
     <Stack alignItems="center" padding="5px 5px">
 
@@ -97,7 +121,7 @@ export default function CommunityCard({ post }) {
               Author : {post["user.name"]}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
-              Watch : {post.view_count} / Date : {post.createdAt}
+              Watch : {post.view_count} / Date : {post.createdAt.substr(0, 10)}
             </Typography>
           </Stack>
         </Stack>
@@ -112,17 +136,18 @@ export default function CommunityCard({ post }) {
         {/* Card Image */}
         <CardMedia
           component="img"
-          image={image?image:"./defaultImg.png"}
+          image={image}
           sx={{ borderRadius: "10px" }}
         />
 
         {/* Card Btn */}
         <CardActions sx={{ padding: "0px", marginTop: "15px" }}>
           {(userData.email) && <Button
-            color='white'
+            onClick={handleLike}
+            color={isLiked?"error":"white"}
             variant="outlined"
             startIcon={<FavoriteIcon />}>
-            Like : {post.like_count}
+            {isLiked?"Cancel Like":"Like"} : {post.like_count}
           </Button>}
 
           <Button
@@ -137,14 +162,14 @@ export default function CommunityCard({ post }) {
             color='error'
             variant="outlined"
             startIcon={<CommentIcon />}
-            onClick={handleCommnetExpand}>
+            onClick={handleDelete}>
             Delete
           </Button>}
         </CardActions>
 
         {/* Comment Comp */}
         <Collapse in={commnetExpand} timeout="auto" unmountOnExit sx={{ marginTop: "15px" }}>
-          <CommentList></CommentList>
+          <CommentList postId={post.id}></CommentList>
         </Collapse>
 
       </Card>

@@ -12,7 +12,6 @@ export default function Body() {
   const category = useSelector((state) => state.category)
 
   useEffect(() => {
-    console.log(category)
   }, [category])
 
   return (

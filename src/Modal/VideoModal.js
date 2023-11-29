@@ -18,7 +18,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import CommentList from "../Comp/CommentList";
 import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
-
 import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
 import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from "../API/Subscription/SubscribeAPI";
 
@@ -29,8 +28,9 @@ import {
 
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
+import { render } from "../redux/UserReducer";
 
-export default function VideoModal({ handleCloseModal, videoData }) {
+export default function VideoModal({ handleCloseModal, videoData, deleteVideo }) {
 
   const userData = useSelector((state) => state.user)
 
@@ -42,11 +42,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
     setCommnetExpand(!commnetExpand);
   };
   const [video, setVideo] = useState(null)
-
   const [profileImg, setProfileImg] = useState(null)
 
   useEffect(() => {
-    // console.log("video Data : ", videoData)
+    console.log("video Data : ", videoData)
     const fetch = async () => {
 
       // video like user Subscirbe check
@@ -55,7 +54,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         
         const likeRes = await videoLikeCheck({
           email: userData.email,
-          videoId: videoData.id
+          videoId: videoData.id,
         })
         if (likeRes) {
           // console.log("like check : ", likeRes)
@@ -79,7 +78,9 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       // video get
       const videoRes = await getVideoAPI({
         email: userData.email,
-        videoId: videoData.id
+        videoId: videoData.id,
+        isYoutube: videoData.is_youtube,
+        videoFileExtension : videoData.video_file_extension
       })
       if (videoRes) {
         setVideo(videoRes.data)
@@ -113,15 +114,10 @@ export default function VideoModal({ handleCloseModal, videoData }) {
   const handlesubscribe = async () => {
     if(isSub){
       await getUnsubscribeAPI({
+        userId: userData.email,
         channelId: videoData.user_email,
-        userId: userData.email
       }).then((res) => {
-        console.log("un sub res : ",res)
-        console.log(res)
-        setIsSub(false)
-      }).catch((e) => {
-        console.log("Handle Sub Error : ")
-        console.error(e)
+        setIsSub(false);
       })
     } else {
       console.log("sub Start")
@@ -129,20 +125,26 @@ export default function VideoModal({ handleCloseModal, videoData }) {
         channelId: videoData.user_email,
         userId: userData.email
       }).then((res) => {
-        console.log("sub res : ",res)
         setIsSub(true)
       }).catch((e) => {
         console.log("Handle Sub Error : ")
         console.error(e)
       })
     }
+    dispatch(render())
+  }
+
+  // Delete Video
+  const handelDelete = () => {
+    deleteVideo(videoData.id)  
+    handleCloseModal()
   }
 
   const dispatch = useDispatch();
   /**
    * move to uploader's channel
    */
-  const handleCategoryChainge = (sub) => {
+  const handleCategoryChange = (sub) => {
     dispatch(changeMain("Subscribe"));
     dispatch(changeSub(sub));
   }
@@ -163,7 +165,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
       {/* Modal Window */}
       <Box
         sx={{
-          padding: "15px",
+          padding: "10px",
           position: 'absolute',
           top: '50%',
           left: '50%',
@@ -186,12 +188,12 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                 url={video}
                 volume={0.5}
                 width="100%"
-                height="calc(90vh - 30px)"
+                height="calc(90vh - 20px)"
                 controls={true}
               />
               {/* Related Video */}
-              <Stack marginLeft="15px" sx={{ height: "calc(90vh - 30px)", padding: "auto" }}>
-                <Typography variant="h6" sx={{ padding: "5px 16px" }}>
+              <Stack marginLeft="10px" sx={{ height: "calc(90vh - 20px)", padding: "auto" }}>
+                <Typography variant="h6" sx={{ padding: "0px 16px" }}>
                   Related Video
                 </Typography>
                 <VideoCard videoData={videoData}></VideoCard>
@@ -200,7 +202,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
               </Stack>
             </Stack>
 
-            <Stack direction="row" marginTop="15px" flexWrap="wrap">
+            <Stack direction="row" marginTop="10px" flexWrap="wrap">
               {/* Video Info */}
               <Box sx={{ maxWidth: "60vw", minWidth: "400px", marginBottom: "15px", flexGrow: "6" }}>
                 <Typography variant="h5"  >
@@ -225,7 +227,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
                     justifyContent: "flex-start"
                   }}
                     color="white"
-                    onClick={() => handleCategoryChainge(videoData.user_email)}
+                    onClick={() => handleCategoryChange(videoData.user_email)}
                   >
                     <Avatar
                       src={profileImg}
@@ -278,7 +280,7 @@ export default function VideoModal({ handleCloseModal, videoData }) {
             color='error'
             variant="outlined"
             startIcon={<CommentIcon />}
-            onClick={handleCommnetExpand}>
+            onClick={handelDelete}>
             Delete
           </Button>}
 

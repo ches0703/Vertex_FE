@@ -7,11 +7,13 @@ import {
   Stack
 } from "@mui/material";
 import { MuiFileInput } from "mui-file-input";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { render } from "../redux/CategoryReducer";
 
 import { uploadCommunityPost } from '../API/Post/uploadPostAPI';
 
 const PostUploadModal = (onClose, title) => {
+  const dispatch = useDispatch()
   const category = useSelector((state) => state.category);
   const userData = useSelector((state) => state.user);
 
@@ -42,12 +44,12 @@ const PostUploadModal = (onClose, title) => {
 
     if (response) {
       alert('success')
-      window.location.reload('/');
     }
     else {
       alert('fail to upload')
-      onClose()
     }
+    dispatch(render())
+    onClose()
   }
 
   return (

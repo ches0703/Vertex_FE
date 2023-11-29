@@ -74,7 +74,7 @@ export default function Comment({ comment, isReply, hasReply }) {
               {comment.user.name}
             </Typography>
             <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5) ", marginRight: "15px" }}>
-              {comment.createdAt}
+              {comment.createdAt.substr(0, 10)}
             </Typography>
 
 

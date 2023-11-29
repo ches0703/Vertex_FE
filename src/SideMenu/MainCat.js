@@ -7,7 +7,7 @@ import {
   ListItemText,
   Typography
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 
 import HomeIcon from '@mui/icons-material/Home';
@@ -15,6 +15,8 @@ import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 
 export default function MainCat() {
+
+  const userData = useSelector((state) => state.user)
 
   const dispatch = useDispatch();
 
@@ -49,14 +51,14 @@ export default function MainCat() {
           </ListItemButton>
         </ListItem>
 
-        <ListItem disablePadding>
+        {userData.email &&  <ListItem disablePadding>
           <ListItemButton onClick={() => {handleCategoryChainge("Subscribe")}}>
             <ListItemIcon>
               <SubscriptionsIcon />
             </ListItemIcon>
             <ListItemText primary="Subscribe" />
           </ListItemButton>
-        </ListItem>
+        </ListItem>}
       </List>
     </Fragment>
   )

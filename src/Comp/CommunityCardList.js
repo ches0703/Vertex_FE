@@ -11,6 +11,7 @@ import {
   getMainPostListAPI, 
   getNewestPostListAPI
 } from '../API/Post/getMainPostListAPI';
+import deletePostAPI from '../API/Post/deletePost';
 
 export default function CommunityCardList() {
 
@@ -18,8 +19,19 @@ export default function CommunityCardList() {
 
   const [postList, setPostList] = useState([]);
 
-  useEffect(() => {
+  const deletePost = async (postId) => {
+    await deletePostAPI({
+      postId: postId,
+    }).then((res) => {
+      console.log(res)
+      setPostList(postList.filter(post => post.id !== postId))
+    }).catch((e) => {
+      console.log("Post Delete Error")
+      console.error(e)
+    })
+  }
 
+  useEffect(() => {
     // Category : Main
     if (category.main === "Main") {
       if (category.sub === "Home") {
@@ -49,12 +61,18 @@ export default function CommunityCardList() {
       }
       fetch();
     }
-  }, [category.sub])
+  }, [category])
 
   return (
     <Stack margin="15px">
       {postList.map((post) => {
-        return <CommunityCard key={post.id} post={post}></CommunityCard>
+        return (
+          <CommunityCard 
+            key={post.id} 
+            post={post}
+            deletePost={deletePost}
+            ></CommunityCard>
+        )
       })}
     </Stack>
   )

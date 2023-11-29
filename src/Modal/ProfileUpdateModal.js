@@ -49,7 +49,6 @@ const reducer = (state, action) => {
 
 const ProfileUpdateModal = (onClose, title) => {
   const userData = useSelector(state => state.user);
-
   const [state, dispatch] = useReducer(reducer, initialState);
   const { nickName, introduction, profile, channelCard } = state;
 
@@ -62,10 +61,11 @@ const ProfileUpdateModal = (onClose, title) => {
   };
 
   const handleUpdate = async () => {
+
     const data = new FormData()
     data.append("email", userData.email);
     data.append("name", (nickName.trim() === '') ? null : nickName);
-    data.append("description", (introduction.trim() === '') ? null : introduction);
+    data.append("description", (introduction.trim() === '') ? " " : introduction);
     data.append("profileImage", profile);
     data.append("channelImage", channelCard);
 
@@ -100,9 +100,9 @@ const ProfileUpdateModal = (onClose, title) => {
             fullWidth
             color='white'
             size='small'
-            value={nickName}
             onChange={(e) => handleChange(e, NICKNAME)}
             sx={{ marginTop: "5px", }}
+            defaultValue={userData.name}
           />
         </Box>
         <Box className="Introduction">
@@ -192,6 +192,7 @@ const ProfileUpdateModal = (onClose, title) => {
           <Button
             variant="outlined"
             color="blue"
+            disabled={(nickName === "")}
             sx={{ flexGrow: "7" }}
             onClick={handleUpdate}
           >

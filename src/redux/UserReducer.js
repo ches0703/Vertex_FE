@@ -8,7 +8,8 @@ export const UserSlice = createSlice({
     initialState: {
       email : null,
       name : null,
-      profileImg : null 
+      profileImg : null,
+      render : true
     },
     // reducer
     reducers: {
@@ -18,9 +19,13 @@ export const UserSlice = createSlice({
             state.name = action.payload.name
             state.profileImg = action.payload.profile_image_path
         },
+        // Force Re render
+        render: (state) => {
+            state.render = !state.render
+        }
     },
 });
 // It is use when you want change state
-export const { login } = UserSlice.actions;
+export const { login, render } = UserSlice.actions;
 // exprot user's reducer
 export default UserSlice.reducer;
