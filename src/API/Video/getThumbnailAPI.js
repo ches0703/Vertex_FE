@@ -1,8 +1,8 @@
 import axios from "axios";
 import baseURL from "../URL";
-const URL = baseURL+"/video/thumbnail"
+const URL = baseURL + "/video/thumbnail"
 
-export default async function getThumbnailAPI(thumbData) {
+async function getThumbnailAPI(thumbData) {
   // console.log("Get VideoThumb API Call")
   const res = await axios.get(URL, {
     params: thumbData,
@@ -18,4 +18,14 @@ export default async function getThumbnailAPI(thumbData) {
       return false
     })
   return res
+}
+
+async function getYoutubeThumbnailAPI(youtubeId) {
+  const tURL = 'https://img.youtube.com/vi/' + youtubeId.slice(32) + '/0.jpg'
+  return tURL;
+}
+
+export {
+  getThumbnailAPI,
+  getYoutubeThumbnailAPI
 }

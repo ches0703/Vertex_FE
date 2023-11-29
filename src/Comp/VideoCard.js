@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 import VideoModal from '../Modal/VideoModal';
-import getThumbnailAPI from '../API/Video/getThumbnailAPI';
+import { getThumbnailAPI, getYoutubeThumbnailAPI } from '../API/Video/getThumbnailAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 
 
@@ -28,21 +28,26 @@ export default function VideoCard({ videoData, deleteVideo }) {
 
   useEffect(() => {
     const fetch = async () => {
-      const thumbRes = await getThumbnailAPI({
-        videoId: videoData.id,
-        thumbnailFileExtension: videoData.thumbnail_file_extension
-      })
-      if(thumbRes){
-        setThumb(thumbRes.data)
+      if (videoData.is_youtube != 1) {
+        const thumbRes = await getThumbnailAPI({
+          videoId: videoData.id,
+          thumbnailFileExtension: videoData.thumbnail_file_extension
+        })
+        if (thumbRes) {
+          setThumb(thumbRes.data)
+        }
+      }
+      else {
+        const thumbRes = await getYoutubeThumbnailAPI(videoData.id)
+        setThumb(thumbRes)
       }
 
       const profileRes = await getUserProfileImgAPI({
         email: videoData.user_email
       })
-      if(profileRes){
+      if (profileRes) {
         setProfileImg(profileRes.data)
       }
-
     }
     fetch()
   }, [videoData]);
@@ -66,7 +71,7 @@ export default function VideoCard({ videoData, deleteVideo }) {
 
           <CardMedia
             component="img"
-            image={thumb?thumb:"./defaultImg.png"}
+            image={thumb ? thumb : "./defaultImg.png"}
             sx={{
               borderRadius: "5px",
               aspectRatio: "16/10",

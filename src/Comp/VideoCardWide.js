@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import VideoModal from '../Modal/VideoModal';
 
-import getThumbnailAPI from '../API/Video/getThumbnailAPI';
+import { getThumbnailAPI, getYoutubeThumbnailAPI } from '../API/Video/getThumbnailAPI';
 import getUserProfileImgAPI from '../API/UserData/getUserProfileImgAPI';
 import { deleteHistoryAPI } from '../API/Video/HistroyAPI';
 
@@ -36,12 +36,20 @@ export default function VideoCardWide({ videoData, remove }) {
   useEffect(() => {
     // console.log("vw : ",videoData)
     const fetch = async () => {
-      const thumbRes = await getThumbnailAPI({
-        videoId: videoData.video_id,
-        thumbnailFileExtension: videoData.video.thumbnail_file_extension
-      })
-      if (thumbRes) {
-        setThumb(thumbRes.data)
+      if (!videoData.video.is_youtube) {
+        const thumbRes = await getThumbnailAPI({
+          videoId: videoData.video_id,
+          thumbnailFileExtension: videoData.video.thumbnail_file_extension
+        })
+        if (thumbRes) {
+          setThumb(thumbRes.data)
+        }
+      }
+      else {
+        const thumbRes = await getYoutubeThumbnailAPI(videoData.video_id)
+        if (thumbRes) {
+          setThumb(thumbRes)
+        }
       }
 
       const profileRes = await getUserProfileImgAPI({

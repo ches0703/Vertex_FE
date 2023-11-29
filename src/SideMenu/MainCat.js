@@ -1,5 +1,5 @@
 import { Fragment, } from 'react';
-import { 
+import {
   List,
   ListItem,
   ListItemButton,
@@ -13,6 +13,7 @@ import { changeMain, changeSub } from "../redux/CategoryReducer"
 import HomeIcon from '@mui/icons-material/Home';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 export default function MainCat() {
 
@@ -23,18 +24,18 @@ export default function MainCat() {
   const handleCategoryChainge = (sub) => {
     dispatch(changeMain("Main"));
     dispatch(changeSub(sub));
-  } 
+  }
 
   return (
     <Fragment>
       {/* Main */}
-      <List sx={{color: "#FFFFFF"}}>
-        <Typography variant="h6" gutterBottom sx={{padding: "5px 16px"}}>
+      <List sx={{ color: "#FFFFFF" }}>
+        <Typography variant="h6" gutterBottom sx={{ padding: "5px 16px" }}>
           Main
         </Typography>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => {handleCategoryChainge("Home")}}>
+          <ListItemButton onClick={() => { handleCategoryChainge("Home") }}>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
@@ -43,7 +44,7 @@ export default function MainCat() {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => {handleCategoryChainge("Newest")}}>
+          <ListItemButton onClick={() => { handleCategoryChainge("Newest") }}>
             <ListItemIcon>
               <NewspaperIcon />
             </ListItemIcon>
@@ -51,14 +52,14 @@ export default function MainCat() {
           </ListItemButton>
         </ListItem>
 
-        {/* {userData.email &&  <ListItem disablePadding>
-          <ListItemButton onClick={() => {handleCategoryChainge("Subscribe")}}>
+        {userData.email && <ListItem disablePadding>
+          <ListItemButton onClick={() => { handleCategoryChainge("Viewest") }}>
             <ListItemIcon>
-              <SubscriptionsIcon />
+              <VisibilityOutlinedIcon />
             </ListItemIcon>
-            <ListItemText primary="Subscribe" />
+            <ListItemText primary="Viewest" />
           </ListItemButton>
-        </ListItem>} */}
+        </ListItem>}
       </List>
     </Fragment>
   )
