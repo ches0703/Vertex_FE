@@ -24,6 +24,7 @@ import LoginModal from "./Modal/LoginModal";
 
 import getUserProfileImgAPI from "./API/UserData/getUserProfileImgAPI";
 
+import { createDummyUser, createDummyVideo } from './API/Test/dummyAPI';
 
 export default function Header() {
 
@@ -186,6 +187,15 @@ export default function Header() {
 
         {/* Account & Video Upload Btn */}
         <>
+
+          <Button
+            variant="outlined"
+            color="white"
+            sx={{ height: "40px" }}
+            onClick={createDummyVideo}
+          >
+            test
+          </Button>
 
           {/* Logint sign in Btn */}
           {(userData.name == null) ?
