@@ -144,7 +144,7 @@ export default function Header() {
           sx={{ display: "flex", width: "40vw", minWidth: "400px" }}
         >
           {/* Search Option */}
-          <FormControl
+          {/* <FormControl
             color="white"
             size="small"
             sx={{ width: "200px", }}
@@ -160,7 +160,7 @@ export default function Header() {
               <MenuItem value={"Title + Body"}>Title + Body</MenuItem>
               <MenuItem value={"Hash Tag"}>Hash Tag</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           {/* Search String */}
           <TextField
