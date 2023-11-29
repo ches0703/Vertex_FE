@@ -1,8 +1,11 @@
 import { faker } from '@faker-js/faker';
-
-import readXlsxFile from 'read-excel-file'
+import readXlsxFile from 'read-excel-file';
+import axios from 'axios';
 
 import SignUpAPI from "../Accoount/SignUpAPI";
+
+import baseURL from '../URL';
+const insertURL = baseURL + "/video/dummy";
 
 const createDummyUser = async () => {
     // const data = {
@@ -102,6 +105,18 @@ const createDummyVideo = async () => {
     })
 
     console.log(data)
+
+    const result = await axios({
+        url: insertURL,
+        method: 'post',
+        headers: { "ngrok-skip-browser-warning": "69420", },
+        data: { dummy: data }
+    })
+
+    if (result)
+        return result;
+    else
+        return null
 }
 
 export {
