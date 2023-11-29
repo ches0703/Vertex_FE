@@ -19,7 +19,7 @@ import deleteVideoAPI from '../API/Video/deleteVideoAPI';
 import getSearchVideoAPI from '../API/Video/getSearchVideoAPI';
 
 // Offset
-const OFFSET = 3;
+const OFFSET = 12;
 
 export default function VideoCardList() {
 
@@ -111,7 +111,7 @@ export default function VideoCardList() {
     } else if(category.main === "Search"){
       // Search
       const fetch = async () => {
-        const res = await getSearchVideoAPI({
+        await getSearchVideoAPI({
           page : page,
           query: category.sub
         }).then((res) => {

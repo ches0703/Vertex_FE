@@ -5,8 +5,9 @@ const HOME_URL = baseURL + "/community/list/new"
 const NEW_URL = baseURL + "/community/list/new"
 const SUB_URL = baseURL + ""
 
-async function getMainPostListAPI() {
+async function getMainPostListAPI(data) {
   const res = await axios.get(NEW_URL, {
+    params: data,
     headers: {
       'ngrok-skip-browser-warning': '69420',
     },
