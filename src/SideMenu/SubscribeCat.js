@@ -31,10 +31,6 @@ export default function SubscribeCat() {
         const res = await getSubscribeListAPI({
           email: userData.email
         });
-<<<<<<< HEAD
-        console.log("sub res", res);
-=======
->>>>>>> 7038268eb74eed32026aeaf27c74244758cc2a99
         setSubscribeList(res);
       }
     }
