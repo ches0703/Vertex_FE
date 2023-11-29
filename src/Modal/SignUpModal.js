@@ -221,6 +221,7 @@ const SignUpModal = (onClose, title) => {
       <Stack direction="row" spacing={2}>
         {/* Apply */}
         <Button
+          disabled={!(isEmail && isPwd && isName)}
           onClick={handleSignUpSubmit}
           variant="outlined"
           color="blue"
