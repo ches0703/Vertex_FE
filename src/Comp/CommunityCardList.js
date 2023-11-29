@@ -17,7 +17,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 
 
 // Offset
-const OFFSET = 12;
+const OFFSET = 3;
 
 export default function CommunityCardList() {
 

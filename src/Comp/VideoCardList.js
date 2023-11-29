@@ -19,7 +19,7 @@ import deleteVideoAPI from '../API/Video/deleteVideoAPI';
 import getSearchVideoAPI from '../API/Video/getSearchVideoAPI';
 
 // Offset
-const OFFSET = 12;
+const OFFSET = 3;
 
 export default function VideoCardList() {
 

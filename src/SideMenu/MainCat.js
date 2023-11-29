@@ -51,14 +51,14 @@ export default function MainCat() {
           </ListItemButton>
         </ListItem>
 
-        {userData.email &&  <ListItem disablePadding>
+        {/* {userData.email &&  <ListItem disablePadding>
           <ListItemButton onClick={() => {handleCategoryChainge("Subscribe")}}>
             <ListItemIcon>
               <SubscriptionsIcon />
             </ListItemIcon>
             <ListItemText primary="Subscribe" />
           </ListItemButton>
-        </ListItem>}
+        </ListItem>} */}
       </List>
     </Fragment>
   )
