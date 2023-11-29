@@ -16,9 +16,10 @@ import {
 } from '../API/Video/getMainVideoListAPI';
 import getUserVideoListAPI from '../API/Video/getUserVideoListAPI';
 import deleteVideoAPI from '../API/Video/deleteVideoAPI';
+import getSearchVideoAPI from '../API/Video/getSearchVideoAPI';
 
 // Offset
-const OFFSET = 12;
+const OFFSET = 3;
 
 export default function VideoCardList() {
 
@@ -43,7 +44,7 @@ export default function VideoCardList() {
   }
 
   useEffect(() => {
-    //setPage(1)
+    setPage(0)
     setVideoList([])
   }, [category])
 
@@ -105,6 +106,23 @@ export default function VideoCardList() {
           channelId: category.sub
         })
         setVideoList(res.data.data)
+      }
+      fetch()
+    } else if(category.main === "Search"){
+      // Search
+      const fetch = async () => {
+        const res = await getSearchVideoAPI({
+          page : page,
+          query: category.sub
+        }).then((res) => {
+          setVideoList((prevList) => {return prevList.concat(res.data.data)})
+          if(res.data.data.length < OFFSET){
+            setIsMore(false)
+          }
+        }).catch((e) => {
+          console.log("get Home Video List Error")
+          console.error(e)
+        })
       }
       fetch()
     }
