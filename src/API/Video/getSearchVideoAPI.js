@@ -5,6 +5,7 @@ import baseURL from "../URL";
 const URL = baseURL+"/video/search"
 
 export default async function getSearchVideoAPI(data) {
+  console.log("Search API data : ",data)
   const res = await axios.get(URL, {
     params: data,
     headers: {

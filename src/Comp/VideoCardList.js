@@ -166,18 +166,28 @@ export default function VideoCardList() {
     } else if (category.main === "Subscribe") {
       const fetch = async () => {
         const res = await getUserVideoListAPI({
-          channelId: category.sub
+          channelId: category.sub,
+          page: page,
+        }).then((res) => {
+          console.log("res" , res)
+          setVideoList((prevList) => { return prevList.concat(res.data.data) })
+          if (res.data.data.length < OFFSET) {
+            setIsMore(false)
+          }
+        }).catch((e) => {
+          console.log("get Home Video List Error")
+          console.error(e)
         })
-        setVideoList(res.data.data)
       }
       fetch()
     } else if (category.main === "Search") {
       // Search
       const fetch = async () => {
         await getSearchVideoAPI({
+          query: category.sub,
           page: page,
-          query: category.sub
         }).then((res) => {
+          console.log("res" , res)
           setVideoList((prevList) => { return prevList.concat(res.data.data) })
           if (res.data.data.length < OFFSET) {
             setIsMore(false)
