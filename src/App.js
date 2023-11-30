@@ -5,9 +5,7 @@ import store from './store';
 import Header from './Header';
 import Body from './Body';
 
-
 const theme = createTheme({
-  
   palette: {
     mode: 'dark',
     black: {
@@ -31,7 +29,6 @@ const theme = createTheme({
     error: {
       main: "#FF7777"
     }
-
   },
 });
 
