@@ -17,12 +17,12 @@ export default function VideoListCard({ videoListTitle }) {
 
 
         <Stack sx={{ justifyContent: "center", flexGrow: "1" }}>
-          <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
+          {/* <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
             Scope of disclosure : {"Public"}
           </Typography>
           <Typography textAlign="right" variant="caption" sx={{ display: "block", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)" }}>
             Videos : {1234}
-          </Typography>
+          </Typography> */}
         </Stack>
 
       </Stack>

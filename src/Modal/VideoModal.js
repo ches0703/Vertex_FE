@@ -77,20 +77,19 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
       }
 
       // video get
-      if(videoData.is_youtube == 1){
-        setVideo(videoData.id)
-      }else{
-        const videoRes = await getVideoAPI({
-          email: userData.email,
-          videoId: videoData.id,
-          isYoutube: videoData.is_youtube,
-          videoFileExtension : videoData.video_file_extension
-        })
-        if (videoRes) {
-          setVideo(videoRes.data)
-        }
-
+      const videoRes = await getVideoAPI({
+        email: userData.email,
+        videoId: videoData.id,
+        isYoutube: videoData.is_youtube,
+        videoFileExtension: videoData.video_file_extension
+      })
+      if (videoRes) {
+        setVideo(videoRes.data)
       }
+      if (videoData.is_youtube === 1) {
+        setVideo(videoData.id)
+      } 
+      
 
       // uploader profile
       const profileRes = await getUserProfileImgAPI({
