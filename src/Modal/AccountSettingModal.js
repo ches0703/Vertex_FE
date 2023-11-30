@@ -68,6 +68,8 @@ const AccountSettingModal = (onClose, title) => {
 
 
 
+
+
   return (
     <Stack sx={{ color: "#FFFFFF" }} spacing={2}>
       {/* User Email */}
@@ -185,6 +187,7 @@ const AccountSettingModal = (onClose, title) => {
         <Button
           variant="outlined"
           color="blue"
+          disabled={!((isPwd) && (newPwd === checkPwd))}
           sx={{ flexGrow: "7" }}
         >
           {title} Update
