@@ -43,71 +43,71 @@ const createDummyUser = async () => {
 }
 
 const createDummyVideo = async () => {
-    // const video_csv = await fetch('./결측치제거데이터.xlsx')
-    //     .then(response => response.blob())
-    //     .then(blob => readXlsxFile(blob))
-    //     .then((rows) => {
-    //         // console.log(rows)
-    //         // const m = 10;
-    //         // rows.forEach((row) => {
-    //         //     console.log(row)
-    //         // })
-    //         return rows.slice(1)
-    //     })
+    const video_csv = await fetch('./결측치제거데이터.xlsx')
+        .then(response => response.blob())
+        .then(blob => readXlsxFile(blob))
+        .then((rows) => {
+            // console.log(rows)
+            // const m = 10;
+            // rows.forEach((row) => {
+            //     console.log(row)
+            // })
+            return rows.slice(1)
+        })
 
-    // const user_csv = await fetch('./user.xlsx')
-    //     .then(response => response.blob())
-    //     .then(blob => readXlsxFile(blob))
-    //     .then((rows) => {
-    //         // console.log(rows)
-    //         // const m = 10;
-    //         // rows.forEach((row) => {
-    //         //     console.log(row)
-    //         // })
-    //         return rows.slice(1)
-    //     })
+    const user_csv = await fetch('./user.xlsx')
+        .then(response => response.blob())
+        .then(blob => readXlsxFile(blob))
+        .then((rows) => {
+            // console.log(rows)
+            // const m = 10;
+            // rows.forEach((row) => {
+            //     console.log(row)
+            // })
+            return rows.slice(1)
+        })
 
-    // const youtubeURL = 'https://www.youtube.com/watch?v=';
-    // const imgURL = 'https://img.youtube.com/vi/';
-    // // console.log(video_csv)
-    // // console.log(user_csv)
+    const youtubeURL = 'https://www.youtube.com/watch?v=';
+    const imgURL = 'https://img.youtube.com/vi/';
+    // console.log(video_csv)
+    // console.log(user_csv)
 
-    // const data = []
-    // let cnt = 1;
-    // let i = 0;
-    // video_csv.forEach((row) => {
-    //     // id
-    //     const videoUrl = youtubeURL + row[0]
+    const data = []
+    let cnt = 1;
+    let i = 0;
+    video_csv.forEach((row) => {
+        // id
+        const videoUrl = youtubeURL + row[0]
 
-    //     // title
-    //     const vidoeTitle = row[1]
+        // title
+        const vidoeTitle = row[1]
 
-    //     // user_email
-    //     const userEmail = user_csv[i][0]
+        // user_email
+        const userEmail = user_csv[i][0]
 
-    //     // name
-    //     const userName = user_csv[i][3]
+        // name
+        const userName = user_csv[i][3]
 
-    //     // extension
-    //     const videoExtension = 'mp4'
-    //     const thumbnailExtension = 'jpg'
+        // extension
+        const videoExtension = 'mp4'
+        const thumbnailExtension = 'jpg'
 
-    //     // thumbnail url
-    //     // const thumbnailURL = imgURL + row[0] + '/0.jpg';
+        // thumbnail url
+        // const thumbnailURL = imgURL + row[0] + '/0.jpg';
 
-    //     data.push([videoUrl, vidoeTitle, userEmail, userName, videoExtension, thumbnailExtension])
+        data.push([videoUrl, vidoeTitle, userEmail, userName, videoExtension, thumbnailExtension])
 
-    //     if (cnt % 443 == 0) {
-    //         i++;
-    //         // console.log(i)
-    //     }
-    //     cnt++;
-    // })
+        if (cnt % 443 == 0) {
+            i++;
+            // console.log(i)
+        }
+        cnt++;
+    })
 
-    // const data1 = data.slice(data.length / 2);
-    // const data2 = data.slice(data.length / 2, data.length);
-    // console.log(data1)
-    // console.log(data2)
+    const data1 = data.slice(0, data.length / 2);
+    const data2 = data.slice(data.length / 2, data.length);
+    console.log(data1)
+    console.log(data2)
 
     // const result = await axios({
     //     url: insertURL,
@@ -121,31 +121,35 @@ const createDummyVideo = async () => {
     // else
     //     return null
 
-    // const result1 = await axios({
-    //     url: insertURL,
-    //     method: 'post',
-    //     headers: { "ngrok-skip-browser-warning": "69420", },
-    //     data: { dummy: data1 }
-    // })
+    const result1 = await axios({
+        url: insertURL,
+        method: 'post',
+        headers: { "ngrok-skip-browser-warning": "69420", },
+        data: { dummy: data1 }
+    })
 
-    // if (result1) {
-    //     let start = Date.now(), now = start;
-    //     while (now - start < 180 * 1000) {
-    //         now = Date.now();
-    //     }
+    if (result1) {
+        console.log(result1)
+        let start = Date.now(), now = start;
+        while (now - start < 60 * 1000) {
+            now = Date.now();
+        }
+        // return result2;
 
-    //     const result2 = await axios({
-    //         url: insertURL,
-    //         method: 'post',
-    //         headers: { "ngrok-skip-browser-warning": "69420", },
-    //         data: { dummy: data2 }
-    //     })
+        const result2 = await axios({
+            url: insertURL,
+            method: 'post',
+            headers: { "ngrok-skip-browser-warning": "69420", },
+            data: { dummy: data2 }
+        })
 
-    //     if (result2)
-    //         return result2
-    //     else return null;
-    // }
-    // else return null;
+        if (result2) {
+            console.log(result2);
+            return result2
+        }
+        else return null;
+    }
+    else return null;
 }
 
 export {
