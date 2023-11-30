@@ -20,7 +20,7 @@ import VideoCard from "../Comp/VideoCard";
 import getVideoAPI from "../API/Video/getVideoAPI";
 import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
 import { getUnsubscribeAPI, getSubscribeAPI, getCheckSubscribeAPI } from "../API/Subscription/SubscribeAPI";
-
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   videoLikeAPI,
   videoLikeCheck
@@ -261,7 +261,7 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
         <Stack direction="row" marginTop="15px" spacing={2}>
           {(userData.email) && <Button
             onClick={handleLike}
-            color='white'
+            color={isLiked ? "error" : "white"}
             variant="outlined"
             startIcon={isLiked ? <FavoriteBorderOutlinedIcon /> : <FavoriteIcon />}
             >
@@ -279,7 +279,7 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
           {(videoData.user_email === userData.email) &&<Button
             color='error'
             variant="outlined"
-            startIcon={<CommentIcon />}
+            startIcon={<DeleteForeverIcon />}
             onClick={handelDelete}>
             Delete
           </Button>}

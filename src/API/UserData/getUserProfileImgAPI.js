@@ -13,7 +13,7 @@ export default async function getUserProfileImgAPI(email) {
       },
     })
       .then((res) => {
-        //console.log("profil res",res);
+        // console.log("profil res",res);
         return res
       })
       .catch((e) => {
