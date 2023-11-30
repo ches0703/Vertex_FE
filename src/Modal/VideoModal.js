@@ -25,7 +25,7 @@ import {
   videoLikeAPI,
   videoLikeCheck
 } from "../API/Video/videoLikeAPI";
-
+import { recommendVideoAPI } from "../API/Video/recommendVideoAPI";
 import { useDispatch } from 'react-redux';
 import { changeMain, changeSub } from "../redux/CategoryReducer"
 import { render } from "../redux/UserReducer";
@@ -37,6 +37,7 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
   const [commnetExpand, setCommnetExpand] = useState(false);
   const [isLiked, setIsLiked] = useState(false)
   const [isSub, setIsSub] = useState(false)
+  const [recVideo, setRecVideo] = useState([])
 
   const handleCommnetExpand = () => {
     setCommnetExpand(!commnetExpand);
@@ -98,6 +99,14 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
       if (profileRes) {
         setProfileImg(profileRes.data)
       }
+
+      // Rec Video
+      await recommendVideoAPI({
+        title: videoData.title
+      }).then((res) => {
+        // console.log(res.data)
+        setRecVideo(res.data)
+      })
 
     }
     fetch();
@@ -201,9 +210,18 @@ export default function VideoModal({ handleCloseModal, videoData, deleteVideo })
                 <Typography variant="h6" sx={{ padding: "0px 16px" }}>
                   Related Video
                 </Typography>
+                {/* <VideoCard videoData={videoData}></VideoCard>
                 <VideoCard videoData={videoData}></VideoCard>
-                <VideoCard videoData={videoData}></VideoCard>
-                <VideoCard videoData={videoData}></VideoCard>
+                <VideoCard videoData={videoData}></VideoCard> */}
+                {recVideo.map((videoData) => {
+                  return (
+                    <VideoCard
+                      key={videoData.id}
+                      videoData={videoData}
+                      deleteVideo={deleteVideo}
+                    ></VideoCard>
+                  )
+                }) }
               </Stack>
             </Stack>
 
