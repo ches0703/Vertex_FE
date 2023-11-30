@@ -9,6 +9,7 @@ import {
   TextField
 } from "@mui/material";
 import { useSelector } from 'react-redux';
+import getUserProfileImgAPI from "../API/UserData/getUserProfileImgAPI";
 
 const DELETE = "DELETE";
 const UPDATE = "UPDATE";
@@ -56,6 +57,19 @@ export default function Comment({ comment, isReply, hasReply }) {
     setUpdateWriteExpand(!updateWriteExpand);
   }
 
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getUserProfileImgAPI({
+        email: comment.user_email
+      })
+      if(res){
+        console.log("profil res",res);
+        setProfileImg(res.data)
+      }
+    }
+    fetch()
+  }, [])
+
   return (
     <Box sx={isReply && { paddingLeft: "65px" }}>
       <Stack
@@ -78,7 +92,7 @@ export default function Comment({ comment, isReply, hasReply }) {
             </Typography>
 
 
-            {!isReply && <Button
+            {/* {!isReply && <Button
               variant="text"
               color="white"
               onClick={handleReplyWriteExpand}
@@ -87,7 +101,7 @@ export default function Comment({ comment, isReply, hasReply }) {
               <Typography variant="caption" display="block" sx={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.5)" }}>
                 {"Reply"}
               </Typography>
-            </Button>}
+            </Button>} */}
             {(userData.email === comment.user_email) &&
               <Button variant="text" color="white" sx={{ padding: "0px", minWidth: 0, marginRight: "5px" }}
                 onClick={handleUpdateWriteExpand}>

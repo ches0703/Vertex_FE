@@ -63,8 +63,8 @@ export default function VideoCard({ videoData, deleteVideo }) {
           boxShadow: "none",
           backgroundImage: "none",
           borderRadius: "5px",
-          minWidth: "250px",
-          maxWidth: "325px"
+          minWidth: "300x",
+          maxWidth: "300px"
         }}
       >
         <CardActionArea>
@@ -75,8 +75,8 @@ export default function VideoCard({ videoData, deleteVideo }) {
             sx={{
               borderRadius: "5px",
               aspectRatio: "16/10",
-              minWidth: "250px",
-              maxWidth: "325px"
+              minWidth: "300px",
+              maxWidth: "300px"
               ,
             }}
           />

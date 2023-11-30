@@ -18,6 +18,7 @@ import {
 import getUserVideoListAPI from '../API/Video/getUserVideoListAPI';
 import deleteVideoAPI from '../API/Video/deleteVideoAPI';
 import getSearchVideoAPI from '../API/Video/getSearchVideoAPI';
+import { async } from 'q';
 
 // Offset
 const OFFSET = 3;
@@ -45,9 +46,10 @@ export default function VideoCardList() {
   }
 
   useEffect(() => {
+    console.log("Reset : ", userData)
     setPage(0)
     setVideoList([])
-  }, [category])
+  }, [category, userData])
 
 
   useEffect(() => {
@@ -99,30 +101,22 @@ export default function VideoCardList() {
         }
         fetch()
       }
-      // else if (category.sub === "Subscribe") {
-      //   const fetch = async () => {
-      //     await getSubscribeVideoListAPI({
-      //       userId: userData.email,
-      //       page: page
-      //     }).then((res) => {
-      //       setVideoList((prevList) => { return prevList.concat(res.data.data) })
-      //       if (res.data.data.length < OFFSET) {
-      //         setIsMore(false)
-      //       }
-      //     }).catch((e) => {
-      //       console.log("get Home Video List Error")
-      //       console.error(e)
-      //     })
-      //   }
-      //   fetch()
-      // }
-      // Categeory : Main & User
+
+
+
+
     } else if (category.main === "Main" && userData.email !== null) {
       if (category.sub === "Home") {
         const fetch = async () => {
           await getRecommendedListAPI({
+            //page: page,
             userId: userData.email,
           }).then((res) => {
+            console.log("Re API", res)
+            if(videoList && (page == 0)){
+              console.log("need reset")
+              setVideoList([])
+            }
             res = res.filter(value => value !== false);
             setVideoList((prevList) => { return prevList.concat(res) })
             if (res.length < OFFSET) {
@@ -165,38 +159,35 @@ export default function VideoCardList() {
         }
         fetch()
       }
-      // else if (category.sub === "Subscribe") {
-      //   const fetch = async () => {
-      //     await getSubscribeVideoListAPI({
-      //       userId: userData.email,
-      //       page: page
-      //     }).then((res) => {
-      //       setVideoList((prevList) => { return prevList.concat(res.data.data) })
-      //       if (res.data.data.length < OFFSET) {
-      //         setIsMore(false)
-      //       }
-      //     }).catch((e) => {
-      //       console.log("get Home Video List Error")
-      //       console.error(e)
-      //     })
-      //   }
-      //   fetch()
-      // }
+
+
+
+
     } else if (category.main === "Subscribe") {
       const fetch = async () => {
         const res = await getUserVideoListAPI({
-          channelId: category.sub
+          channelId: category.sub,
+          page: page,
+        }).then((res) => {
+          console.log("res" , res)
+          setVideoList((prevList) => { return prevList.concat(res.data.data) })
+          if (res.data.data.length < OFFSET) {
+            setIsMore(false)
+          }
+        }).catch((e) => {
+          console.log("get Home Video List Error")
+          console.error(e)
         })
-        setVideoList(res.data.data)
       }
       fetch()
     } else if (category.main === "Search") {
       // Search
       const fetch = async () => {
         await getSearchVideoAPI({
+          query: category.sub,
           page: page,
-          query: category.sub
         }).then((res) => {
+          console.log("res" , res)
           setVideoList((prevList) => { return prevList.concat(res.data.data) })
           if (res.data.data.length < OFFSET) {
             setIsMore(false)
@@ -208,7 +199,7 @@ export default function VideoCardList() {
       }
       fetch()
     }
-  }, [category, page])
+  }, [category, page, userData])
 
   const handleMore = () => {
     setPage(page + 1)
